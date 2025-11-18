@@ -1,0 +1,19 @@
+{
+  "name": "@saas-starter-open/api",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/run.ts",
+    "start": "tsx src/run.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.2",
+    "@saas-starter-open/auth": "workspace:*",
+    "@saas-starter-open/db": "workspace:*",
+    "drizzle-orm": "^0.44.5",
+    "hono": "^4.6.8"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,25 @@
+import type { ReactElement } from "react";
+import ResetPasswordForm from "./_form";
+
+export const runtime = "nodejs";
+
+export interface ResetPasswordPageProps {
+  readonly searchParams: { readonly token?: string };
+}
+
+export default function ResetPasswordPage({ searchParams }: ResetPasswordPageProps): ReactElement {
+  const token: string = searchParams?.token ?? "";
+  return (
+    <div className="mx-auto flex min-h-screen max-w-lg items-center justify-center px-4 py-12">
+      <div className="w-full space-y-4">
+        <div className="rounded-lg border bg-background p-8 shadow-sm">
+          <div className="mb-6 space-y-2 text-center">
+            <h1 className="text-2xl font-semibold tracking-tight">Reset password</h1>
+            <p className="text-sm text-muted-foreground">Enter a new password to complete the reset.</p>
+          </div>
+          <ResetPasswordForm token={token} />
+        </div>
+      </div>
+    </div>
+  );
+}

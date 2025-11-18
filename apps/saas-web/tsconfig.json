@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "paths": {
+      "@saas-starter-open/db": ["../../packages/db/src/index.ts"],
+      "@saas-starter-open/db/*": ["../../packages/db/src/*"],
+      "@saas-starter-open/auth": ["../../packages/auth/src/index.ts"],
+      "@saas-starter-open/auth/*": ["../../packages/auth/src/*"],
+      "@/modules/*": ["modules/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": ["node_modules", "e2e/**"]
+}
