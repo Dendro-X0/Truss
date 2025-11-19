@@ -54,11 +54,15 @@ export default function ThemeToggle(): ReactElement {
       type="button"
       onClick={handleToggle}
       aria-pressed={isDark}
-      className="toggle-glow fixed right-6 top-6 z-50 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/80 px-4 py-2 text-xs font-medium text-foreground shadow-lg backdrop-blur transition hover:border-primary/70 hover:text-primary"
+      aria-label={isDark ? "Activate light mode" : "Activate dark mode"}
+      className="toggle-glow fixed right-4 top-4 z-50 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/80 p-2 text-xs font-medium text-foreground shadow-lg backdrop-blur transition hover:border-primary/70 hover:text-primary sm:h-10 sm:w-auto sm:gap-2 sm:px-4 sm:py-2"
     >
-      <Sun className={`h-3.5 w-3.5 transition-opacity ${isDark ? "opacity-40" : "opacity-100"}`} aria-hidden="true" />
-      <Moon className={`h-3.5 w-3.5 transition-opacity ${isDark ? "opacity-100" : "opacity-40"}`} aria-hidden="true" />
-      <span>{isDark ? "Dark" : "Light"} mode</span>
+      {isDark ? (
+        <Moon className="h-3.5 w-3.5" aria-hidden="true" />
+      ) : (
+        <Sun className="h-3.5 w-3.5" aria-hidden="true" />
+      )}
+      <span className="hidden sm:inline">{isDark ? "Dark" : "Light"} mode</span>
     </button>
   );
 }

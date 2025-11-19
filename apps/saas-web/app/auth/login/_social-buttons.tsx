@@ -3,7 +3,8 @@
 import type { ReactElement } from "react";
 import { useState } from "react";
 import authClient from "../../../lib/auth/client";
-import { Github } from "lucide-react";
+import { FaGoogle } from "react-icons/fa"
+import { FaGithub } from "react-icons/fa"
 
 export default function SocialButtons(): ReactElement {
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +41,7 @@ export default function SocialButtons(): ReactElement {
           onClick={handleGitHub}
           className="inline-flex h-9 items-center justify-center gap-2 rounded-md border px-3 text-xs font-medium shadow-sm hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <Github className="h-3.5 w-3.5" />
+          <FaGithub className="h-3.5 w-3.5" />
           <span>Continue with GitHub</span>
         </button>
         <button
@@ -48,9 +49,7 @@ export default function SocialButtons(): ReactElement {
           onClick={handleGoogle}
           className="inline-flex h-9 items-center justify-center gap-2 rounded-md border px-3 text-xs font-medium shadow-sm hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <span className="inline-flex h-3.5 w-3.5 items-center justify-center rounded-[3px] bg-white text-[10px] font-bold text-[#4285F4] shadow-sm">
-            G
-          </span>
+          <FaGoogle className="h-3.5 w-3.5" />
           <span>Continue with Google</span>
         </button>
       </div>

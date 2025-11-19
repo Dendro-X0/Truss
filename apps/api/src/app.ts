@@ -1,18 +1,35 @@
-import { randomUUID } from "crypto";
+import { createHash, randomUUID } from "crypto";
 import { and, desc, eq, ne } from "drizzle-orm";
 import type { Hono } from "hono";
 import { Hono as HonoApp } from "hono";
 import getDb, { schema } from "@saas-starter-open/db";
 import type { Db } from "@saas-starter-open/db";
 
+type OrgRole = "owner" | "admin" | "member";
+
 export interface AuthInfo {
   readonly authenticated: boolean;
   readonly userId?: string;
+  readonly apiTokenId?: string;
+  readonly apiTokenOrgId?: string | null;
+}
+
+function normalizeOrgRole(role: string | undefined): OrgRole {
+  const value: string = (role ?? ORG_ROLE_MEMBER).toLowerCase();
+  if (value === ORG_ROLE_OWNER || value === ORG_ROLE_ADMIN || value === ORG_ROLE_MEMBER) {
+    return value;
+  }
+  return ORG_ROLE_MEMBER;
 }
 
 function isOwnerRole(role: string | undefined): boolean {
-  const normalized: string = (role ?? "").toLowerCase();
-  return normalized === DEFAULT_ORG_ROLE_OWNER;
+  const normalized: OrgRole = normalizeOrgRole(role);
+  return normalized === ORG_ROLE_OWNER;
+}
+
+function isManagerRole(role: string | undefined): boolean {
+  const normalized: OrgRole = normalizeOrgRole(role);
+  return normalized === ORG_ROLE_OWNER || normalized === ORG_ROLE_ADMIN;
 }
 
 export interface UserProfile {
@@ -36,6 +53,15 @@ export interface ProjectSummary {
   readonly id: string;
   readonly name: string;
   readonly status: string;
+}
+
+export interface OrganizationMemberSummary {
+  readonly id: string;
+  readonly userId: string;
+  readonly role: string;
+  readonly createdAt: Date;
+  readonly userName?: string | null;
+  readonly userEmail: string;
 }
 
 interface InvitationRecord {
@@ -75,10 +101,31 @@ export interface BillingSummary {
   readonly status: BillingStatus;
 }
 
+interface PlanLimits {
+  readonly maxMembers?: number;
+  readonly maxProjects?: number;
+}
+
+const ORG_ROLE_OWNER: OrgRole = "owner";
+const ORG_ROLE_ADMIN: OrgRole = "admin";
+const ORG_ROLE_MEMBER: OrgRole = "member";
+
+const FREE_PLAN_MAX_MEMBERS: number = 3;
+const FREE_PLAN_MAX_PROJECTS: number = 5;
+const PRO_PLAN_MAX_MEMBERS: number = 25;
+const PRO_PLAN_MAX_PROJECTS: number = 50;
+
+const PLAN_LIMITS: Record<PlanName, PlanLimits> = {
+  free: { maxMembers: FREE_PLAN_MAX_MEMBERS, maxProjects: FREE_PLAN_MAX_PROJECTS },
+  pro: { maxMembers: PRO_PLAN_MAX_MEMBERS, maxProjects: PRO_PLAN_MAX_PROJECTS },
+  enterprise: {},
+};
+
 const DEFAULT_PROJECT_STATUS: string = "active";
-const DEFAULT_ORG_ROLE_OWNER: string = "owner";
+const DEFAULT_ORG_ROLE_OWNER: OrgRole = ORG_ROLE_OWNER;
 const DEFAULT_PLAN: PlanName = "free";
 const DEFAULT_BILLING_STATUS: BillingStatus = "active";
+const DEFAULT_TOKEN_TTL_DAYS: number = 365;
 
 function normalizePlan(input: string | null | undefined): PlanName {
 	const value: string = (input ?? DEFAULT_PLAN).toLowerCase();
@@ -175,6 +222,46 @@ async function isUserOrgMember(userId: string, orgId: string): Promise<boolean> 
   return Boolean(membership[0]);
 }
 
+interface OrgBilling {
+  readonly plan: PlanName;
+  readonly status: BillingStatus;
+}
+
+async function getOrgBilling(orgId: string): Promise<OrgBilling | null> {
+  const rows = await db
+    .select({
+      plan: schema.organization.plan,
+      billingStatus: schema.organization.billingStatus,
+    })
+    .from(schema.organization)
+    .where(eq(schema.organization.id, orgId))
+    .limit(1);
+  const row = rows[0];
+  if (!row) {
+    return null;
+  }
+  const plan: PlanName = normalizePlan(row.plan);
+  const status: BillingStatus = normalizeBillingStatus(row.billingStatus);
+  const billing: OrgBilling = { plan, status };
+  return billing;
+}
+
+async function getOrgMemberCount(orgId: string): Promise<number> {
+  const rows = await db
+    .select({ id: schema.organizationMember.id })
+    .from(schema.organizationMember)
+    .where(eq(schema.organizationMember.orgId, orgId));
+  return rows.length;
+}
+
+async function getOrgProjectCount(orgId: string): Promise<number> {
+  const rows = await db
+    .select({ id: schema.project.id })
+    .from(schema.project)
+    .where(eq(schema.project.orgId, orgId));
+  return rows.length;
+}
+
 async function createDemoProjectsForOrg(orgId: string): Promise<void> {
   const now: Date = new Date();
   const demoProjects: readonly { readonly name: string; readonly status: string }[] = [
@@ -259,6 +346,63 @@ function deriveAuthFromHeaders(request: Request): AuthInfo {
   return { authenticated: true, userId };
 }
 
+function extractBearerToken(headers: Headers): string | null {
+  const authorization: string | null = headers.get("authorization");
+  if (!authorization) {
+    return null;
+  }
+  const value: string = authorization.trim();
+  if (!value.toLowerCase().startsWith("bearer ")) {
+    return null;
+  }
+  const token: string = value.slice(7).trim();
+  if (!token) {
+    return null;
+  }
+  return token;
+}
+
+function hashToken(rawToken: string): string {
+  const hash = createHash("sha256");
+  hash.update(rawToken);
+  const digest: string = hash.digest("hex");
+  return digest;
+}
+
+async function deriveAuthFromApiToken(headers: Headers): Promise<AuthInfo | null> {
+  const rawToken: string | null = extractBearerToken(headers);
+  if (!rawToken) {
+    return null;
+  }
+  const tokenHash: string = hashToken(rawToken);
+  const rows = await db
+    .select({
+      id: schema.apiToken.id,
+      userId: schema.apiToken.userId,
+      orgId: schema.apiToken.orgId,
+      expiresAt: schema.apiToken.expiresAt,
+      revokedAt: schema.apiToken.revokedAt,
+    })
+    .from(schema.apiToken)
+    .where(eq(schema.apiToken.tokenHash, tokenHash))
+    .limit(1);
+  const token = rows[0];
+  if (!token) {
+    return null;
+  }
+  const nowMs: number = Date.now();
+  if ((token.expiresAt && token.expiresAt.getTime() <= nowMs) || (token.revokedAt && token.revokedAt.getTime() <= nowMs)) {
+    return null;
+  }
+  const auth: AuthInfo = {
+    authenticated: true,
+    userId: token.userId,
+    apiTokenId: token.id,
+    apiTokenOrgId: token.orgId ?? null,
+  };
+  return auth;
+}
+
 export function createApp(): AppInstance {
   const app: AppInstance = new HonoApp<AppBindings>();
 
@@ -273,7 +417,14 @@ export function createApp(): AppInstance {
       headers.set("authorization", authorization);
     }
     const sessionAuth: AuthInfo | undefined = await fetchAuthFromSession(headers);
-    const auth: AuthInfo = sessionAuth ?? deriveAuthFromHeaders(context.req.raw);
+    if (sessionAuth?.authenticated) {
+      context.set("auth", sessionAuth);
+      await next();
+      return;
+    }
+    const tokenAuth: AuthInfo | null = await deriveAuthFromApiToken(headers);
+    const fallbackAuth: AuthInfo = deriveAuthFromHeaders(context.req.raw);
+    const auth: AuthInfo = tokenAuth ?? fallbackAuth;
     context.set("auth", auth);
     await next();
   });
@@ -429,7 +580,7 @@ export function createApp(): AppInstance {
     }
     const orgId: string = context.req.param("orgId");
     const membership = await getOrgMembership(userId, orgId);
-    if (!membership || !isOwnerRole(membership.role)) {
+    if (!membership || !isManagerRole(membership.role)) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
     const rows = await db
@@ -459,7 +610,7 @@ export function createApp(): AppInstance {
     }
     const orgId: string = context.req.param("orgId");
     const membership = await getOrgMembership(userId, orgId);
-    if (!membership || !isOwnerRole(membership.role)) {
+    if (!membership || !isManagerRole(membership.role)) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
 
@@ -479,7 +630,24 @@ export function createApp(): AppInstance {
     if (!email) {
       return context.json({ error: "Email is required" } as const, 400);
     }
-    const role: string = (body.role ?? "member").trim().toLowerCase() || "member";
+    const existingUsers = await db
+      .select({ id: schema.user.id })
+      .from(schema.user)
+      .where(eq(schema.user.email, email))
+      .limit(1);
+    const existingUser = existingUsers[0];
+    if (existingUser) {
+      const existingMembership: OrgMembership | null = await getOrgMembership(existingUser.id, orgId);
+      if (existingMembership) {
+        return context.json({ alreadyMember: true } as const);
+      }
+    }
+    const requestedRole: string = (body.role ?? "").trim().toLowerCase();
+    const normalizedRole: OrgRole = normalizeOrgRole(requestedRole);
+    if (normalizedRole === ORG_ROLE_OWNER) {
+      return context.json({ error: "Owner role cannot be granted via invitation" } as const, 400);
+    }
+    const role: OrgRole = normalizedRole;
     const now: Date = new Date();
     const token: string = randomUUID();
     const expiresAt: Date = new Date(now.getTime() + INVITE_TTL_MS);
@@ -504,6 +672,46 @@ export function createApp(): AppInstance {
 
     const invitation = toInvitationSummary({ id, orgId, email, role, token, expiresAt, acceptedAt: null });
     return context.json({ invitation }, 201);
+  });
+
+  app.delete("/orgs/:orgId/invitations/:invitationId", async (context) => {
+    const auth: AuthInfo | undefined = context.get("auth");
+    const userId: string | undefined = auth?.authenticated ? auth.userId : undefined;
+    if (!userId) {
+      return context.json({ error: "Unauthorized" } as const, 401);
+    }
+    const orgId: string = context.req.param("orgId");
+    const invitationId: string = context.req.param("invitationId");
+    const membership: OrgMembership | null = await getOrgMembership(userId, orgId);
+    if (!membership || !isManagerRole(membership.role)) {
+      return context.json({ error: "Forbidden" } as const, 403);
+    }
+    const rows = await db
+      .select()
+      .from(schema.organizationInvite)
+      .where(
+        and(
+          eq(schema.organizationInvite.id, invitationId),
+          eq(schema.organizationInvite.orgId, orgId),
+        ),
+      )
+      .limit(1);
+    const invite = rows[0];
+    if (!invite) {
+      return context.json({ error: "Invitation not found" } as const, 404);
+    }
+    const expired: boolean = invite.expiresAt.getTime() < Date.now();
+    if (expired || invite.acceptedAt) {
+      return context.json({ error: "Invitation is no longer valid" } as const, 400);
+    }
+    await db.delete(schema.organizationInvite).where(eq(schema.organizationInvite.id, invitationId));
+    await logActivity({
+      userId,
+      orgId,
+      type: "org.invitation.revoked",
+      description: `Revoked invitation for ${invite.email}`,
+    });
+    return context.json({ ok: true } as const);
   });
 
   app.post("/orgs/invitations/accept", async (context) => {
@@ -544,6 +752,24 @@ export function createApp(): AppInstance {
 
     const membership = await getOrgMembership(userId, invite.orgId);
     if (!membership) {
+      const existingMemberships = await db
+        .select({ id: schema.organizationMember.id })
+        .from(schema.organizationMember)
+        .where(eq(schema.organizationMember.userId, userId));
+      const isFirstMembership: boolean = existingMemberships.length === 0;
+
+      const billing: OrgBilling | null = await getOrgBilling(invite.orgId);
+      if (!billing) {
+        return context.json({ error: "Organization not found" } as const, 404);
+      }
+      const limits: PlanLimits = PLAN_LIMITS[billing.plan];
+      const maxMembers: number | undefined = limits.maxMembers;
+      if (maxMembers !== undefined) {
+        const memberCount: number = await getOrgMemberCount(invite.orgId);
+        if (memberCount >= maxMembers) {
+          return context.json({ error: "Member limit reached for current plan" } as const, 403);
+        }
+      }
       await db.insert(schema.organizationMember).values({
         id: randomUUID(),
         orgId: invite.orgId,
@@ -551,6 +777,13 @@ export function createApp(): AppInstance {
         role: invite.role,
         createdAt: new Date(),
       });
+
+      if (isFirstMembership) {
+        await db
+          .update(schema.user)
+          .set({ onboardingComplete: true })
+          .where(eq(schema.user.id, userId));
+      }
     }
 
     await db
@@ -563,6 +796,186 @@ export function createApp(): AppInstance {
       orgId: invite.orgId,
       type: "org.invitation.accepted",
       description: `Accepted invitation for ${invite.email}`,
+    });
+
+    return context.json({ ok: true } as const);
+  });
+
+  app.get("/orgs/:orgId/members", async (context) => {
+    const auth: AuthInfo | undefined = context.get("auth");
+    const userId: string | undefined = auth?.authenticated ? auth.userId : undefined;
+    if (!userId) {
+      return context.json({ error: "Unauthorized" } as const, 401);
+    }
+    const orgId: string = context.req.param("orgId");
+    const membership: OrgMembership | null = await getOrgMembership(userId, orgId);
+    if (!membership || !isManagerRole(membership.role)) {
+      return context.json({ error: "Forbidden" } as const, 403);
+    }
+    const rows = await db
+      .select({
+        id: schema.organizationMember.id,
+        userId: schema.organizationMember.userId,
+        role: schema.organizationMember.role,
+        createdAt: schema.organizationMember.createdAt,
+        userName: schema.user.name,
+        userEmail: schema.user.email,
+      })
+      .from(schema.organizationMember)
+      .innerJoin(schema.user, eq(schema.organizationMember.userId, schema.user.id))
+      .where(eq(schema.organizationMember.orgId, orgId));
+    const members: readonly OrganizationMemberSummary[] = rows.map((row) => ({
+      id: row.id,
+      userId: row.userId,
+      role: row.role,
+      createdAt: row.createdAt,
+      userName: row.userName,
+      userEmail: row.userEmail,
+    }));
+    return context.json({ members });
+  });
+
+  app.patch("/orgs/:orgId/members/:memberId", async (context) => {
+    const auth: AuthInfo | undefined = context.get("auth");
+    const userId: string | undefined = auth?.authenticated ? auth.userId : undefined;
+    if (!userId) {
+      return context.json({ error: "Unauthorized" } as const, 401);
+    }
+    const orgId: string = context.req.param("orgId");
+    const memberId: string = context.req.param("memberId");
+    const membership: OrgMembership | null = await getOrgMembership(userId, orgId);
+    if (!membership || !isOwnerRole(membership.role)) {
+      return context.json({ error: "Forbidden" } as const, 403);
+    }
+
+    interface UpdateMemberRoleBody {
+      readonly role?: string;
+    }
+
+    let body: UpdateMemberRoleBody;
+    try {
+      body = (await context.req.json()) as UpdateMemberRoleBody;
+    } catch {
+      return context.json({ error: "Invalid JSON body" } as const, 400);
+    }
+
+    const rawRole: string = (body.role ?? "").trim().toLowerCase();
+    if (!rawRole) {
+      return context.json({ error: "Role is required" } as const, 400);
+    }
+    const newRole: OrgRole = normalizeOrgRole(rawRole);
+
+    const rows = await db
+      .select({
+        id: schema.organizationMember.id,
+        userId: schema.organizationMember.userId,
+        role: schema.organizationMember.role,
+      })
+      .from(schema.organizationMember)
+      .where(
+        and(
+          eq(schema.organizationMember.id, memberId),
+          eq(schema.organizationMember.orgId, orgId),
+        ),
+      )
+      .limit(1);
+    const target = rows[0];
+    if (!target) {
+      return context.json({ error: "Member not found" } as const, 404);
+    }
+
+    const targetRole: OrgRole = normalizeOrgRole(target.role);
+    if (targetRole === ORG_ROLE_OWNER && newRole !== ORG_ROLE_OWNER) {
+      const ownerRows = await db
+        .select({ id: schema.organizationMember.id })
+        .from(schema.organizationMember)
+        .where(
+          and(
+            eq(schema.organizationMember.orgId, orgId),
+            eq(schema.organizationMember.role, ORG_ROLE_OWNER),
+          ),
+        );
+      const ownerCount: number = ownerRows.length;
+      if (ownerCount <= 1) {
+        return context.json({ error: "Cannot change role of the last owner" } as const, 400);
+      }
+    }
+
+    await db
+      .update(schema.organizationMember)
+      .set({ role: newRole })
+      .where(eq(schema.organizationMember.id, memberId));
+
+    await logActivity({
+      userId,
+      orgId,
+      type: "org.member.role_changed",
+      description: `Changed role for member ${target.userId} to ${newRole}`,
+    });
+
+    return context.json({ ok: true } as const);
+  });
+
+  app.delete("/orgs/:orgId/members/:memberId", async (context) => {
+    const auth: AuthInfo | undefined = context.get("auth");
+    const userId: string | undefined = auth?.authenticated ? auth.userId : undefined;
+    if (!userId) {
+      return context.json({ error: "Unauthorized" } as const, 401);
+    }
+    const orgId: string = context.req.param("orgId");
+    const memberId: string = context.req.param("memberId");
+    const membership: OrgMembership | null = await getOrgMembership(userId, orgId);
+    if (!membership || !isManagerRole(membership.role)) {
+      return context.json({ error: "Forbidden" } as const, 403);
+    }
+
+    const rows = await db
+      .select({
+        id: schema.organizationMember.id,
+        userId: schema.organizationMember.userId,
+        role: schema.organizationMember.role,
+      })
+      .from(schema.organizationMember)
+      .where(
+        and(
+          eq(schema.organizationMember.id, memberId),
+          eq(schema.organizationMember.orgId, orgId),
+        ),
+      )
+      .limit(1);
+    const target = rows[0];
+    if (!target) {
+      return context.json({ error: "Member not found" } as const, 404);
+    }
+
+    const targetRole: OrgRole = normalizeOrgRole(target.role);
+    const callerRole: OrgRole = normalizeOrgRole(membership.role);
+    if (targetRole === ORG_ROLE_OWNER) {
+      if (callerRole !== ORG_ROLE_OWNER) {
+        return context.json({ error: "Only an owner can remove another owner" } as const, 403);
+      }
+      const ownerRows = await db
+        .select({ id: schema.organizationMember.id })
+        .from(schema.organizationMember)
+        .where(
+          and(
+            eq(schema.organizationMember.orgId, orgId),
+            eq(schema.organizationMember.role, ORG_ROLE_OWNER),
+          ),
+        );
+      const ownerCount: number = ownerRows.length;
+      if (ownerCount <= 1) {
+        return context.json({ error: "Cannot remove the last owner" } as const, 400);
+      }
+    }
+
+    await db.delete(schema.organizationMember).where(eq(schema.organizationMember.id, memberId));
+
+    await logActivity({
+      userId,
+      orgId,
+      type: "org.member.removed",
+      description: `Removed member ${target.userId}`,
     });
 
     return context.json({ ok: true } as const);
@@ -714,18 +1127,11 @@ export function createApp(): AppInstance {
     if (!member) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
-    const rows = await db
-      .select({ plan: schema.organization.plan, billingStatus: schema.organization.billingStatus })
-      .from(schema.organization)
-      .where(eq(schema.organization.id, orgId))
-      .limit(1);
-    const row = rows[0];
-    if (!row) {
+    const billing: OrgBilling | null = await getOrgBilling(orgId);
+    if (!billing) {
       return context.json({ error: "Organization not found" } as const, 404);
     }
-    const plan: PlanName = normalizePlan(row.plan);
-    const status: BillingStatus = normalizeBillingStatus(row.billingStatus);
-    const summary: BillingSummary = { plan, status };
+    const summary: BillingSummary = { plan: billing.plan, status: billing.status };
     return context.json({ billing: summary });
   });
 
@@ -736,8 +1142,8 @@ export function createApp(): AppInstance {
       return context.json({ error: "Unauthorized" } as const, 401);
     }
     const orgId: string = context.req.param("orgId");
-    const member: boolean = await isUserOrgMember(userId, orgId);
-    if (!member) {
+    const membership: OrgMembership | null = await getOrgMembership(userId, orgId);
+    if (!membership || !isManagerRole(membership.role)) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
 
@@ -763,12 +1169,142 @@ export function createApp(): AppInstance {
       return context.json({ error: "Unauthorized" } as const, 401);
     }
     const orgId: string = context.req.param("orgId");
-    const member: boolean = await isUserOrgMember(userId, orgId);
-    if (!member) {
+    const membership: OrgMembership | null = await getOrgMembership(userId, orgId);
+    if (!membership || !isManagerRole(membership.role)) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
     const portalUrl: string = "#billing-portal-not-configured";
     return context.json({ portalUrl } as const);
+  });
+
+  app.get("/tokens", async (context) => {
+    const auth: AuthInfo | undefined = context.get("auth");
+    const userId: string | undefined = auth?.authenticated ? auth.userId : undefined;
+    if (!userId) {
+      return context.json({ error: "Unauthorized" } as const, 401);
+    }
+    const rows = await db
+      .select({
+        id: schema.apiToken.id,
+        name: schema.apiToken.name,
+        orgId: schema.apiToken.orgId,
+        createdAt: schema.apiToken.createdAt,
+        expiresAt: schema.apiToken.expiresAt,
+        revokedAt: schema.apiToken.revokedAt,
+      })
+      .from(schema.apiToken)
+      .where(eq(schema.apiToken.userId, userId));
+    const tokens = rows.map((row) => ({
+      id: row.id,
+      name: row.name,
+      orgId: row.orgId,
+      createdAt: row.createdAt,
+      expiresAt: row.expiresAt ?? null,
+      revokedAt: row.revokedAt ?? null,
+    }));
+    return context.json({ tokens } as const);
+  });
+
+  app.post("/tokens", async (context) => {
+    const auth: AuthInfo | undefined = context.get("auth");
+    const userId: string | undefined = auth?.authenticated ? auth.userId : undefined;
+    if (!userId) {
+      return context.json({ error: "Unauthorized" } as const, 401);
+    }
+
+    interface CreateTokenBody {
+      readonly name?: string;
+      readonly orgId?: string;
+      readonly expiresInDays?: number;
+    }
+
+    let body: CreateTokenBody;
+    try {
+      body = (await context.req.json()) as CreateTokenBody;
+    } catch {
+      body = {} as CreateTokenBody;
+    }
+
+    const nameRaw: string = (body.name ?? "").trim();
+    const name: string = nameRaw || "Personal access token";
+    const orgIdRaw: string = (body.orgId ?? "").trim();
+    const orgId: string | null = orgIdRaw || null;
+    if (orgId) {
+      const member: boolean = await isUserOrgMember(userId, orgId);
+      if (!member) {
+        return context.json({ error: "Forbidden" } as const, 403);
+      }
+    }
+
+    const expiresInDays: number = typeof body.expiresInDays === "number" && body.expiresInDays > 0 ? body.expiresInDays : DEFAULT_TOKEN_TTL_DAYS;
+    const now: Date = new Date();
+    const expiresAt: Date = new Date(now.getTime() + expiresInDays * 24 * 60 * 60 * 1000);
+
+    const id: string = randomUUID();
+    const rawToken: string = randomUUID().replace(/-/g, "");
+    const tokenHash: string = hashToken(rawToken);
+
+    await db.insert(schema.apiToken).values({
+      id,
+      userId,
+      orgId,
+      name,
+      tokenHash,
+      createdAt: now,
+      expiresAt,
+    });
+
+    await logActivity({
+      userId,
+      orgId,
+      type: "api_token.created",
+      description: `Created API token ${name}`,
+    });
+
+    return context.json({
+      token: rawToken,
+      tokenId: id,
+      name,
+      orgId,
+      expiresAt,
+    } as const, 201);
+  });
+
+  app.delete("/tokens/:tokenId", async (context) => {
+    const auth: AuthInfo | undefined = context.get("auth");
+    const userId: string | undefined = auth?.authenticated ? auth.userId : undefined;
+    if (!userId) {
+      return context.json({ error: "Unauthorized" } as const, 401);
+    }
+    const tokenId: string = context.req.param("tokenId");
+    const rows = await db
+      .select({
+        id: schema.apiToken.id,
+        userId: schema.apiToken.userId,
+        orgId: schema.apiToken.orgId,
+        revokedAt: schema.apiToken.revokedAt,
+      })
+      .from(schema.apiToken)
+      .where(eq(schema.apiToken.id, tokenId))
+      .limit(1);
+    const token = rows[0];
+    if (!token || token.userId !== userId) {
+      return context.json({ error: "Token not found" } as const, 404);
+    }
+    const now: Date = new Date();
+    if (!token.revokedAt) {
+      await db
+        .update(schema.apiToken)
+        .set({ revokedAt: now })
+        .where(eq(schema.apiToken.id, tokenId));
+      await logActivity({
+        userId,
+        orgId: token.orgId ?? null,
+        type: "api_token.revoked",
+        description: `Revoked API token ${token.id}`,
+      });
+    }
+    return context.json({ ok: true } as const);
   });
 
   app.get("/activity", async (context) => {

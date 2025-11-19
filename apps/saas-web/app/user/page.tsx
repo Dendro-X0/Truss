@@ -7,6 +7,8 @@ import CreateProjectForm from "./_create-project-form";
 import ProjectStatusSelect from "./_project-status-select";
 import BillingCard from "./_billing-card";
 import InviteForm from "./_invite-form";
+import UsageCard from "./_usage-card";
+import { normalizePlanName, type PlanName } from "../_plans";
 import FeedbackForm from "../_feedback-form";
 
 interface WhoAmIResponse {
@@ -122,6 +124,19 @@ interface BillingSummary {
 
 interface BillingResponse {
   readonly billing: BillingSummary;
+}
+
+interface OrgMemberSummary {
+  readonly id: string;
+  readonly userId: string;
+  readonly role: string;
+  readonly createdAt: string;
+  readonly userName?: string | null;
+  readonly userEmail: string;
+}
+
+interface MembersResponse {
+  readonly members: readonly OrgMemberSummary[];
 }
 
 function getApiBaseUrl(): string {
@@ -249,6 +264,33 @@ async function fetchBilling(cookieHeader: string | null, orgId: string): Promise
   }
 }
 
+async function fetchOrgMembers(
+  cookieHeader: string | null,
+  orgId: string,
+): Promise<readonly OrgMemberSummary[] | null> {
+  const baseUrl: string = getApiBaseUrl();
+  const url: string = `${baseUrl}/orgs/${encodeURIComponent(orgId)}/members`;
+  const requestHeaders: HeadersInit = {};
+  if (cookieHeader) {
+    requestHeaders["cookie"] = cookieHeader;
+  }
+  try {
+    const response: Response = await fetch(url, {
+      method: "GET",
+      headers: requestHeaders,
+      cache: "no-store",
+    });
+    if (!response.ok) {
+      return null;
+    }
+    const data = (await response.json()) as MembersResponse;
+    return data.members;
+  } catch (error) {
+    console.error("Failed to fetch organization members", error);
+    return null;
+  }
+}
+
 export default async function UserPage(): Promise<ReactElement> {
   const headerStore = await headers();
   const cookieHeader: string | null = headerStore.get("cookie") ?? null;
@@ -262,17 +304,31 @@ export default async function UserPage(): Promise<ReactElement> {
   const activeOrg: OrganizationSummary | null =
     activeOrgId ? organizations.find((org) => org.id === activeOrgId) ?? null : null;
 
-  const [whoami, profile, projects, billing, invitations, activity] = await Promise.all([
+  const [whoami, profile, projects, billing, invitations, activity, members] = await Promise.all([
     fetchWhoAmI(cookieHeader),
     fetchProfile(cookieHeader),
     activeOrgId ? fetchProjects(cookieHeader, activeOrgId) : Promise.resolve<readonly ProjectSummary[]>([]),
     activeOrgId ? fetchBilling(cookieHeader, activeOrgId) : Promise.resolve<BillingSummary | null>(null),
     activeOrgId ? fetchInvitations(cookieHeader, activeOrgId) : Promise.resolve<readonly InvitationSummary[]>([]),
     fetchActivity(cookieHeader),
+    activeOrgId
+      ? fetchOrgMembers(cookieHeader, activeOrgId)
+      : Promise.resolve<readonly OrgMemberSummary[] | null>(null),
   ]);
+
+  const planName: PlanName = normalizePlanName(billing?.plan ?? "free");
+  const memberCount: number | null = members ? members.length : null;
+  const projectCount: number = projects.length;
 
   return (
     <main className="mx-auto flex min-h-screen max-w-4xl flex-col gap-6 px-4 py-12">
+      <div className="text-center text-xs text-muted-foreground">
+        <a href="/" className="inline-flex items-center gap-1 text-primary hover:underline">
+          <span aria-hidden="true">←</span>
+          Back to homepage
+        </a>
+      </div>
+
       <header className="flex items-center justify-between">
         <div className="space-y-1">
           <h1 className="text-2xl font-semibold tracking-tight">User dashboard</h1>
@@ -294,6 +350,10 @@ export default async function UserPage(): Promise<ReactElement> {
           </p>
         </div>
       </section>
+
+      {activeOrg && (
+        <UsageCard plan={planName} memberCount={memberCount} projectCount={projectCount} />
+      )}
 
       {activeOrg && (
         <section className="rounded-lg border bg-background p-6 shadow-sm">

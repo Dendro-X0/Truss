@@ -24,8 +24,19 @@ Create a `.env` file based on `.env.example` and set at least:
 - `BETTER_AUTH_SECRET` – secret for Better Auth
 - `NEXT_PUBLIC_API_URL` – base URL for the Hono API (e.g. `http://localhost:8787`)
 - `AUTH_SESSION_URL` – URL of the Next.js session endpoint (e.g. `http://localhost:3000/api/auth/get-session`)
+  
+- `NEXT_PUBLIC_TRUSS_DEMO_MODE` – optional flag; when set to `"1"`, shows a demo banner on the landing page.
 
 Additional variables (Stripe keys, social providers, app URL, etc.) can be configured later as you integrate real billing and OAuth.
+
+## Demo mode (UI-only deployments)
+
+For a hosted demo (for example, deploying only `apps/saas-web` to Vercel), you can:
+
+- Leave backend environment variables unset so the API and database are not reachable.
+- Set `NEXT_PUBLIC_TRUSS_DEMO_MODE=1` to make it clear in the UI that the instance is running in demo mode.
+
+In this configuration, the landing page, auth screens, dashboard, and pricing page render as a realistic product surface, but actions that depend on the API may fail or be no-ops. For full functionality, configure the environment variables listed above and run both the API and web app.
 
 ## 3. Run in development
 

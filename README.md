@@ -14,7 +14,7 @@ The goal of Truss is to provide **architecture and scaffolding** you can customi
 
 For a deeper dive into the stack, architecture, and usage, see:
 
-- [`docs/README.md`](./docs/README.md)
+- [`docs/overview.md`](./docs/overview.md)
 
 ## Monorepo layout
 
@@ -33,3 +33,16 @@ pnpm dev
 ```
 
 Then open `http://localhost:3000` in your browser.
+
+## Demo mode
+
+The public deployment of Truss is configured as a **UI-only demo**:
+
+- No `DATABASE_URL`, `BETTER_AUTH_SECRET`, or billing keys are set.
+- Auth, invitations, and subscription flows are wired in the codebase but disabled in the demo.
+
+You can enable the same banner used in the demo by setting:
+
+- `NEXT_PUBLIC_TRUSS_DEMO_MODE=1` – shows a notice on the landing page explaining that the instance is running in demo mode.
+
+To run the full stack locally, create a `.env` file from `.env.example` and fill in the required values.

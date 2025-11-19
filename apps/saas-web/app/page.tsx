@@ -21,34 +21,55 @@ const timeline: readonly { readonly label: string; readonly detail: string }[] =
   { label: "Ship", detail: "Connect billing, enable 2FA, and deploy with confidence." },
 ];
 
+const isDemo: boolean = process.env.NEXT_PUBLIC_TRUSS_DEMO_MODE === "1";
+
 export default function HomePage(): ReactElement {
   return (
     <main className="landing-gradient relative min-h-screen">
+      {isDemo && (
+        <div className="border-b bg-amber-50/80 text-amber-900 dark:bg-amber-950/70 dark:text-amber-50">
+          <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 py-2 text-xs sm:text-sm">
+            <p className="text-left">
+              This deployment runs Truss in demo mode. The UI is live, but auth, database, and subscriptions are disabled.
+            </p>
+            <span className="hidden whitespace-nowrap text-[0.7rem] font-medium sm:inline">
+              Clone the repo and configure environment variables to enable the full stack.
+            </span>
+          </div>
+        </div>
+      )}
       <div className="mx-auto flex max-w-4xl flex-col gap-16 px-4 py-16">
         <section className="space-y-8 text-center animate-fade-up">
           <p className="mx-auto inline-flex max-w-fit items-center rounded-full border px-4 py-1 text-xs font-medium text-muted-foreground">
-            Multi-tenant SaaS starter · Next.js · Hono · Better Auth
+            Multi-tenant SaaS starter · UI-first demo
           </p>
           <div className="space-y-4">
             <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-              Minimal, animated scaffolding ready for your next SaaS launch.
+              Launch-ready SaaS scaffolding without committing to a full stack.
             </h1>
             <p className="mx-auto max-w-2xl text-balance text-base text-muted-foreground">
-              Opinionated defaults, wireframe UI, and production-ready auth + org modeling so you can focus on real customer work.
+              Preview realistic auth, organizations, projects, and pricing screens today, then wire Truss into your own
+              infrastructure when you are ready.
             </p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
               href="/auth/signup"
-              className="inline-flex h-11 items-center justify-center rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground shadow-sm transition hover:translate-y-px hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-primary bg-primary px-6 text-sm font-medium text-primary-foreground shadow-sm transition hover:translate-y-px hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              Auth form
+              Preview auth UI
             </a>
             <a
               href="/user"
               className="inline-flex h-11 items-center justify-center rounded-full border px-6 text-sm font-medium shadow-sm transition hover:translate-y-px hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              Dashboard shell
+              Explore dashboard UI
+            </a>
+            <a
+              href="/pricing"
+              className="inline-flex h-11 items-center justify-center rounded-full border px-6 text-sm font-medium shadow-sm transition hover:translate-y-px hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              View pricing layout
             </a>
           </div>
         </section>

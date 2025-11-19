@@ -104,6 +104,17 @@ const activity = pgTable("activity", {
   createdAt: timestamp("created_at").$defaultFn(() => new Date()).notNull(),
 });
 
+const apiToken = pgTable("api_token", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+  orgId: text("org_id").references(() => organization.id, { onDelete: "set null" }),
+  name: text("name").notNull(),
+  tokenHash: text("token_hash").notNull().unique(),
+  createdAt: timestamp("created_at").$defaultFn(() => new Date()).notNull(),
+  expiresAt: timestamp("expires_at"),
+  revokedAt: timestamp("revoked_at"),
+});
+
 const schema = {
   user,
   session,
@@ -115,6 +126,7 @@ const schema = {
   project,
   organizationInvite,
   activity,
+  apiToken,
 } as const;
 
 export default schema;
