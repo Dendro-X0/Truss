@@ -41,6 +41,17 @@ export default function SignupForm(): ReactElement {
           className="flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </div>
+      <div className="space-y-2">
+        <label htmlFor="confirmPassword" className="text-sm font-medium">Confirm password</label>
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          autoComplete="new-password"
+          required
+          className="flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        />
+      </div>
       {state?.error?.message && (
         <p className="text-sm text-destructive">{state.error.message}</p>
       )}

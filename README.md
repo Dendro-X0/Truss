@@ -16,6 +16,10 @@ For a deeper dive into the stack, architecture, and usage, see:
 
 - [`docs/overview.md`](./docs/overview.md)
 
+![Project Thumbnail](apps/saas-web/public/landing_1.png)
+![pricing](apps/saas-web/public/pricing_1.png)
+![LightHouse](apps/saas-web/public/lighthouse.png)
+
 ## Monorepo layout
 
 - `apps/api` – Hono API server

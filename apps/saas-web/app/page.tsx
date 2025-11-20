@@ -110,13 +110,17 @@ export default function HomePage(): ReactElement {
                   <div className="rounded-xl border px-4 py-3">
                     <div className="flex items-center justify-between text-sm">
                       <span>Onboarding flow</span>
-                      <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs text-emerald-500">Active</span>
+                      <span className="inline-flex items-center rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-900">
+                        Active
+                      </span>
                     </div>
                   </div>
                   <div className="rounded-xl border px-4 py-3">
                     <div className="flex items-center justify-between text-sm">
                       <span>Billing integration</span>
-                      <span className="rounded-full bg-amber-500/10 px-2 py-0.5 text-xs text-amber-500">Planned</span>
+                      <span className="inline-flex items-center rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-900">
+                        Planned
+                      </span>
                     </div>
                   </div>
                 </div>

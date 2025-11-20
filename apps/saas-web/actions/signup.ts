@@ -13,8 +13,12 @@ export async function signupAction(_prev: SignupFormState, formData: FormData): 
     const username: string = String(formData.get("username") ?? "");
     const email: string = String(formData.get("email") ?? "");
     const password: string = String(formData.get("password") ?? "");
-    if (!email || !password) {
-      return { error: { message: "Email and password are required" } };
+    const confirmPassword: string = String(formData.get("confirmPassword") ?? "");
+    if (!email || !password || !confirmPassword) {
+      return { error: { message: "Email, password, and confirmation are required" } };
+    }
+    if (password !== confirmPassword) {
+      return { error: { message: "Passwords do not match" } };
     }
     const displayName: string = username || (email.includes("@") ? email.split("@")[0] : "User");
     await auth.api.signUpEmail({ body: { email, password, name: displayName } });

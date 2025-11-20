@@ -4,7 +4,7 @@ import ThemeToggle from "./_theme-toggle";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SaaS Starter Open",
+  title: "Truss",
   description: "Open multi-tenant SaaS starter.",
 };
 
