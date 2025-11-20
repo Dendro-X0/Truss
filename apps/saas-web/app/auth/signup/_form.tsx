@@ -4,52 +4,63 @@ import type { ReactElement } from "react";
 import { useActionState } from "react";
 import type { SignupFormState } from "../../../actions/signup";
 import { signupAction } from "../../../actions/signup";
+import Button from "@/modules/ui/button";
+import Input from "@/modules/ui/input";
+import Label from "@/modules/ui/label";
 
 export default function SignupForm(): ReactElement {
   const [state, formAction] = useActionState<SignupFormState, FormData>(signupAction, null);
   return (
     <form action={formAction} className="space-y-4">
       <div className="space-y-2">
-        <label htmlFor="username" className="text-sm font-medium">Username</label>
-        <input
+        <Label htmlFor="username">
+          Username
+        </Label>
+        <Input
           id="username"
           name="username"
           type="text"
           autoComplete="username"
-          className="flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          size="lg"
         />
       </div>
       <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium">Email</label>
-        <input
+        <Label htmlFor="email">
+          Email
+        </Label>
+        <Input
           id="email"
           name="email"
           type="email"
           autoComplete="email"
           required
-          className="flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          size="lg"
         />
       </div>
       <div className="space-y-2">
-        <label htmlFor="password" className="text-sm font-medium">Password</label>
-        <input
+        <Label htmlFor="password">
+          Password
+        </Label>
+        <Input
           id="password"
           name="password"
           type="password"
           autoComplete="new-password"
           required
-          className="flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          size="lg"
         />
       </div>
       <div className="space-y-2">
-        <label htmlFor="confirmPassword" className="text-sm font-medium">Confirm password</label>
-        <input
+        <Label htmlFor="confirmPassword">
+          Confirm password
+        </Label>
+        <Input
           id="confirmPassword"
           name="confirmPassword"
           type="password"
           autoComplete="new-password"
           required
-          className="flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          size="lg"
         />
       </div>
       {state?.error?.message && (
@@ -58,12 +69,9 @@ export default function SignupForm(): ReactElement {
       {state?.success && state.message && (
         <p className="text-sm text-emerald-600">{state.message}</p>
       )}
-      <button
-        type="submit"
-        className="inline-flex h-10 w-full items-center justify-center rounded-md border border-primary bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      >
+      <Button type="submit" size="lg" className="w-full">
         Create account
-      </button>
+      </Button>
     </form>
   );
 }

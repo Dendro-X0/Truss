@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import ResetPasswordForm from "./_form";
+import Card from "@/modules/ui/card";
 
 export const runtime = "nodejs";
 
@@ -18,13 +19,13 @@ export default function ResetPasswordPage({ searchParams }: ResetPasswordPagePro
             Back to homepage
           </a>
         </div>
-        <div className="rounded-lg border bg-background p-8 shadow-sm">
+        <Card className="p-8">
           <div className="mb-6 space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">Reset password</h1>
             <p className="text-sm text-muted-foreground">Enter a new password to complete the reset.</p>
           </div>
           <ResetPasswordForm token={token} />
-        </div>
+        </Card>
       </div>
     </div>
   );

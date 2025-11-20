@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import LoginForm from "./_form";
 import SocialButtons from "./_social-buttons";
 import MagicLinkForm from "./_magic-link-form";
+import Card from "@/modules/ui/card";
 
 export const runtime = "nodejs";
 
@@ -20,7 +21,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps): Promi
             Back to homepage
           </a>
         </div>
-        <div className="rounded-lg border bg-background p-8 shadow-sm">
+        <Card className="p-8">
           <div className="mb-6 space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">Sign in</h1>
             <p className="text-sm text-muted-foreground">Enter your credentials to continue.</p>
@@ -45,7 +46,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps): Promi
             <SocialButtons />
             <MagicLinkForm />
           </div>
-        </div>
+        </Card>
         <p className="text-center text-xs text-muted-foreground">
           Do not have an account?{" "}
           <a href="/auth/signup" className="font-medium text-primary hover:underline">

@@ -6,6 +6,8 @@ import type { BillingCheckoutState } from "../../actions/billing-checkout";
 import { billingCheckoutAction } from "../../actions/billing-checkout";
 import type { BillingPortalState } from "../../actions/billing-portal";
 import { billingPortalAction } from "../../actions/billing-portal";
+import Button from "@/modules/ui/button";
+import Badge from "@/modules/ui/badge";
 
 export interface BillingCardProps {
   readonly orgId: string;
@@ -54,7 +56,9 @@ export default function BillingCard({ orgId, orgName, plan, status }: BillingCar
           <h2 className="text-sm font-medium text-muted-foreground">Billing</h2>
           <p className="text-xs text-muted-foreground">Plan and billing status for {orgName}.</p>
         </div>
-        <span className="rounded-full border px-2 py-0.5 text-xs capitalize text-muted-foreground">{plan}</span>
+        <Badge variant="neutral" className="border border-border text-xs capitalize">
+          {plan}
+        </Badge>
       </div>
       <div className="flex items-center justify-between text-sm">
         <div className="space-y-1 text-xs">
@@ -75,20 +79,12 @@ export default function BillingCard({ orgId, orgName, plan, status }: BillingCar
           {portalState?.error && <p className="text-[11px] text-destructive">{portalState.error}</p>}
         </div>
         <div className="flex flex-col gap-2">
-          <button
-            type="button"
-            onClick={onStartCheckout}
-            className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground shadow-sm hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
+          <Button type="button" size="sm" onClick={onStartCheckout} className="text-xs">
             Upgrade to Pro
-          </button>
-          <button
-            type="button"
-            onClick={onOpenPortal}
-            className="inline-flex h-8 items-center justify-center rounded-md border px-3 text-xs font-medium shadow-sm hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
+          </Button>
+          <Button type="button" variant="outline" size="sm" onClick={onOpenPortal} className="text-xs">
             Manage billing
-          </button>
+          </Button>
         </div>
       </div>
     </div>

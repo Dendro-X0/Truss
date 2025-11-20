@@ -20,7 +20,7 @@ Truss is organized as a pnpm monorepo with a clear separation between apps and s
 
 - **apps/saas-web**
   - Next.js App Router frontend
-  - Tailwind CSS v4 design system and minimal UI components
+  - Tailwind CSS v4 plus Truss UI primitives for buttons, inputs, cards, and badges
   - Auth flows under `/auth` (login/signup, magic link, 2FA hooks)
   - Auth-protected dashboard at `/user` with:
     - Session + profile card
@@ -28,6 +28,7 @@ Truss is organized as a pnpm monorepo with a clear separation between apps and s
     - Project table (create/update)
     - Billing card (Stripe-ready skeleton)
     - Invitations, activity, and feedback sections
+  - TanStack Query (`@tanstack/react-query`) for client-side widgets such as the recent activity feed
 
 - **packages/db**
   - Drizzle schema and DB helper for:

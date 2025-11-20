@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import SignupForm from "./_form";
 import SocialButtons from "../login/_social-buttons";
+import Card from "@/modules/ui/card";
 
 export const runtime = "nodejs";
 
@@ -14,7 +15,7 @@ export default function SignupPage(): ReactElement {
             Back to homepage
           </a>
         </div>
-        <div className="rounded-lg border bg-background p-8 shadow-sm">
+        <Card className="p-8">
           <div className="mb-6 space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">Create an account</h1>
             <p className="text-sm text-muted-foreground">Enter your details to get started.</p>
@@ -28,7 +29,7 @@ export default function SignupPage(): ReactElement {
             </div>
             <SocialButtons />
           </div>
-        </div>
+        </Card>
         <p className="text-center text-xs text-muted-foreground">
           Already have an account?{" "}
           <a href="/auth/login" className="font-medium text-primary hover:underline">

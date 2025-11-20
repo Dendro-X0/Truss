@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import ForgotPasswordForm from "./_form";
+import Card from "@/modules/ui/card";
 
 export const runtime = "nodejs";
 
@@ -13,13 +14,13 @@ export default function ForgotPasswordPage(): ReactElement {
             Back to homepage
           </a>
         </div>
-        <div className="rounded-lg border bg-background p-8 shadow-sm">
+        <Card className="p-8">
           <div className="mb-6 space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">Forgot password</h1>
             <p className="text-sm text-muted-foreground">Enter your email to receive a reset link.</p>
           </div>
           <ForgotPasswordForm />
-        </div>
+        </Card>
       </div>
     </div>
   );

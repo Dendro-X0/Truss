@@ -10,9 +10,10 @@ Truss is built on a modern TypeScript-first stack that emphasizes type safety, c
   - Client components only where interactivity is needed
 - **UI**:
   - Tailwind CSS v4
-  - Minimal set of hand-rolled components
-- **Forms & actions**:
+  - Truss UI primitives (`Button`, `Input`, `Label`, `Card`, `Badge`) for consistent layout
+- **Forms & client data**:
   - Server actions for login/signup and dashboard forms
+  - TanStack Query (`@tanstack/react-query`) for interactive widgets such as the activity feed
 
 ## API
 

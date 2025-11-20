@@ -4,6 +4,9 @@ import type { ReactElement } from "react";
 import { useActionState } from "react";
 import type { UpdateProfileState } from "../../actions/update-profile";
 import { updateProfileAction } from "../../actions/update-profile";
+import Button from "@/modules/ui/button";
+import Input from "@/modules/ui/input";
+import Label from "@/modules/ui/label";
 
 export interface ProfileFormProps {
   readonly name: string;
@@ -19,47 +22,56 @@ export default function ProfileForm({ name, email, username, displayUsername }: 
     <form action={formAction} className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-medium">Full name</label>
-          <input
+          <Label htmlFor="name">
+            Full name
+          </Label>
+          <Input
             id="name"
             name="name"
             type="text"
             defaultValue={name}
-            className="flex h-9 w-full rounded-md border px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            size="md"
           />
         </div>
         <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-medium">Email</label>
-          <input
+          <Label htmlFor="email">
+            Email
+          </Label>
+          <Input
             id="email"
             name="email"
             type="email"
             defaultValue={email}
             readOnly
-            className="flex h-9 w-full rounded-md border bg-muted px-3 text-sm text-muted-foreground shadow-sm"
+            size="md"
+            className="bg-muted text-muted-foreground"
           />
         </div>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <label htmlFor="username" className="text-sm font-medium">Username</label>
-          <input
+          <Label htmlFor="username">
+            Username
+          </Label>
+          <Input
             id="username"
             name="username"
             type="text"
             defaultValue={username ?? ""}
-            className="flex h-9 w-full rounded-md border px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            size="md"
           />
           <p className="text-xs text-muted-foreground">Used for URLs and mentions. Must be unique.</p>
         </div>
         <div className="space-y-2">
-          <label htmlFor="displayUsername" className="text-sm font-medium">Display name</label>
-          <input
+          <Label htmlFor="displayUsername">
+            Display name
+          </Label>
+          <Input
             id="displayUsername"
             name="displayUsername"
             type="text"
             defaultValue={displayUsername ?? ""}
-            className="flex h-9 w-full rounded-md border px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            size="md"
           />
           <p className="text-xs text-muted-foreground">Shown in the UI instead of your full name, if set.</p>
         </div>
@@ -70,12 +82,9 @@ export default function ProfileForm({ name, email, username, displayUsername }: 
       {state?.success && state.message && (
         <p className="text-sm text-emerald-600">{state.message}</p>
       )}
-      <button
-        type="submit"
-        className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow-sm hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      >
+      <Button type="submit" size="md">
         Save changes
-      </button>
+      </Button>
     </form>
   );
 }

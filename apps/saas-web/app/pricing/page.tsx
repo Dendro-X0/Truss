@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import { PLANS, type PlanDefinition } from "../_plans";
+import PricingPlanCard from "./_plan-card";
 
 interface ComparisonRow {
   readonly label: string;
@@ -56,54 +57,8 @@ export default function PricingPage(): ReactElement {
       </section>
 
       <section className="grid gap-6 md:grid-cols-3">
-        {PLANS.map((plan) => (
-          <article
-            key={plan.id}
-            className={`surface-card flex flex-col justify-between rounded-2xl border p-6 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${
-              plan.highlight ? "border-primary/60" : "border-border"
-            }`}
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between gap-2">
-                <h2 className="text-lg font-semibold">{plan.label}</h2>
-                {plan.badge && (
-                  <span className="rounded-full border px-2 py-0.5 text-xs text-muted-foreground">{plan.badge}</span>
-                )}
-              </div>
-              <p className="text-3xl font-semibold">
-                {plan.price}
-                {plan.id !== "enterprise" && <span className="text-sm font-normal text-muted-foreground"> / month</span>}
-              </p>
-              <p className="text-sm text-muted-foreground">{plan.description}</p>
-              <ul className="mt-4 space-y-2 text-sm">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2">
-                    <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="mt-6 flex flex-col gap-2">
-              <button
-                type="button"
-                className={`inline-flex h-10 items-center justify-center rounded-full px-4 text-sm font-medium shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                  plan.highlight ? "bg-primary text-primary-foreground hover:opacity-95" : "border bg-background hover:bg-muted"
-                }`}
-              >
-                {plan.ctaLabel}
-              </button>
-              {plan.limits.maxMembers !== undefined || plan.limits.maxProjects !== undefined ? (
-                <p className="text-xs text-muted-foreground">
-                  Includes up to {formatLimit(plan.limits.maxMembers)} members and {formatLimit(plan.limits.maxProjects)}
-                  {" "}
-                  projects.
-                </p>
-              ) : (
-                <p className="text-xs text-muted-foreground">Custom member and project limits based on your needs.</p>
-              )}
-            </div>
-          </article>
+        {PLANS.map((plan: PlanDefinition) => (
+          <PricingPlanCard key={plan.id} plan={plan} />
         ))}
       </section>
 

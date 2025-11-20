@@ -5,6 +5,7 @@ import { useState } from "react";
 import authClient from "../../../lib/auth/client";
 import { FaGoogle } from "react-icons/fa"
 import { FaGithub } from "react-icons/fa"
+import Button from "@/modules/ui/button";
 
 export default function SocialButtons(): ReactElement {
   const [error, setError] = useState<string | null>(null);
@@ -36,22 +37,26 @@ export default function SocialButtons(): ReactElement {
   return (
     <div className="space-y-3">
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <button
+        <Button
           type="button"
+          variant="outline"
+          size="sm"
+          className="gap-2 text-xs"
           onClick={handleGitHub}
-          className="inline-flex h-9 items-center justify-center gap-2 rounded-md border px-3 text-xs font-medium shadow-sm hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <FaGithub className="h-3.5 w-3.5" />
           <span>Continue with GitHub</span>
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
+          variant="outline"
+          size="sm"
+          className="gap-2 text-xs"
           onClick={handleGoogle}
-          className="inline-flex h-9 items-center justify-center gap-2 rounded-md border px-3 text-xs font-medium shadow-sm hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <FaGoogle className="h-3.5 w-3.5" />
           <span>Continue with Google</span>
-        </button>
+        </Button>
       </div>
       {error && <p className="text-xs text-destructive">{error}</p>}
     </div>

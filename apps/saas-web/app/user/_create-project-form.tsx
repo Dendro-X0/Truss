@@ -5,6 +5,9 @@ import { useActionState, useEffect } from "react";
 import type { CreateProjectState } from "../../actions/create-project";
 import { createProjectAction } from "../../actions/create-project";
 import { useRouter } from "next/navigation";
+import Button from "@/modules/ui/button";
+import Input from "@/modules/ui/input";
+import Label from "@/modules/ui/label";
 
 export interface CreateProjectFormProps {
   readonly orgId: string;
@@ -31,17 +34,22 @@ export default function CreateProjectForm({ orgId }: CreateProjectFormProps): Re
       <input type="hidden" name="orgId" value={orgId} />
       <div className="grid gap-3 md:grid-cols-[2fr_1fr]">
         <div className="space-y-1">
-          <label htmlFor="project-name" className="text-xs font-medium text-muted-foreground">New project</label>
-          <input
+          <Label htmlFor="project-name" className="text-xs font-medium text-muted-foreground">
+            New project
+          </Label>
+          <Input
             id="project-name"
             name="name"
             type="text"
             placeholder="Project name"
-            className="flex h-8 w-full rounded-md border px-2 text-xs shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            size="sm"
+            className="px-2 text-xs"
           />
         </div>
         <div className="space-y-1">
-          <label htmlFor="project-status" className="text-xs font-medium text-muted-foreground">Status</label>
+          <Label htmlFor="project-status" className="text-xs font-medium text-muted-foreground">
+            Status
+          </Label>
           <select
             id="project-status"
             name="status"
@@ -55,12 +63,9 @@ export default function CreateProjectForm({ orgId }: CreateProjectFormProps): Re
         </div>
       </div>
       {state?.error && <p className="text-xs text-destructive">{state.error}</p>}
-      <button
-        type="submit"
-        className="inline-flex h-8 items-center justify-center rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground shadow-sm hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      >
+      <Button type="submit" size="sm" className="px-3 text-xs">
         Add project
-      </button>
+      </Button>
     </form>
   );
 }

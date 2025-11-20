@@ -4,6 +4,9 @@ import type { ReactElement, FormEvent } from "react";
 import { useActionState, useState } from "react";
 import type { SendFeedbackState } from "../actions/send-feedback";
 import { sendFeedbackAction } from "../actions/send-feedback";
+import Button from "@/modules/ui/button";
+import Input from "@/modules/ui/input";
+import Label from "@/modules/ui/label";
 
 export interface FeedbackFormProps {
   readonly context?: string;
@@ -26,17 +29,22 @@ export default function FeedbackForm({ context }: FeedbackFormProps): ReactEleme
     <form action={formAction} onSubmit={onSubmit} className="space-y-3 text-sm">
       <input type="hidden" name="context" value={context ?? ""} />
       <div className="space-y-1">
-        <label htmlFor="feedback-email" className="text-xs font-medium text-muted-foreground">Email (optional)</label>
-        <input
+        <Label htmlFor="feedback-email" className="text-xs font-medium text-muted-foreground">
+          Email (optional)
+        </Label>
+        <Input
           id="feedback-email"
           name="email"
           type="email"
-          className="flex h-9 w-full rounded-md border px-3 text-xs shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          size="sm"
+          className="text-xs"
           placeholder="you@example.com"
         />
       </div>
       <div className="space-y-1">
-        <label htmlFor="feedback-message" className="text-xs font-medium text-muted-foreground">Message</label>
+        <Label htmlFor="feedback-message" className="text-xs font-medium text-muted-foreground">
+          Message
+        </Label>
         <textarea
           id="feedback-message"
           name="message"
@@ -50,13 +58,9 @@ export default function FeedbackForm({ context }: FeedbackFormProps): ReactEleme
       {state?.success && state.message && (
         <p className="text-xs text-emerald-600">{state.message}</p>
       )}
-      <button
-        type="submit"
-        disabled={submitting}
-        className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground shadow-sm hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-60"
-      >
+      <Button type="submit" size="sm" disabled={submitting} className="px-3 text-xs">
         Send feedback
-      </button>
+      </Button>
     </form>
   );
 }

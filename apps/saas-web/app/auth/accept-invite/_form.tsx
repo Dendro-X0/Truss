@@ -4,6 +4,7 @@ import type { ReactElement } from "react";
 import { useActionState } from "react";
 import type { AcceptInviteState } from "../../../actions/accept-invite";
 import { acceptInviteAction } from "../../../actions/accept-invite";
+import Button from "@/modules/ui/button";
 
 export interface AcceptInviteFormProps {
   readonly token: string;
@@ -21,12 +22,9 @@ export default function AcceptInviteForm({ token }: AcceptInviteFormProps): Reac
       {state?.success && state.message && (
         <p className="text-sm text-emerald-600">{state.message}</p>
       )}
-      <button
-        type="submit"
-        className="inline-flex h-10 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      >
+      <Button type="submit" size="md" className="w-full">
         Accept invitation
-      </button>
+      </Button>
     </form>
   );
 }

@@ -4,6 +4,7 @@ import type { ReactElement, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { setActiveOrgAction } from "../../actions/set-active-org";
+import Label from "@/modules/ui/label";
 
 export interface OrgSwitcherProps {
   readonly organizations: readonly OrgSwitcherOrg[];
@@ -37,9 +38,9 @@ export default function OrgSwitcher({ organizations, activeOrgId }: OrgSwitcherP
 
   return (
     <div className="flex items-center gap-2">
-      <label htmlFor="org-switcher" className="text-xs font-medium text-muted-foreground">
+      <Label htmlFor="org-switcher" className="text-xs font-medium text-muted-foreground">
         Organization
-      </label>
+      </Label>
       <select
         id="org-switcher"
         className="h-8 min-w-[8rem] rounded-md border bg-background px-2 text-xs shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"

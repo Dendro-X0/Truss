@@ -1,5 +1,6 @@
 import { cookies, headers } from "next/headers";
 import type { ReactElement } from "react";
+import Card from "@/modules/ui/card";
 import SignOutButton from "./_sign-out-button";
 import ProfileForm from "./_profile-form";
 import OrgSwitcher from "./_org-switcher";
@@ -8,6 +9,7 @@ import ProjectStatusSelect from "./_project-status-select";
 import BillingCard from "./_billing-card";
 import InviteForm from "./_invite-form";
 import UsageCard from "./_usage-card";
+import ActivityCard from "./_activity-card";
 import { normalizePlanName, type PlanName } from "../_plans";
 import FeedbackForm from "../_feedback-form";
 
@@ -36,30 +38,6 @@ async function fetchInvitations(cookieHeader: string | null, orgId: string): Pro
     return data.invitations;
   } catch (error) {
     console.error("Failed to fetch invitations", error);
-    return [];
-  }
-}
-
-async function fetchActivity(cookieHeader: string | null): Promise<readonly ActivityEntry[]> {
-  const baseUrl: string = getApiBaseUrl();
-  const url: string = `${baseUrl}/activity`;
-  const requestHeaders: HeadersInit = {};
-  if (cookieHeader) {
-    requestHeaders["cookie"] = cookieHeader;
-  }
-  try {
-    const response: Response = await fetch(url, {
-      method: "GET",
-      headers: requestHeaders,
-      cache: "no-store",
-    });
-    if (!response.ok) {
-      return [];
-    }
-    const data = (await response.json()) as ActivityResponse;
-    return data.activity;
-  } catch (error) {
-    console.error("Failed to fetch activity", error);
     return [];
   }
 }
@@ -103,18 +81,6 @@ interface InvitationSummary {
 
 interface InvitationsResponse {
   readonly invitations: readonly InvitationSummary[];
-}
-
-interface ActivityEntry {
-  readonly id: string;
-  readonly type: string;
-  readonly description?: string | null;
-  readonly createdAt: string;
-  readonly orgName?: string | null;
-}
-
-interface ActivityResponse {
-  readonly activity: readonly ActivityEntry[];
 }
 
 interface BillingSummary {
@@ -304,13 +270,12 @@ export default async function UserPage(): Promise<ReactElement> {
   const activeOrg: OrganizationSummary | null =
     activeOrgId ? organizations.find((org) => org.id === activeOrgId) ?? null : null;
 
-  const [whoami, profile, projects, billing, invitations, activity, members] = await Promise.all([
+  const [whoami, profile, projects, billing, invitations, members] = await Promise.all([
     fetchWhoAmI(cookieHeader),
     fetchProfile(cookieHeader),
     activeOrgId ? fetchProjects(cookieHeader, activeOrgId) : Promise.resolve<readonly ProjectSummary[]>([]),
     activeOrgId ? fetchBilling(cookieHeader, activeOrgId) : Promise.resolve<BillingSummary | null>(null),
     activeOrgId ? fetchInvitations(cookieHeader, activeOrgId) : Promise.resolve<readonly InvitationSummary[]>([]),
-    fetchActivity(cookieHeader),
     activeOrgId
       ? fetchOrgMembers(cookieHeader, activeOrgId)
       : Promise.resolve<readonly OrgMemberSummary[] | null>(null),
@@ -337,7 +302,7 @@ export default async function UserPage(): Promise<ReactElement> {
         <SignOutButton />
       </header>
 
-      <section className="rounded-lg border bg-background p-6 shadow-sm">
+      <Card className="p-6">
         <h2 className="mb-2 text-sm font-medium text-muted-foreground">Session</h2>
         <div className="space-y-1 text-sm">
           <p>
@@ -349,25 +314,25 @@ export default async function UserPage(): Promise<ReactElement> {
             {whoami.userId ?? "—"}
           </p>
         </div>
-      </section>
+      </Card>
 
       {activeOrg && (
         <UsageCard plan={planName} memberCount={memberCount} projectCount={projectCount} />
       )}
 
       {activeOrg && (
-        <section className="rounded-lg border bg-background p-6 shadow-sm">
+        <Card className="p-6">
           <BillingCard
             orgId={activeOrg.id}
             orgName={activeOrg.name}
             plan={billing?.plan ?? "free"}
             status={billing?.status ?? "active"}
           />
-        </section>
+        </Card>
       )}
 
       {profile && (
-        <section className="rounded-lg border bg-background p-6 shadow-sm">
+        <Card className="p-6">
           <h2 className="mb-4 text-sm font-medium text-muted-foreground">Profile</h2>
           <ProfileForm
             name={profile.name}
@@ -375,10 +340,10 @@ export default async function UserPage(): Promise<ReactElement> {
             username={profile.username ?? null}
             displayUsername={profile.displayUsername ?? null}
           />
-        </section>
+        </Card>
       )}
 
-      <section className="rounded-lg border bg-background p-6 shadow-sm">
+      <Card className="p-6">
         <div className="mb-4 flex items-center justify-between gap-4">
           <h2 className="text-sm font-medium text-muted-foreground">Organizations</h2>
           <OrgSwitcher
@@ -403,10 +368,10 @@ export default async function UserPage(): Promise<ReactElement> {
             ))}
           </ul>
         )}
-      </section>
+      </Card>
 
       {activeOrg && (
-        <section className="rounded-lg border bg-background p-6 shadow-sm space-y-6">
+        <Card className="p-6 space-y-6">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <h2 className="text-sm font-medium text-muted-foreground">Projects</h2>
@@ -438,11 +403,11 @@ export default async function UserPage(): Promise<ReactElement> {
               </table>
             </div>
           )}
-        </section>
+        </Card>
       )}
 
       {activeOrg && (
-        <section className="rounded-lg border bg-background p-6 shadow-sm">
+        <Card className="p-6">
           <div className="mb-4 flex items-center justify-between gap-4">
             <div>
               <h2 className="text-sm font-medium text-muted-foreground">Organization invitations</h2>
@@ -468,41 +433,18 @@ export default async function UserPage(): Promise<ReactElement> {
               )}
             </div>
           </div>
-        </section>
+        </Card>
       )}
 
-      <section className="rounded-lg border bg-background p-6 shadow-sm">
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <div>
-            <h2 className="text-sm font-medium text-muted-foreground">Recent activity</h2>
-            <p className="text-xs text-muted-foreground">Latest project + invite events logged by the API.</p>
-          </div>
-          <span className="text-xs text-muted-foreground">Showing {activity.length} entries</span>
-        </div>
-        {activity.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No activity yet. Create a project or send an invite.</p>
-        ) : (
-          <ol className="space-y-3 text-sm">
-            {activity.map((entry) => (
-              <li key={entry.id} className="rounded-md border px-3 py-2">
-                <p className="font-medium">{entry.type}</p>
-                {entry.description && <p className="text-xs text-muted-foreground">{entry.description}</p>}
-                <p className="text-xs text-muted-foreground">
-                  {entry.orgName ?? "Personal org"} · {new Date(entry.createdAt).toLocaleString()}
-                </p>
-              </li>
-            ))}
-          </ol>
-        )}
-      </section>
+      <ActivityCard />
 
-      <section className="rounded-lg border bg-background p-6 shadow-sm">
+      <Card className="p-6">
         <div className="mb-4">
           <h2 className="text-sm font-medium text-muted-foreground">Feedback</h2>
           <p className="text-xs text-muted-foreground">Send thoughts about the dashboard experience.</p>
         </div>
         <FeedbackForm context="dashboard" />
-      </section>
+      </Card>
     </main>
   );
 }

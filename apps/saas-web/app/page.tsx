@@ -1,4 +1,5 @@
 import type { ReactElement } from "react";
+import DemoBanner from "./_demo-banner";
 
 const highlights: readonly { readonly title: string; readonly body: string }[] = [
   {
@@ -26,19 +27,8 @@ const isDemo: boolean = process.env.NEXT_PUBLIC_TRUSS_DEMO_MODE === "1";
 export default function HomePage(): ReactElement {
   return (
     <main className="landing-gradient relative min-h-screen">
-      {isDemo && (
-        <div className="border-b bg-amber-50/80 text-amber-900 dark:bg-amber-950/70 dark:text-amber-50">
-          <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 py-2 text-xs sm:text-sm">
-            <p className="text-left">
-              This deployment runs Truss in demo mode. The UI is live, but auth, database, and subscriptions are disabled.
-            </p>
-            <span className="hidden whitespace-nowrap text-[0.7rem] font-medium sm:inline">
-              Clone the repo and configure environment variables to enable the full stack.
-            </span>
-          </div>
-        </div>
-      )}
       <div className="mx-auto flex max-w-4xl flex-col gap-16 px-4 py-16">
+        {isDemo && <DemoBanner />}
         <section className="space-y-8 text-center animate-fade-up">
           <p className="mx-auto inline-flex max-w-fit items-center rounded-full border px-4 py-1 text-xs font-medium text-muted-foreground">
             Multi-tenant SaaS starter · UI-first demo

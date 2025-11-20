@@ -5,6 +5,9 @@ import { useActionState, useMemo, useState } from "react";
 import type { LoginFormState } from "../../../actions/login";
 import { loginAction } from "../../../actions/login";
 import authClient from "../../../lib/auth/client";
+import Button from "@/modules/ui/button";
+import Input from "@/modules/ui/input";
+import Label from "@/modules/ui/label";
 
 export default function LoginForm(): ReactElement {
   const [state, formAction] = useActionState<LoginFormState, FormData>(loginAction, null);
@@ -42,8 +45,10 @@ export default function LoginForm(): ReactElement {
   return (
     <form action={formAction} onSubmit={onSubmit} className="space-y-4">
       <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium">Email or username</label>
-        <input
+        <Label htmlFor="email">
+          Email or username
+        </Label>
+        <Input
           id="email"
           name="email"
           type="text"
@@ -51,18 +56,20 @@ export default function LoginForm(): ReactElement {
           required
           value={identifier}
           onChange={(event) => setIdentifier(event.target.value)}
-          className="flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          size="lg"
         />
       </div>
       <div className="space-y-2">
-        <label htmlFor="password" className="text-sm font-medium">Password</label>
-        <input
+        <Label htmlFor="password">
+          Password
+        </Label>
+        <Input
           id="password"
           name="password"
           type="password"
           autoComplete="current-password"
           required
-          className="flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          size="lg"
         />
       </div>
       {state?.error?.message && (
@@ -76,27 +83,26 @@ export default function LoginForm(): ReactElement {
       )}
       {isEmail && (
         <div className="space-y-2">
-          <button
+          <Button
             type="button"
+            variant="outline"
+            size="sm"
+            disabled={sending}
+            className="w-full text-xs md:w-auto"
             onClick={() => {
               void resendVerification();
             }}
-            disabled={sending}
-            className="inline-flex h-9 items-center justify-center rounded-md border px-3 text-xs font-medium shadow-sm hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-60"
           >
             Resend verification email
-          </button>
+          </Button>
           {resendMessage && (
             <p className="text-xs text-muted-foreground">{resendMessage}</p>
           )}
         </div>
       )}
-      <button
-        type="submit"
-        className="inline-flex h-10 w-full items-center justify-center rounded-md border border-primary bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      >
+      <Button type="submit" size="lg" className="w-full">
         Sign in
-      </button>
+      </Button>
     </form>
   );
 }

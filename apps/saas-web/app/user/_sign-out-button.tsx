@@ -3,6 +3,7 @@
 import type { ReactElement, MouseEvent } from "react";
 import { useTransition } from "react";
 import { signOutAction } from "../../actions/sign-out";
+import Button from "@/modules/ui/button";
 
 export default function SignOutButton(): ReactElement {
   const [pending, startTransition] = useTransition();
@@ -15,13 +16,15 @@ export default function SignOutButton(): ReactElement {
   }
 
   return (
-    <button
+    <Button
       type="button"
       onClick={handleClick}
       disabled={pending}
-      className="inline-flex h-9 items-center justify-center rounded-md border px-3 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground disabled:opacity-60"
+      variant="outline"
+      size="sm"
+      className="h-9 hover:bg-accent hover:text-accent-foreground"
     >
       {pending ? "Signing out..." : "Sign out"}
-    </button>
+    </Button>
   );
 }

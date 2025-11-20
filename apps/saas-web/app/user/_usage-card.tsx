@@ -1,5 +1,7 @@
 import type { ReactElement } from "react";
 import { PLAN_LIMITS, type PlanName } from "../_plans";
+import Badge from "@/modules/ui/badge";
+import Card from "@/modules/ui/card";
 
 export interface UsageCardProps {
   readonly plan: PlanName;
@@ -29,13 +31,15 @@ export default function UsageCard({ plan, memberCount, projectCount }: UsageCard
   const projectsLabel: string = formatUsageLabel(projectCount, maxProjects);
 
   return (
-    <section className="rounded-lg border bg-background p-6 shadow-sm">
+    <Card className="p-6">
       <div className="mb-4 flex items-center justify-between gap-4">
         <div>
           <h2 className="text-sm font-medium text-muted-foreground">Usage</h2>
           <p className="text-xs text-muted-foreground">Track how this organization is using its current plan.</p>
         </div>
-        <span className="rounded-full border px-2 py-0.5 text-xs capitalize text-muted-foreground">{plan}</span>
+        <Badge variant="neutral" className="border border-border text-xs capitalize">
+          {plan}
+        </Badge>
       </div>
       <dl className="grid gap-4 text-sm md:grid-cols-2">
         <div className="space-y-1">
@@ -47,6 +51,6 @@ export default function UsageCard({ plan, memberCount, projectCount }: UsageCard
           <dd className="text-base font-medium">{projectsLabel}</dd>
         </div>
       </dl>
-    </section>
+    </Card>
   );
 }

@@ -24,8 +24,8 @@ Create a `.env` file based on `.env.example` and set at least:
 - `BETTER_AUTH_SECRET` – secret for Better Auth
 - `NEXT_PUBLIC_API_URL` – base URL for the Hono API (e.g. `http://localhost:8787`)
 - `AUTH_SESSION_URL` – URL of the Next.js session endpoint (e.g. `http://localhost:3000/api/auth/get-session`)
-  
-- `NEXT_PUBLIC_TRUSS_DEMO_MODE` – optional flag; when set to `"1"`, shows a demo banner on the landing page.
+
+- `NEXT_PUBLIC_TRUSS_DEMO_MODE` – optional flag; when set to `"1"`, shows a small, dismissible demo banner on the landing page.
 
 Additional variables (Stripe keys, social providers, app URL, etc.) can be configured later as you integrate real billing and OAuth.
 

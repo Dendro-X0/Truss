@@ -3,6 +3,8 @@
 import type { ReactElement, FormEvent } from "react";
 import { useState } from "react";
 import authClient from "../../../lib/auth/client";
+import Button from "@/modules/ui/button";
+import Input from "@/modules/ui/input";
 
 export default function MagicLinkForm(): ReactElement | null {
   const [email, setEmail] = useState<string>("");
@@ -47,21 +49,24 @@ export default function MagicLinkForm(): ReactElement | null {
       <div className="space-y-1">
         <label htmlFor="magic-link-email" className="text-xs font-medium text-muted-foreground">Or use a magic link</label>
         <div className="flex gap-2">
-          <input
+          <Input
             id="magic-link-email"
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="flex h-9 w-full rounded-md border px-3 text-xs shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            size="sm"
+            className="text-xs"
             placeholder="name@example.com"
           />
-          <button
+          <Button
             type="submit"
+            variant="outline"
+            size="sm"
             disabled={submitting}
-            className="inline-flex h-9 items-center justify-center rounded-md bg-muted px-3 text-xs font-medium text-foreground shadow-sm hover:bg-muted/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="bg-muted text-xs text-foreground hover:bg-muted/80"
           >
             Send link
-          </button>
+          </Button>
         </div>
       </div>
       {message && <p className="text-[11px] text-muted-foreground">{message}</p>}

@@ -5,6 +5,9 @@ import { useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import type { CreateOrgInviteState } from "../../actions/create-org-invite";
 import { createOrgInviteAction } from "../../actions/create-org-invite";
+import Button from "@/modules/ui/button";
+import Input from "@/modules/ui/input";
+import Label from "@/modules/ui/label";
 
 export interface InviteFormProps {
   readonly orgId: string;
@@ -30,18 +33,23 @@ export default function InviteForm({ orgId }: InviteFormProps): ReactElement {
     <form action={formAction} onSubmit={onSubmit} className="space-y-3 text-sm">
       <input type="hidden" name="orgId" value={orgId} />
       <div className="space-y-1">
-        <label htmlFor="invite-email" className="text-xs font-medium text-muted-foreground">Invite email</label>
-        <input
+        <Label htmlFor="invite-email" className="text-xs font-medium text-muted-foreground">
+          Invite email
+        </Label>
+        <Input
           id="invite-email"
           name="email"
           type="email"
           required
-          className="flex h-9 w-full rounded-md border px-3 text-xs shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          size="sm"
+          className="text-xs"
           placeholder="teammate@example.com"
         />
       </div>
       <div className="space-y-1">
-        <label htmlFor="invite-role" className="text-xs font-medium text-muted-foreground">Role</label>
+        <Label htmlFor="invite-role" className="text-xs font-medium text-muted-foreground">
+          Role
+        </Label>
         <select
           id="invite-role"
           name="role"
@@ -54,12 +62,9 @@ export default function InviteForm({ orgId }: InviteFormProps): ReactElement {
         </select>
       </div>
       {state?.error && <p className="text-xs text-destructive">{state.error}</p>}
-      <button
-        type="submit"
-        className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-xs font-medium text-primary-foreground shadow-sm hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      >
+      <Button type="submit" size="sm" className="px-4 text-xs">
         Send invite
-      </button>
+      </Button>
     </form>
   );
 }
