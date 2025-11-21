@@ -43,7 +43,7 @@ export default function OrgSwitcher({ organizations, activeOrgId }: OrgSwitcherP
       </Label>
       <select
         id="org-switcher"
-        className="h-8 min-w-[8rem] rounded-md border bg-background px-2 text-xs shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="h-8 min-w-32 rounded-md border bg-background px-2 text-xs shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         value={activeOrgId ?? organizations[0]?.id}
         onChange={onChange}
         disabled={pending}
