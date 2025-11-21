@@ -62,3 +62,7 @@ Truss ships with a small, Tailwind-based component library used across the auth 
 These primitives are intentionally minimal so you can replace or extend them with your own design system.
 
 Client-side widgets such as the recent activity feed on `/user` use TanStack Query (`@tanstack/react-query`), wired through a shared `QueryClientProvider` in the Next.js App Router.
+
+## License
+
+MIT — see `LICENSE`.
