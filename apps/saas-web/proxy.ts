@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { isAuthGuardEnabled } from "@/saas-lib/auth-guard";
 
 interface BasicSession {
   readonly user?: { readonly id?: string };
@@ -43,7 +44,7 @@ export default async function proxy(request: NextRequest): Promise<NextResponse>
   }
 
   const protectedPrefixes: readonly string[] = ["/user"];
-  const isProtectionEnabled: boolean = false;
+  const isProtectionEnabled: boolean = isAuthGuardEnabled();
   const isProtected: boolean = isProtectionEnabled && protectedPrefixes.some((prefix) => pathname.startsWith(prefix));
   const isAuthPath: boolean = pathname.startsWith("/auth");
 
@@ -51,6 +52,7 @@ export default async function proxy(request: NextRequest): Promise<NextResponse>
     const session: BasicSession | null = await fetchSession(request);
     if (!session) {
       const url: URL = new URL("/auth/login", request.url);
+      url.searchParams.set("next", pathname);
       const response: NextResponse = NextResponse.redirect(url);
       response.headers.set("Server-Timing", serverTimingHeader(start));
       return response;
@@ -60,7 +62,9 @@ export default async function proxy(request: NextRequest): Promise<NextResponse>
   if (isAuthPath) {
     const session: BasicSession | null = await fetchSession(request);
     if (session) {
-      const url: URL = new URL("/user", request.url);
+      const nextPath: string = request.nextUrl.searchParams.get("next") ?? "/user";
+      const safeNext: string = nextPath.startsWith("/") && !nextPath.startsWith("//") ? nextPath : "/user";
+      const url: URL = new URL(safeNext, request.url);
       const response: NextResponse = NextResponse.redirect(url);
       response.headers.set("Server-Timing", serverTimingHeader(start));
       return response;

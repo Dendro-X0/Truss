@@ -1,0 +1,581 @@
+{
+  "configPath": "G:\\Web Development Project\\Codebase-X0\\velocity-stack-workspace\\truss\\apex.config.json",
+  "results": [
+    {
+      "url": "http://localhost:3000/",
+      "path": "/",
+      "label": "home",
+      "device": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 2210.5422000000003,
+        "fcpMs": 755.5422000000001,
+        "tbtMs": 55,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "estimatedSavingsMs": 300,
+          "estimatedSavingsBytes": 40978
+        },
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/",
+      "path": "/",
+      "label": "home",
+      "device": "desktop",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 2214.8602,
+        "fcpMs": 757.8602000000001,
+        "tbtMs": 57,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "estimatedSavingsMs": 300,
+          "estimatedSavingsBytes": 40978
+        },
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/user",
+      "path": "/user",
+      "label": "user",
+      "device": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1362.8139,
+        "fcpMs": 770.5426,
+        "tbtMs": 54,
+        "cls": 0.012341976357497718
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/user",
+      "path": "/user",
+      "label": "user",
+      "device": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 96,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1366.11285,
+        "fcpMs": 769.7419,
+        "tbtMs": 54,
+        "cls": 0.012341976357497718
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/pricing",
+      "path": "/pricing",
+      "label": "pricing",
+      "device": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1356.6397,
+        "fcpMs": 756.6397,
+        "tbtMs": 56,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/pricing",
+      "path": "/pricing",
+      "label": "pricing",
+      "device": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1357.494,
+        "fcpMs": 757.4939999999999,
+        "tbtMs": 56,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/auth/signup",
+      "path": "/auth/signup",
+      "label": "signup",
+      "device": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1511.1333,
+        "fcpMs": 757.4222,
+        "tbtMs": 55,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/auth/signup",
+      "path": "/auth/signup",
+      "label": "signup",
+      "device": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1513.2418499999999,
+        "fcpMs": 758.8279,
+        "tbtMs": 57,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/auth/reset-password",
+      "path": "/auth/reset-password",
+      "label": "reset-password",
+      "device": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1361.7697500000002,
+        "fcpMs": 757.8465000000001,
+        "tbtMs": 54,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/auth/reset-password",
+      "path": "/auth/reset-password",
+      "label": "reset-password",
+      "device": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1363.26,
+        "fcpMs": 758.8399999999999,
+        "tbtMs": 53,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/auth/login",
+      "path": "/auth/login",
+      "label": "login",
+      "device": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1510.8811500000002,
+        "fcpMs": 757.2541000000001,
+        "tbtMs": 55,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/auth/login",
+      "path": "/auth/login",
+      "label": "login",
+      "device": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1510.4041499999998,
+        "fcpMs": 756.9360999999999,
+        "tbtMs": 55,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/auth/forgot-password",
+      "path": "/auth/forgot-password",
+      "label": "forgot-password",
+      "device": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1361.33805,
+        "fcpMs": 757.5587,
+        "tbtMs": 65,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/auth/forgot-password",
+      "path": "/auth/forgot-password",
+      "label": "forgot-password",
+      "device": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1360.9553999999998,
+        "fcpMs": 757.3036,
+        "tbtMs": 52,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/auth/accept-invite",
+      "path": "/auth/accept-invite",
+      "label": "accept-invite",
+      "device": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 1359.8537999999999,
+        "fcpMs": 756.5691999999999,
+        "tbtMs": 55,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "unminified-css",
+          "title": "Minify CSS",
+          "estimatedSavingsMs": 0,
+          "estimatedSavingsBytes": 0
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:3000/auth/accept-invite",
+      "path": "/auth/accept-invite",
+      "label": "accept-invite",
+      "device": "desktop",
+      "scores": {
+        "performance": 99,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "lcpMs": 2211.4988000000003,
+        "fcpMs": 757.4988000000001,
+        "tbtMs": 54,
+        "cls": 0
+      },
+      "opportunities": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "estimatedSavingsMs": 300,
+          "estimatedSavingsBytes": 40478
+        },
+        {
+          "id": "server-response-time",
+          "title": "Initial server response time was short",
+          "estimatedSavingsMs": 0
+        },
+        {
+          "id": "redirects",
+          "title": "Avoid multiple page redirects",
+          "estimatedSavingsMs": 0
+        }
+      ]
+    }
+  ]
+}

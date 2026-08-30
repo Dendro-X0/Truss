@@ -1,0 +1,20 @@
+{
+  "name": "@saas-starter-open/rbac",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/org-role-helpers.ts",
+  "types": "src/org-role-helpers.ts",
+  "sideEffects": false,
+  "exports": {
+    "./org-role-types": {
+      "types": "./src/org-role-types.ts",
+      "default": "./src/org-role-types.ts"
+    },
+    "./org-role-helpers": {
+      "types": "./src/org-role-helpers.ts",
+      "default": "./src/org-role-helpers.ts"
+    }
+  },
+  "dependencies": {}
+}

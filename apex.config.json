@@ -1,0 +1,70 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "runs": 1,
+  "pages": [
+    {
+      "path": "/",
+      "label": "home",
+      "devices": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "path": "/user",
+      "label": "user",
+      "devices": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "path": "/pricing",
+      "label": "pricing",
+      "devices": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "path": "/auth/signup",
+      "label": "signup",
+      "devices": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "path": "/auth/reset-password",
+      "label": "reset-password",
+      "devices": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "path": "/auth/login",
+      "label": "login",
+      "devices": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "path": "/auth/forgot-password",
+      "label": "forgot-password",
+      "devices": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    {
+      "path": "/auth/accept-invite",
+      "label": "accept-invite",
+      "devices": [
+        "mobile",
+        "desktop"
+      ]
+    }
+  ]
+}

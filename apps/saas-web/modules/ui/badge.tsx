@@ -1,9 +1,10 @@
 import type { HTMLAttributes, ReactElement } from "react";
+import { Badge as ShadcnBadge } from "@/components/ui/badge";
 import cn from "./utils";
 
 type BadgeVariant = "neutral" | "success" | "warning";
 
-interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
+interface BadgeProps extends HTMLAttributes<HTMLDivElement> {
   readonly variant?: BadgeVariant;
 }
 
@@ -22,10 +23,6 @@ function getBadgeClasses(variant: BadgeVariant): string {
  */
 export default function Badge({ variant = "neutral", className, ...props }: BadgeProps): ReactElement {
   const variantClasses: string = getBadgeClasses(variant);
-  const mergedClassName: string = cn(
-    "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
-    variantClasses,
-    className,
-  );
-  return <span className={mergedClassName} {...props} />;
+  const mergedClassName: string = cn(variantClasses, className);
+  return <ShadcnBadge className={mergedClassName} {...props} />;
 }

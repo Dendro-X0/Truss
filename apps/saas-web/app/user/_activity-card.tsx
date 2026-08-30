@@ -53,7 +53,7 @@ export default function ActivityCard(): ReactElement {
   const isLoading: boolean = queryResult.isLoading;
   const showLoadingMessage: boolean = isLoading && activity.length === 0;
   return (
-    <Card className="p-6">
+    <Card className="surface-card rounded-2xl p-6 shadow-sm">
       <div className="mb-4 flex items-center justify-between gap-4">
         <div>
           <h2 className="text-sm font-medium text-muted-foreground">Recent activity</h2>

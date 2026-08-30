@@ -16,7 +16,9 @@
       "@saas-starter-open/db": ["packages/db/src/index.ts"],
       "@saas-starter-open/db/*": ["packages/db/src/*"],
       "@saas-starter-open/auth": ["packages/auth/src/index.ts"],
-      "@saas-starter-open/auth/*": ["packages/auth/src/*"]
+      "@saas-starter-open/auth/*": ["packages/auth/src/*"],
+      "@saas-starter-open/email/*": ["packages/email/src/*"],
+      "@saas-starter-open/rbac/*": ["packages/rbac/src/*"]
     }
   },
   "include": [

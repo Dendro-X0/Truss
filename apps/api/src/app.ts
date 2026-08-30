@@ -4,32 +4,16 @@ import type { Hono } from "hono";
 import { Hono as HonoApp } from "hono";
 import getDb, { schema } from "@saas-starter-open/db";
 import type { Db } from "@saas-starter-open/db";
-
-type OrgRole = "owner" | "admin" | "member";
+import buildOrgInviteEmail from "@saas-starter-open/email/org-invite-template";
+import sendEmail from "@saas-starter-open/email/send-email";
+import type { OrgRole } from "@saas-starter-open/rbac/org-role-types";
+import OrgRoleHelpers from "@saas-starter-open/rbac/org-role-helpers";
 
 export interface AuthInfo {
   readonly authenticated: boolean;
   readonly userId?: string;
   readonly apiTokenId?: string;
   readonly apiTokenOrgId?: string | null;
-}
-
-function normalizeOrgRole(role: string | undefined): OrgRole {
-  const value: string = (role ?? ORG_ROLE_MEMBER).toLowerCase();
-  if (value === ORG_ROLE_OWNER || value === ORG_ROLE_ADMIN || value === ORG_ROLE_MEMBER) {
-    return value;
-  }
-  return ORG_ROLE_MEMBER;
-}
-
-function isOwnerRole(role: string | undefined): boolean {
-  const normalized: OrgRole = normalizeOrgRole(role);
-  return normalized === ORG_ROLE_OWNER;
-}
-
-function isManagerRole(role: string | undefined): boolean {
-  const normalized: OrgRole = normalizeOrgRole(role);
-  return normalized === ORG_ROLE_OWNER || normalized === ORG_ROLE_ADMIN;
 }
 
 export interface UserProfile {
@@ -315,6 +299,14 @@ function getAuthSessionUrl(): string | undefined {
   return url;
 }
 
+function getAppBaseUrl(): string {
+  const url: string | undefined = process.env.NEXT_PUBLIC_APP_URL;
+  if (url && url.trim()) {
+    return url.trim();
+  }
+  return "http://localhost:3000";
+}
+
 async function fetchAuthFromSession(headers: Headers): Promise<AuthInfo | undefined> {
   const sessionUrl: string | undefined = getAuthSessionUrl();
   if (!sessionUrl) {
@@ -580,7 +572,7 @@ export function createApp(): AppInstance {
     }
     const orgId: string = context.req.param("orgId");
     const membership = await getOrgMembership(userId, orgId);
-    if (!membership || !isManagerRole(membership.role)) {
+    if (!membership || !OrgRoleHelpers.isManager(membership.role)) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
     const rows = await db
@@ -610,7 +602,7 @@ export function createApp(): AppInstance {
     }
     const orgId: string = context.req.param("orgId");
     const membership = await getOrgMembership(userId, orgId);
-    if (!membership || !isManagerRole(membership.role)) {
+    if (!membership || !OrgRoleHelpers.isManager(membership.role)) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
 
@@ -643,7 +635,7 @@ export function createApp(): AppInstance {
       }
     }
     const requestedRole: string = (body.role ?? "").trim().toLowerCase();
-    const normalizedRole: OrgRole = normalizeOrgRole(requestedRole);
+    const normalizedRole: OrgRole = OrgRoleHelpers.normalize(requestedRole);
     if (normalizedRole === ORG_ROLE_OWNER) {
       return context.json({ error: "Owner role cannot be granted via invitation" } as const, 400);
     }
@@ -671,6 +663,19 @@ export function createApp(): AppInstance {
     });
 
     const invitation = toInvitationSummary({ id, orgId, email, role, token, expiresAt, acceptedAt: null });
+    const appBaseUrl: string = getAppBaseUrl();
+    const inviteUrl: string = `${appBaseUrl}/auth/accept-invite?token=${encodeURIComponent(token)}`;
+    const content = buildOrgInviteEmail({
+      email,
+      inviteUrl,
+      orgName: orgId,
+    });
+    await sendEmail({
+      to: email,
+      subject: content.subject,
+      text: content.text,
+      html: content.html,
+    });
     return context.json({ invitation }, 201);
   });
 
@@ -683,7 +688,7 @@ export function createApp(): AppInstance {
     const orgId: string = context.req.param("orgId");
     const invitationId: string = context.req.param("invitationId");
     const membership: OrgMembership | null = await getOrgMembership(userId, orgId);
-    if (!membership || !isManagerRole(membership.role)) {
+    if (!membership || !OrgRoleHelpers.isManager(membership.role)) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
     const rows = await db
@@ -809,7 +814,7 @@ export function createApp(): AppInstance {
     }
     const orgId: string = context.req.param("orgId");
     const membership: OrgMembership | null = await getOrgMembership(userId, orgId);
-    if (!membership || !isManagerRole(membership.role)) {
+    if (!membership || !OrgRoleHelpers.isManager(membership.role)) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
     const rows = await db
@@ -844,7 +849,7 @@ export function createApp(): AppInstance {
     const orgId: string = context.req.param("orgId");
     const memberId: string = context.req.param("memberId");
     const membership: OrgMembership | null = await getOrgMembership(userId, orgId);
-    if (!membership || !isOwnerRole(membership.role)) {
+    if (!membership || !OrgRoleHelpers.isOwner(membership.role)) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
 
@@ -863,7 +868,7 @@ export function createApp(): AppInstance {
     if (!rawRole) {
       return context.json({ error: "Role is required" } as const, 400);
     }
-    const newRole: OrgRole = normalizeOrgRole(rawRole);
+    const newRole: OrgRole = OrgRoleHelpers.normalize(rawRole);
 
     const rows = await db
       .select({
@@ -884,7 +889,7 @@ export function createApp(): AppInstance {
       return context.json({ error: "Member not found" } as const, 404);
     }
 
-    const targetRole: OrgRole = normalizeOrgRole(target.role);
+    const targetRole: OrgRole = OrgRoleHelpers.normalize(target.role);
     if (targetRole === ORG_ROLE_OWNER && newRole !== ORG_ROLE_OWNER) {
       const ownerRows = await db
         .select({ id: schema.organizationMember.id })
@@ -925,7 +930,7 @@ export function createApp(): AppInstance {
     const orgId: string = context.req.param("orgId");
     const memberId: string = context.req.param("memberId");
     const membership: OrgMembership | null = await getOrgMembership(userId, orgId);
-    if (!membership || !isManagerRole(membership.role)) {
+    if (!membership || !OrgRoleHelpers.isManager(membership.role)) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
 
@@ -948,8 +953,8 @@ export function createApp(): AppInstance {
       return context.json({ error: "Member not found" } as const, 404);
     }
 
-    const targetRole: OrgRole = normalizeOrgRole(target.role);
-    const callerRole: OrgRole = normalizeOrgRole(membership.role);
+    const targetRole: OrgRole = OrgRoleHelpers.normalize(target.role);
+    const callerRole: OrgRole = OrgRoleHelpers.normalize(membership.role);
     if (targetRole === ORG_ROLE_OWNER) {
       if (callerRole !== ORG_ROLE_OWNER) {
         return context.json({ error: "Only an owner can remove another owner" } as const, 403);
@@ -1143,7 +1148,7 @@ export function createApp(): AppInstance {
     }
     const orgId: string = context.req.param("orgId");
     const membership: OrgMembership | null = await getOrgMembership(userId, orgId);
-    if (!membership || !isManagerRole(membership.role)) {
+    if (!membership || !OrgRoleHelpers.isManager(membership.role)) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
 
@@ -1170,7 +1175,7 @@ export function createApp(): AppInstance {
     }
     const orgId: string = context.req.param("orgId");
     const membership: OrgMembership | null = await getOrgMembership(userId, orgId);
-    if (!membership || !isManagerRole(membership.role)) {
+    if (!membership || !OrgRoleHelpers.isManager(membership.role)) {
       return context.json({ error: "Forbidden" } as const, 403);
     }
     const portalUrl: string = "#billing-portal-not-configured";

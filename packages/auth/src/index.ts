@@ -2,6 +2,8 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { magicLink, twoFactor, username } from "better-auth/plugins";
 import type { DatabaseSchema, Db } from "@saas-starter-open/db";
+import buildMagicLinkEmail from "@saas-starter-open/email/magic-link-template";
+import sendEmail from "@saas-starter-open/email/send-email";
 
 interface MagicLinkParams {
   readonly email: string;
@@ -85,6 +87,13 @@ export default function createAuthServer(params: CreateAuthServerParams): AuthIn
         async sendMagicLink(params: MagicLinkParams): Promise<void> {
           const email: string = params.email;
           const url: string = params.url;
+          const content = buildMagicLinkEmail({ email, url });
+          await sendEmail({
+            to: email,
+            subject: content.subject,
+            text: content.text,
+            html: content.html,
+          });
           // eslint-disable-next-line no-console
           console.log("Magic link", { email, url });
         },

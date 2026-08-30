@@ -1,0 +1,116 @@
+{
+  "schema": "studio.maintenance.intake@1.0.0",
+  "orientation": {
+    "source": "built",
+    "schema": "studio.orientation.pack@1.0.0",
+    "subjectKind": "generic",
+    "subjectMatched": false,
+    "hubCount": 4,
+    "landmineCount": 0,
+    "coldSubject": true,
+    "dualOwnerCount": 0,
+    "packageShape": "monorepo-workspace"
+  },
+  "surfaces": {
+    "source": "none",
+    "present": false,
+    "totalItems": 0,
+    "buckets": [],
+    "notes": [
+      "No `.codactrl/perf/**/fix-queue.json` — surfaces unknown"
+    ]
+  },
+  "runtimeProof": {
+    "status": "none",
+    "confirmEvidenceCount": 0,
+    "hasRouteProbeArtifact": false,
+    "sources": [],
+    "notes": [
+      "No ARP confirm-plan / route-probe artifacts"
+    ]
+  },
+  "issues": {
+    "source": "none",
+    "present": false,
+    "rowCount": 0,
+    "packLinkCount": 0,
+    "topTitles": [],
+    "notes": [
+      "No `.codectx/verify/issue-precision-latest.json` — issues unknown"
+    ]
+  },
+  "verdict": {
+    "kind": "unknown",
+    "rationale": "Cold subject with no surface/issue hubs — explore before verdict"
+  },
+  "verdictRules": [
+    "Orientation OK + finite trackable surfaces/issues → remediate",
+    "Many structural yellows + missing runtime proof ≠ rewrite_candidate",
+    "rewrite_candidate only with matched landmines + high dual-owner + dense surface queue (hint; RWR owns standards)",
+    "Missing hubs / cold never-explored → unknown (not green)",
+    "Intake never claims product fixed or live prove"
+  ],
+  "refresh": {
+    "orientation": false,
+    "surfaces": false
+  },
+  "pathway": {
+    "id": "pathways.maintenanceRamp",
+    "title": "Maintenance ramp intake (MRI)",
+    "steps": [
+      "studio_help → maintenanceIntake / pathways.maintenanceRamp",
+      "studio_repo { action: \"studio_maintenance_intake\" }",
+      "Follow nextMcpSequence (explore / OH / ARP / issues / ladder as needed)",
+      "Do not invent a parallel multi-desk tour"
+    ]
+  },
+  "nextMcpSequence": [
+    {
+      "order": 1,
+      "tool": "studio_repo { action: \"studio_maintenance_intake\" }",
+      "purpose": "Already done — maintenance ramp intake (this result)"
+    },
+    {
+      "order": 2,
+      "tool": "studio_repo { action: \"repo_explore_run\" }",
+      "purpose": "Warm explore cache before deep hop/tree",
+      "when": "coldSubject"
+    },
+    {
+      "order": 3,
+      "tool": "studio_perf { action: \"perf_explore_run\" }",
+      "purpose": "Structural surface audit (OH) when fix-queue missing",
+      "when": "surfaces.present=false"
+    },
+    {
+      "order": 4,
+      "tool": "studio_verify { action: \"issue_precision_evaluate\" }",
+      "purpose": "Issue precision after export-manifest / agent-handoff exist",
+      "when": "issues.present=false"
+    }
+  ],
+  "openQuestions": [
+    "Which hub is the surgical entry for the current task (not the whole monorepo)?",
+    "Is explore cache warm enough for hop/trail, or is repo_explore_run required first?",
+    "No Perf fix-queue hub yet — run perf_explore_run when surface audit is needed",
+    "No issue-precision hub — run issue_precision_evaluate after issue-report export when tracking"
+  ],
+  "doesNotProve": [
+    "Orientation pack ≠ architecture complete or product fixed",
+    "Soft neural hubs ≠ authoritative map.neural.summary",
+    "Landmine tags ≠ reproduced fault on this checkout",
+    "Suggested MCP order ≠ executed prove / stress",
+    "MRI intake is not live CDP / client prove",
+    "MRI intake is not production APM or latency proof",
+    "rewrite_candidate is a hint only — RWR owns Design rewrite/refactor standards",
+    "Empty or missing hubs must not be read as green / fixed",
+    "Structural yellow counts alone do not imply rewrite — prefer remediate + ARP"
+  ],
+  "notes": [
+    "MRI1/MRI2 maintenance intake: hub-first compose — prefer this over inventing a multi-desk tour",
+    "Did not run perf_explore_run or live CDP inside intake",
+    "No `.codactrl/perf/**/fix-queue.json` — surfaces unknown",
+    "No `.codectx/verify/issue-precision-latest.json` — issues unknown",
+    "No ARP confirm-plan / route-probe artifacts"
+  ]
+}

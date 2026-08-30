@@ -1,450 +1,173 @@
-import { cookies, headers } from "next/headers";
-import type { ReactElement } from "react";
-import Card from "@/modules/ui/card";
-import SignOutButton from "./_sign-out-button";
-import ProfileForm from "./_profile-form";
-import OrgSwitcher from "./_org-switcher";
-import CreateProjectForm from "./_create-project-form";
-import ProjectStatusSelect from "./_project-status-select";
-import BillingCard from "./_billing-card";
-import InviteForm from "./_invite-form";
-import UsageCard from "./_usage-card";
+import type { JSX } from "react";
+import Link from "next/link";
+import type { PlanDefinition } from "../_plans";
+import { PLANS } from "../_plans";
+import type { OrganizationSummary, ProjectSummary } from "./dashboard-data";
+import { getDashboardContext } from "./dashboard-context";
 import ActivityCard from "./_activity-card";
-import { normalizePlanName, type PlanName } from "../_plans";
-import FeedbackForm from "../_feedback-form";
+import BillingCard from "./_billing-card";
+import CreateProjectForm from "./_create-project-form";
+import DevModeBanner from "./_dev-mode-banner";
+import InviteForm from "./_invite-form";
+import OrgSwitcher from "./_org-switcher";
+import ProfileForm from "./_profile-form";
+import ProjectStatusSelect from "./_project-status-select";
+import SignOutButton from "./_sign-out-button";
+import UsageCard from "./_usage-card";
+import Badge from "@/modules/ui/badge";
+import Card from "@/modules/ui/card";
 
-interface WhoAmIResponse {
-  readonly authenticated: boolean;
-  readonly userId?: string;
-}
-
-async function fetchInvitations(cookieHeader: string | null, orgId: string): Promise<readonly InvitationSummary[]> {
-  const baseUrl: string = getApiBaseUrl();
-  const url: string = `${baseUrl}/orgs/${encodeURIComponent(orgId)}/invitations`;
-  const requestHeaders: HeadersInit = {};
-  if (cookieHeader) {
-    requestHeaders["cookie"] = cookieHeader;
-  }
-  try {
-    const response: Response = await fetch(url, {
-      method: "GET",
-      headers: requestHeaders,
-      cache: "no-store",
-    });
-    if (!response.ok) {
-      return [];
-    }
-    const data = (await response.json()) as InvitationsResponse;
-    return data.invitations;
-  } catch (error) {
-    console.error("Failed to fetch invitations", error);
-    return [];
-  }
-}
-
-interface UserProfileResponse {
-  readonly id: string;
-  readonly email: string;
-  readonly name: string;
-  readonly username?: string | null;
-  readonly displayUsername?: string | null;
-}
-
-interface OrganizationSummary {
-  readonly id: string;
-  readonly name: string;
-  readonly slug: string;
-  readonly role: string;
-}
-
-interface OrgsResponse {
-  readonly organizations: readonly OrganizationSummary[];
-}
-
-interface ProjectSummary {
-  readonly id: string;
-  readonly name: string;
-  readonly status: string;
-}
-
-interface ProjectsResponse {
-  readonly projects: readonly ProjectSummary[];
-}
-
-interface InvitationSummary {
-  readonly id: string;
-  readonly email: string;
-  readonly role: string;
-  readonly status: string;
-  readonly expiresAt: string;
-}
-
-interface InvitationsResponse {
-  readonly invitations: readonly InvitationSummary[];
-}
-
-interface BillingSummary {
-  readonly plan: string;
-  readonly status: string;
-}
-
-interface BillingResponse {
-  readonly billing: BillingSummary;
-}
-
-interface OrgMemberSummary {
-  readonly id: string;
-  readonly userId: string;
-  readonly role: string;
-  readonly createdAt: string;
-  readonly userName?: string | null;
-  readonly userEmail: string;
-}
-
-interface MembersResponse {
-  readonly members: readonly OrgMemberSummary[];
-}
-
-function getApiBaseUrl(): string {
-  const baseUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
-  return baseUrl ?? "http://localhost:8787";
-}
-
-async function fetchWhoAmI(cookieHeader: string | null): Promise<WhoAmIResponse> {
-  const baseUrl: string = getApiBaseUrl();
-  const url: string = `${baseUrl}/auth/whoami`;
-  const requestHeaders: HeadersInit = {};
-  if (cookieHeader) {
-    requestHeaders["cookie"] = cookieHeader;
-  }
-  try {
-    const response: Response = await fetch(url, {
-      method: "GET",
-      headers: requestHeaders,
-      cache: "no-store",
-    });
-    if (!response.ok) {
-      return { authenticated: false };
-    }
-    const data = (await response.json()) as WhoAmIResponse;
-    return data;
-  } catch (error) {
-    console.error("Failed to fetch whoami", error);
-    return { authenticated: false };
-  }
-}
-
-async function fetchProfile(cookieHeader: string | null): Promise<UserProfileResponse | null> {
-  const baseUrl: string = getApiBaseUrl();
-  const url: string = `${baseUrl}/user/profile`;
-  const requestHeaders: HeadersInit = {};
-  if (cookieHeader) {
-    requestHeaders["cookie"] = cookieHeader;
-  }
-  try {
-    const response: Response = await fetch(url, {
-      method: "GET",
-      headers: requestHeaders,
-      cache: "no-store",
-    });
-    if (!response.ok) {
-      return null;
-    }
-    const data = (await response.json()) as UserProfileResponse;
-    return data;
-  } catch (error) {
-    console.error("Failed to fetch profile", error);
-    return null;
-  }
-}
-
-async function fetchOrganizations(cookieHeader: string | null): Promise<readonly OrganizationSummary[]> {
-  const baseUrl: string = getApiBaseUrl();
-  const url: string = `${baseUrl}/orgs`;
-  const requestHeaders: HeadersInit = {};
-  if (cookieHeader) {
-    requestHeaders["cookie"] = cookieHeader;
-  }
-  try {
-    const response: Response = await fetch(url, {
-      method: "GET",
-      headers: requestHeaders,
-      cache: "no-store",
-    });
-    if (!response.ok) {
-      return [];
-    }
-    const data = (await response.json()) as OrgsResponse;
-    return data.organizations;
-  } catch (error) {
-    console.error("Failed to fetch organizations", error);
-    return [];
-  }
-}
-
-async function fetchProjects(cookieHeader: string | null, orgId: string): Promise<readonly ProjectSummary[]> {
-  const baseUrl: string = getApiBaseUrl();
-  const url: string = `${baseUrl}/orgs/${encodeURIComponent(orgId)}/projects`;
-  const requestHeaders: HeadersInit = {};
-  if (cookieHeader) {
-    requestHeaders["cookie"] = cookieHeader;
-  }
-  try {
-    const response: Response = await fetch(url, {
-      method: "GET",
-      headers: requestHeaders,
-      cache: "no-store",
-    });
-    if (!response.ok) {
-      return [];
-    }
-    const data = (await response.json()) as ProjectsResponse;
-    return data.projects;
-  } catch (error) {
-    console.error("Failed to fetch projects", error);
-    return [];
-  }
-}
-
-async function fetchBilling(cookieHeader: string | null, orgId: string): Promise<BillingSummary | null> {
-  const baseUrl: string = getApiBaseUrl();
-  const url: string = `${baseUrl}/billing/${encodeURIComponent(orgId)}/summary`;
-  const requestHeaders: HeadersInit = {};
-  if (cookieHeader) {
-    requestHeaders["cookie"] = cookieHeader;
-  }
-  try {
-    const response: Response = await fetch(url, {
-      method: "GET",
-      headers: requestHeaders,
-      cache: "no-store",
-    });
-    if (!response.ok) {
-      return null;
-    }
-    const data = (await response.json()) as BillingResponse;
-    return data.billing;
-  } catch (error) {
-    console.error("Failed to fetch billing", error);
-    return null;
-  }
-}
-
-async function fetchOrgMembers(
-  cookieHeader: string | null,
-  orgId: string,
-): Promise<readonly OrgMemberSummary[] | null> {
-  const baseUrl: string = getApiBaseUrl();
-  const url: string = `${baseUrl}/orgs/${encodeURIComponent(orgId)}/members`;
-  const requestHeaders: HeadersInit = {};
-  if (cookieHeader) {
-    requestHeaders["cookie"] = cookieHeader;
-  }
-  try {
-    const response: Response = await fetch(url, {
-      method: "GET",
-      headers: requestHeaders,
-      cache: "no-store",
-    });
-    if (!response.ok) {
-      return null;
-    }
-    const data = (await response.json()) as MembersResponse;
-    return data.members;
-  } catch (error) {
-    console.error("Failed to fetch organization members", error);
-    return null;
-  }
-}
-
-export default async function UserPage(): Promise<ReactElement> {
-  const headerStore = await headers();
-  const cookieHeader: string | null = headerStore.get("cookie") ?? null;
-  const cookieStore = await cookies();
-  const cookieOrgId: string | null = cookieStore.get("ORG_ID")?.value ?? null;
-
-  const organizations: readonly OrganizationSummary[] = await fetchOrganizations(cookieHeader);
-  const fallbackOrgId: string | null = organizations.length > 0 ? organizations[0]!.id : null;
-  const activeOrgId: string | null =
-    cookieOrgId && organizations.some((org) => org.id === cookieOrgId) ? cookieOrgId : fallbackOrgId;
-  const activeOrg: OrganizationSummary | null =
-    activeOrgId ? organizations.find((org) => org.id === activeOrgId) ?? null : null;
-
-  const [whoami, profile, projects, billing, invitations, members] = await Promise.all([
-    fetchWhoAmI(cookieHeader),
-    fetchProfile(cookieHeader),
-    activeOrgId ? fetchProjects(cookieHeader, activeOrgId) : Promise.resolve<readonly ProjectSummary[]>([]),
-    activeOrgId ? fetchBilling(cookieHeader, activeOrgId) : Promise.resolve<BillingSummary | null>(null),
-    activeOrgId ? fetchInvitations(cookieHeader, activeOrgId) : Promise.resolve<readonly InvitationSummary[]>([]),
-    activeOrgId
-      ? fetchOrgMembers(cookieHeader, activeOrgId)
-      : Promise.resolve<readonly OrgMemberSummary[] | null>(null),
-  ]);
-
-  const planName: PlanName = normalizePlanName(billing?.plan ?? "free");
-  const memberCount: number | null = members ? members.length : null;
-  const projectCount: number = projects.length;
+export default async function UserDashboardPage(): Promise<JSX.Element> {
+  const context = await getDashboardContext();
+  const activePlanDefinition: PlanDefinition | undefined = PLANS.find((plan: PlanDefinition): boolean => plan.id === context.activePlanName);
+  const activePlanLabel: string = activePlanDefinition?.label ?? "Free";
+  const activeOrg: OrganizationSummary | null = context.activeOrg;
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-4xl flex-col gap-6 px-4 py-12">
-      <div className="text-center text-xs text-muted-foreground">
-        <a href="/" className="inline-flex items-center gap-1 text-primary hover:underline">
-          <span aria-hidden="true">←</span>
-          Back to homepage
-        </a>
-      </div>
+    <main className="page-gradient min-h-screen">
+      <div className="page-container flex flex-col gap-8 py-10 sm:py-14">
+        <section className="flex items-center justify-between text-xs text-muted-foreground">
+          <span>{context.isDemo ? "Preview workspace" : "Your workspace"}</span>
+          {context.profile && !context.isDemo ? <SignOutButton /> : null}
+        </section>
 
-      <header className="flex items-center justify-between">
-        <div className="space-y-1">
-          <h1 className="text-2xl font-semibold tracking-tight">User dashboard</h1>
-          <p className="text-sm text-muted-foreground">Authenticated view backed by Better Auth and the Hono API.</p>
-        </div>
-        <SignOutButton />
-      </header>
+        <section className="space-y-6">
+          {context.isDemo ? <DevModeBanner /> : null}
 
-      <Card className="p-6">
-        <h2 className="mb-2 text-sm font-medium text-muted-foreground">Session</h2>
-        <div className="space-y-1 text-sm">
-          <p>
-            <span className="font-medium">Authenticated:</span>{" "}
-            {whoami.authenticated ? "Yes" : "No"}
-          </p>
-          <p>
-            <span className="font-medium">User ID:</span>{" "}
-            {whoami.userId ?? "—"}
-          </p>
-        </div>
-      </Card>
-
-      {activeOrg && (
-        <UsageCard plan={planName} memberCount={memberCount} projectCount={projectCount} />
-      )}
-
-      {activeOrg && (
-        <Card className="p-6">
-          <BillingCard
-            orgId={activeOrg.id}
-            orgName={activeOrg.name}
-            plan={billing?.plan ?? "free"}
-            status={billing?.status ?? "active"}
-          />
-        </Card>
-      )}
-
-      {profile && (
-        <Card className="p-6">
-          <h2 className="mb-4 text-sm font-medium text-muted-foreground">Profile</h2>
-          <ProfileForm
-            name={profile.name}
-            email={profile.email}
-            username={profile.username ?? null}
-            displayUsername={profile.displayUsername ?? null}
-          />
-        </Card>
-      )}
-
-      <Card className="p-6">
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <h2 className="text-sm font-medium text-muted-foreground">Organizations</h2>
-          <OrgSwitcher
-            organizations={organizations.map((org) => ({ id: org.id, name: org.name }))}
-            activeOrgId={activeOrgId}
-          />
-        </div>
-        {organizations.length === 0 ? (
-          <p className="text-sm text-muted-foreground">You are not a member of any organizations yet.</p>
-        ) : (
-          <ul className="space-y-2 text-sm">
-            {organizations.map((org) => (
-              <li key={org.id} className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">{org.name}</p>
-                  <p className="text-xs text-muted-foreground">Slug: {org.slug}</p>
+          <div className="space-y-2">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="space-y-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h1 className="text-balance text-2xl font-semibold tracking-tight sm:text-3xl">Dashboard</h1>
+                  <Badge variant="neutral" className="border border-border/60 text-xs">
+                    {activePlanLabel}
+                  </Badge>
                 </div>
-                <span className="rounded-full border px-2 py-0.5 text-xs capitalize text-muted-foreground">
-                  {org.role}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </Card>
-
-      {activeOrg && (
-        <Card className="p-6 space-y-6">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <h2 className="text-sm font-medium text-muted-foreground">Projects</h2>
-              <p className="text-xs text-muted-foreground">Org: {activeOrg.name}</p>
+                <p className="text-sm text-muted-foreground">
+                  Profile, organizations, projects, invites, billing, and activity in one place.
+                </p>
+              </div>
+              {activeOrg ? (
+                <OrgSwitcher
+                  organizations={context.organizations.map((org: OrganizationSummary) => ({ id: org.id, name: org.name }))}
+                  activeOrgId={activeOrg.id}
+                />
+              ) : null}
             </div>
-            <CreateProjectForm orgId={activeOrg.id} />
           </div>
-          {projects.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No projects found for this organization.</p>
+
+          {!activeOrg ? (
+            <Card className="surface-panel rounded-2xl p-6">
+              <h2 className="text-base font-semibold">No organization selected</h2>
+              <p className="mt-2 text-sm text-muted-foreground">Once an organization exists, projects and billing will appear here.</p>
+            </Card>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm">
-                <thead>
-                  <tr className="border-b text-xs text-muted-foreground">
-                    <th className="py-2 pr-4">Name</th>
-                    <th className="py-2 pr-4">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {projects.map((project) => (
-                    <tr key={project.id} className="border-b last:border-none">
-                      <td className="py-2 pr-4 align-top">{project.name}</td>
-                      <td className="py-2 pr-4 align-top">
-                        <ProjectStatusSelect orgId={activeOrg.id} projectId={project.id} status={project.status} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="grid gap-6 lg:grid-cols-3">
+              <div className="space-y-6 lg:col-span-2">
+                <Card className="surface-panel rounded-2xl p-6">
+                  <div className="mb-4">
+                    <h2 className="text-sm font-medium text-muted-foreground">Profile</h2>
+                    <p className="text-xs text-muted-foreground">Update your user details.</p>
+                  </div>
+                  {context.profile ? (
+                    <ProfileForm
+                      name={context.profile.name}
+                      email={context.profile.email}
+                      username={context.profile.username ?? null}
+                      displayUsername={context.profile.displayUsername ?? null}
+                    />
+                  ) : null}
+                </Card>
+
+                <Card className="surface-panel rounded-2xl p-6">
+                  <div className="mb-4 flex items-center justify-between gap-4">
+                    <div>
+                      <h2 className="text-sm font-medium text-muted-foreground">Projects</h2>
+                      <p className="text-xs text-muted-foreground">Projects are scoped to the active organization.</p>
+                    </div>
+                    <div className="text-xs text-muted-foreground">{context.metrics.projectCount.toString()} total</div>
+                  </div>
+                  {!context.isDemo ? <CreateProjectForm orgId={activeOrg.id} /> : null}
+                  <div className="mt-4 space-y-3">
+                    {context.projects.length === 0 ? (
+                      <p className="text-sm text-muted-foreground">No projects yet. Create your first project above.</p>
+                    ) : (
+                      <ol className="space-y-2">
+                        {context.projects.map((project: ProjectSummary) => (
+                          <li
+                            key={project.id}
+                            className="flex flex-col gap-2 rounded-xl border border-border/50 bg-background/50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+                          >
+                            <div>
+                              <p className="text-sm font-medium">{project.name}</p>
+                              <p className="text-xs text-muted-foreground">{project.id}</p>
+                            </div>
+                            {context.isDemo ? (
+                              <span className="text-xs capitalize text-muted-foreground">{project.status}</span>
+                            ) : (
+                              <ProjectStatusSelect orgId={activeOrg.id} projectId={project.id} status={project.status} />
+                            )}
+                          </li>
+                        ))}
+                      </ol>
+                    )}
+                  </div>
+                </Card>
+              </div>
+
+              <div className="space-y-6">
+                <UsageCard
+                  plan={context.activePlanName}
+                  memberCount={context.metrics.memberCount}
+                  projectCount={context.metrics.projectCount}
+                />
+                <Card className="surface-panel rounded-2xl p-6">
+                  <div className="mb-4 flex items-center justify-between gap-4">
+                    <div>
+                      <h2 className="text-sm font-medium text-muted-foreground">Invitations</h2>
+                      <p className="text-xs text-muted-foreground">Invite teammates to your organization.</p>
+                    </div>
+                    <span className="text-xs text-muted-foreground">{context.metrics.pendingInviteCount.toString()} pending</span>
+                  </div>
+                  {context.canManageOrg && !context.isDemo ? (
+                    <InviteForm orgId={activeOrg.id} />
+                  ) : (
+                    <p className="text-sm text-muted-foreground">
+                      {context.isDemo
+                        ? "Sign in to send real invitations."
+                        : "Only org owners/admins can send invitations."}
+                    </p>
+                  )}
+                </Card>
+                <Card className="surface-panel rounded-2xl p-6">
+                  <BillingCard
+                    orgId={activeOrg.id}
+                    orgName={activeOrg.name}
+                    plan={context.activePlanName}
+                    status={context.billingStatus}
+                    canManageBilling={context.canManageOrg && !context.isDemo}
+                  />
+                </Card>
+                <ActivityCard />
+              </div>
             </div>
           )}
-        </Card>
-      )}
 
-      {activeOrg && (
-        <Card className="p-6">
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <div>
-              <h2 className="text-sm font-medium text-muted-foreground">Organization invitations</h2>
-              <p className="text-xs text-muted-foreground">Invite teammates and track pending status.</p>
-            </div>
-            <span className="text-xs text-muted-foreground">Org: {activeOrg.name}</span>
-          </div>
-          <div className="grid gap-6 md:grid-cols-2">
-            <InviteForm orgId={activeOrg.id} />
-            <div className="space-y-3 text-sm">
-              {invitations.length === 0 ? (
-                <p className="text-muted-foreground">No invitations yet. Send one using the form.</p>
-              ) : (
-                invitations.map((invite) => (
-                  <div key={invite.id} className="rounded-md border px-3 py-2">
-                    <p className="font-medium">{invite.email}</p>
-                    <p className="text-xs text-muted-foreground capitalize">Role: {invite.role}</p>
-                    <p className="text-xs text-muted-foreground">
-                      Status: {invite.status} · Expires {new Date(invite.expiresAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-        </Card>
-      )}
-
-      <ActivityCard />
-
-      <Card className="p-6">
-        <div className="mb-4">
-          <h2 className="text-sm font-medium text-muted-foreground">Feedback</h2>
-          <p className="text-xs text-muted-foreground">Send thoughts about the dashboard experience.</p>
-        </div>
-        <FeedbackForm context="dashboard" />
-      </Card>
+          {context.isDemo ? (
+            <p className="text-center text-xs text-muted-foreground">
+              Ready for the full stack?{" "}
+              <Link href="/auth/signup" className="font-medium text-foreground hover:underline">
+                Create an account
+              </Link>{" "}
+              or{" "}
+              <Link href="/auth/login" className="font-medium text-foreground hover:underline">
+                sign in
+              </Link>
+              .
+            </p>
+          ) : null}
+        </section>
+      </div>
     </main>
   );
 }

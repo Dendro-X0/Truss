@@ -8,6 +8,10 @@ const storageKey: string = "saas-starter-theme";
 
 type ThemeMode = "light" | "dark";
 
+export interface ThemeToggleProps {
+  readonly variant?: "fixed" | "inline";
+}
+
 function getInitialTheme(): ThemeMode {
   if (typeof window === "undefined") {
     return "light";
@@ -20,9 +24,10 @@ function getInitialTheme(): ThemeMode {
   return prefersDark ? "dark" : "light";
 }
 
-export default function ThemeToggle(): ReactElement {
+export default function ThemeToggle({ variant = "fixed" }: ThemeToggleProps): ReactElement {
   const [theme, setTheme] = useState<ThemeMode>("light");
   const isDark: boolean = theme === "dark";
+  const isInline: boolean = variant === "inline";
 
   const applyTheme = useCallback((next: ThemeMode) => {
     setTheme(next);
@@ -55,14 +60,14 @@ export default function ThemeToggle(): ReactElement {
       onClick={handleToggle}
       aria-pressed={isDark}
       aria-label={isDark ? "Activate light mode" : "Activate dark mode"}
-      className="toggle-glow fixed right-4 top-4 z-50 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/80 p-2 text-xs font-medium text-foreground shadow-lg backdrop-blur transition hover:border-primary/70 hover:text-primary sm:h-10 sm:w-auto sm:gap-2 sm:px-4 sm:py-2"
+      className={
+        isInline
+          ? "inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+          : "fixed right-4 top-4 z-50 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/60 bg-background/80 p-2 text-xs font-medium text-foreground shadow-sm backdrop-blur transition hover:border-primary/50 hover:text-primary sm:h-10 sm:w-auto sm:gap-2 sm:px-4 sm:py-2"
+      }
     >
-      {isDark ? (
-        <Moon className="h-3.5 w-3.5" aria-hidden="true" />
-      ) : (
-        <Sun className="h-3.5 w-3.5" aria-hidden="true" />
-      )}
-      <span className="hidden sm:inline">{isDark ? "Dark" : "Light"} mode</span>
+      {isDark ? <Moon className="h-3.5 w-3.5" aria-hidden="true" /> : <Sun className="h-3.5 w-3.5" aria-hidden="true" />}
+      {!isInline && <span className="hidden sm:inline">{isDark ? "Dark" : "Light"} mode</span>}
     </button>
   );
 }

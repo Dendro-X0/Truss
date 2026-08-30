@@ -1,0 +1,1498 @@
+{
+  "schema": "studio.repo.tree.snapshot@1.0.0",
+  "exploreId": "re-11d9af0163a5",
+  "scanSnapshotHash": "sha256:c288b64a72c642a9f4fbed32f344533c8525fb5e0dd369d2e269c64d8f2ace25",
+  "root": ".",
+  "snapshotHash": "sha256:46fbd129f6a69a5712b294a7f33161c7f15600779414441702eb4dd27908034a",
+  "totalNodes": 220,
+  "truncated": false,
+  "warnings": [],
+  "nodes": [
+    {
+      "path": ".apex-auditor",
+      "name": ".apex-auditor",
+      "kind": "dir",
+      "depth": 1
+    },
+    {
+      "path": ".apex-auditor/summary.json",
+      "name": "summary.json",
+      "kind": "file",
+      "depth": 2,
+      "extension": "json"
+    },
+    {
+      "path": ".apex-auditor/summary.md",
+      "name": "summary.md",
+      "kind": "file",
+      "depth": 2,
+      "extension": "md"
+    },
+    {
+      "path": ".codactrl",
+      "name": ".codactrl",
+      "kind": "dir",
+      "depth": 1
+    },
+    {
+      "path": ".codactrl/.gitignore",
+      "name": ".gitignore",
+      "kind": "file",
+      "depth": 2
+    },
+    {
+      "path": ".codactrl/README.md",
+      "name": "README.md",
+      "kind": "file",
+      "depth": 2,
+      "extension": "md"
+    },
+    {
+      "path": ".codactrl/config.json",
+      "name": "config.json",
+      "kind": "file",
+      "depth": 2,
+      "extension": "json"
+    },
+    {
+      "path": ".codactrl/design",
+      "name": "design",
+      "kind": "dir",
+      "depth": 2
+    },
+    {
+      "path": ".codactrl/design/README.md",
+      "name": "README.md",
+      "kind": "file",
+      "depth": 3,
+      "extension": "md"
+    },
+    {
+      "path": ".codactrl/index.json",
+      "name": "index.json",
+      "kind": "file",
+      "depth": 2,
+      "extension": "json"
+    },
+    {
+      "path": ".codactrl/perf",
+      "name": "perf",
+      "kind": "dir",
+      "depth": 2
+    },
+    {
+      "path": ".codactrl/perf/README.md",
+      "name": "README.md",
+      "kind": "file",
+      "depth": 3,
+      "extension": "md"
+    },
+    {
+      "path": ".codactrl/technical",
+      "name": "technical",
+      "kind": "dir",
+      "depth": 2
+    },
+    {
+      "path": ".codactrl/technical/README.md",
+      "name": "README.md",
+      "kind": "file",
+      "depth": 3,
+      "extension": "md"
+    },
+    {
+      "path": ".codactrl/verify",
+      "name": "verify",
+      "kind": "dir",
+      "depth": 2
+    },
+    {
+      "path": ".codactrl/verify/README.md",
+      "name": "README.md",
+      "kind": "file",
+      "depth": 3,
+      "extension": "md"
+    },
+    {
+      "path": ".codactrl/verify/agent",
+      "name": "agent",
+      "kind": "dir",
+      "depth": 3
+    },
+    {
+      "path": ".codactrl/verify/agent/entrypoints.json",
+      "name": "entrypoints.json",
+      "kind": "file",
+      "depth": 4,
+      "extension": "json"
+    },
+    {
+      "path": ".codactrl/verify/agent/false-green.json",
+      "name": "false-green.json",
+      "kind": "file",
+      "depth": 4,
+      "extension": "json"
+    },
+    {
+      "path": ".codactrl/verify/mcp-history",
+      "name": "mcp-history",
+      "kind": "dir",
+      "depth": 3
+    },
+    {
+      "path": ".codactrl/verify/mcp-history/audit.jsonl",
+      "name": "audit.jsonl",
+      "kind": "file",
+      "depth": 4,
+      "extension": "jsonl"
+    },
+    {
+      "path": ".codactrl/verify/mcp-history/index.json",
+      "name": "index.json",
+      "kind": "file",
+      "depth": 4,
+      "extension": "json"
+    },
+    {
+      "path": ".codactrl/verify/mcp-history/summary.json",
+      "name": "summary.json",
+      "kind": "file",
+      "depth": 4,
+      "extension": "json"
+    },
+    {
+      "path": ".codactrl/verify/summary.md",
+      "name": "summary.md",
+      "kind": "file",
+      "depth": 3,
+      "extension": "md"
+    },
+    {
+      "path": ".env.example",
+      "name": ".env.example",
+      "kind": "file",
+      "depth": 1,
+      "extension": "example"
+    },
+    {
+      "path": ".gitattributes",
+      "name": ".gitattributes",
+      "kind": "file",
+      "depth": 1
+    },
+    {
+      "path": ".gitignore",
+      "name": ".gitignore",
+      "kind": "file",
+      "depth": 1
+    },
+    {
+      "path": ".lighthouseci",
+      "name": ".lighthouseci",
+      "kind": "dir",
+      "depth": 1
+    },
+    {
+      "path": ".lighthouseci/lhr-1764051966892.html",
+      "name": "lhr-1764051966892.html",
+      "kind": "file",
+      "depth": 2,
+      "extension": "html"
+    },
+    {
+      "path": ".lighthouseci/lhr-1764051966892.json",
+      "name": "lhr-1764051966892.json",
+      "kind": "file",
+      "depth": 2,
+      "extension": "json"
+    },
+    {
+      "path": ".lighthouseci/lhr-1764051982341.html",
+      "name": "lhr-1764051982341.html",
+      "kind": "file",
+      "depth": 2,
+      "extension": "html"
+    },
+    {
+      "path": ".lighthouseci/lhr-1764051982341.json",
+      "name": "lhr-1764051982341.json",
+      "kind": "file",
+      "depth": 2,
+      "extension": "json"
+    },
+    {
+      "path": "LICENSE",
+      "name": "LICENSE",
+      "kind": "file",
+      "depth": 1
+    },
+    {
+      "path": "README.md",
+      "name": "README.md",
+      "kind": "file",
+      "depth": 1,
+      "extension": "md"
+    },
+    {
+      "path": "apex.config.json",
+      "name": "apex.config.json",
+      "kind": "file",
+      "depth": 1,
+      "extension": "json"
+    },
+    {
+      "path": "apps",
+      "name": "apps",
+      "kind": "dir",
+      "depth": 1
+    },
+    {
+      "path": "apps/api",
+      "name": "api",
+      "kind": "dir",
+      "depth": 2
+    },
+    {
+      "path": "apps/api/package.json",
+      "name": "package.json",
+      "kind": "file",
+      "depth": 3,
+      "extension": "json"
+    },
+    {
+      "path": "apps/api/src",
+      "name": "src",
+      "kind": "dir",
+      "depth": 3
+    },
+    {
+      "path": "apps/api/src/app.ts",
+      "name": "app.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/api/src/auth.ts",
+      "name": "auth.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/api/src/run.ts",
+      "name": "run.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/api/tsconfig.json",
+      "name": "tsconfig.json",
+      "kind": "file",
+      "depth": 3,
+      "extension": "json"
+    },
+    {
+      "path": "apps/saas-web",
+      "name": "saas-web",
+      "kind": "dir",
+      "depth": 2
+    },
+    {
+      "path": "apps/saas-web/.env.local",
+      "name": ".env.local",
+      "kind": "file",
+      "depth": 3,
+      "extension": "local"
+    },
+    {
+      "path": "apps/saas-web/actions",
+      "name": "actions",
+      "kind": "dir",
+      "depth": 3
+    },
+    {
+      "path": "apps/saas-web/actions/accept-invite.ts",
+      "name": "accept-invite.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/billing-checkout.ts",
+      "name": "billing-checkout.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/billing-portal.ts",
+      "name": "billing-portal.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/create-org-invite.ts",
+      "name": "create-org-invite.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/create-project.ts",
+      "name": "create-project.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/login.ts",
+      "name": "login.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/request-password-reset.ts",
+      "name": "request-password-reset.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/reset-password.ts",
+      "name": "reset-password.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/send-feedback.ts",
+      "name": "send-feedback.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/set-active-org.ts",
+      "name": "set-active-org.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/sign-out.ts",
+      "name": "sign-out.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/signup.ts",
+      "name": "signup.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/update-profile.ts",
+      "name": "update-profile.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/actions/update-project-status.ts",
+      "name": "update-project-status.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/app",
+      "name": "app",
+      "kind": "dir",
+      "depth": 3
+    },
+    {
+      "path": "apps/saas-web/app/_demo-banner.tsx",
+      "name": "_demo-banner.tsx",
+      "kind": "file",
+      "depth": 4,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/_feedback-form.tsx",
+      "name": "_feedback-form.tsx",
+      "kind": "file",
+      "depth": 4,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/_logo.tsx",
+      "name": "_logo.tsx",
+      "kind": "file",
+      "depth": 4,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/_plans.ts",
+      "name": "_plans.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/app/_providers.tsx",
+      "name": "_providers.tsx",
+      "kind": "file",
+      "depth": 4,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/_theme-toggle.tsx",
+      "name": "_theme-toggle.tsx",
+      "kind": "file",
+      "depth": 4,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/api",
+      "name": "api",
+      "kind": "dir",
+      "depth": 4
+    },
+    {
+      "path": "apps/saas-web/app/api/auth",
+      "name": "auth",
+      "kind": "dir",
+      "depth": 5
+    },
+    {
+      "path": "apps/saas-web/app/api/auth/[...betterauth]",
+      "name": "[...betterauth]",
+      "kind": "dir",
+      "depth": 6
+    },
+    {
+      "path": "apps/saas-web/app/api/auth/[...betterauth]/route.ts",
+      "name": "route.ts",
+      "kind": "file",
+      "depth": 7,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/app/api/auth/get-session",
+      "name": "get-session",
+      "kind": "dir",
+      "depth": 6
+    },
+    {
+      "path": "apps/saas-web/app/api/auth/get-session/route.ts",
+      "name": "route.ts",
+      "kind": "file",
+      "depth": 7,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/app/auth",
+      "name": "auth",
+      "kind": "dir",
+      "depth": 4
+    },
+    {
+      "path": "apps/saas-web/app/auth/accept-invite",
+      "name": "accept-invite",
+      "kind": "dir",
+      "depth": 5
+    },
+    {
+      "path": "apps/saas-web/app/auth/accept-invite/_form.tsx",
+      "name": "_form.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/auth/accept-invite/page.tsx",
+      "name": "page.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/auth/forgot-password",
+      "name": "forgot-password",
+      "kind": "dir",
+      "depth": 5
+    },
+    {
+      "path": "apps/saas-web/app/auth/forgot-password/_form.tsx",
+      "name": "_form.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/auth/forgot-password/page.tsx",
+      "name": "page.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/auth/login",
+      "name": "login",
+      "kind": "dir",
+      "depth": 5
+    },
+    {
+      "path": "apps/saas-web/app/auth/login/_form.tsx",
+      "name": "_form.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/auth/login/_magic-link-form.tsx",
+      "name": "_magic-link-form.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/auth/login/_social-buttons.tsx",
+      "name": "_social-buttons.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/auth/login/page.tsx",
+      "name": "page.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/auth/reset-password",
+      "name": "reset-password",
+      "kind": "dir",
+      "depth": 5
+    },
+    {
+      "path": "apps/saas-web/app/auth/reset-password/_form.tsx",
+      "name": "_form.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/auth/reset-password/page.tsx",
+      "name": "page.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/auth/signup",
+      "name": "signup",
+      "kind": "dir",
+      "depth": 5
+    },
+    {
+      "path": "apps/saas-web/app/auth/signup/_form.tsx",
+      "name": "_form.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/auth/signup/page.tsx",
+      "name": "page.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/globals.css",
+      "name": "globals.css",
+      "kind": "file",
+      "depth": 4,
+      "extension": "css"
+    },
+    {
+      "path": "apps/saas-web/app/icon.svg",
+      "name": "icon.svg",
+      "kind": "file",
+      "depth": 4,
+      "extension": "svg"
+    },
+    {
+      "path": "apps/saas-web/app/layout.tsx",
+      "name": "layout.tsx",
+      "kind": "file",
+      "depth": 4,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/page.tsx",
+      "name": "page.tsx",
+      "kind": "file",
+      "depth": 4,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/pricing",
+      "name": "pricing",
+      "kind": "dir",
+      "depth": 4
+    },
+    {
+      "path": "apps/saas-web/app/pricing/_plan-card.tsx",
+      "name": "_plan-card.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/pricing/page.tsx",
+      "name": "page.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user",
+      "name": "user",
+      "kind": "dir",
+      "depth": 4
+    },
+    {
+      "path": "apps/saas-web/app/user/_activity-card.tsx",
+      "name": "_activity-card.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user/_activity-chart.tsx",
+      "name": "_activity-chart.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user/_billing-card.tsx",
+      "name": "_billing-card.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user/_create-project-form.tsx",
+      "name": "_create-project-form.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user/_demo-metrics-chart.tsx",
+      "name": "_demo-metrics-chart.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user/_invite-form.tsx",
+      "name": "_invite-form.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user/_org-switcher.tsx",
+      "name": "_org-switcher.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user/_org-usage-chart.tsx",
+      "name": "_org-usage-chart.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user/_profile-form.tsx",
+      "name": "_profile-form.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user/_project-status-select.tsx",
+      "name": "_project-status-select.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user/_sign-out-button.tsx",
+      "name": "_sign-out-button.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user/_usage-card.tsx",
+      "name": "_usage-card.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/app/user/dashboard-data.ts",
+      "name": "dashboard-data.ts",
+      "kind": "file",
+      "depth": 5,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/app/user/dashboard-derive.ts",
+      "name": "dashboard-derive.ts",
+      "kind": "file",
+      "depth": 5,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/app/user/mock-data",
+      "name": "mock-data",
+      "kind": "dir",
+      "depth": 5
+    },
+    {
+      "path": "apps/saas-web/app/user/mock-data/dashboard-mock.ts",
+      "name": "dashboard-mock.ts",
+      "kind": "file",
+      "depth": 6,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/app/user/page.tsx",
+      "name": "page.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/components.json",
+      "name": "components.json",
+      "kind": "file",
+      "depth": 3,
+      "extension": "json"
+    },
+    {
+      "path": "apps/saas-web/lib",
+      "name": "lib",
+      "kind": "dir",
+      "depth": 3
+    },
+    {
+      "path": "apps/saas-web/lib/auth",
+      "name": "auth",
+      "kind": "dir",
+      "depth": 4
+    },
+    {
+      "path": "apps/saas-web/lib/auth/client.ts",
+      "name": "client.ts",
+      "kind": "file",
+      "depth": 5,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/lib/auth/server.ts",
+      "name": "server.ts",
+      "kind": "file",
+      "depth": 5,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/modules",
+      "name": "modules",
+      "kind": "dir",
+      "depth": 3
+    },
+    {
+      "path": "apps/saas-web/modules/ui",
+      "name": "ui",
+      "kind": "dir",
+      "depth": 4
+    },
+    {
+      "path": "apps/saas-web/modules/ui/badge.tsx",
+      "name": "badge.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/modules/ui/blocks",
+      "name": "blocks",
+      "kind": "dir",
+      "depth": 5
+    },
+    {
+      "path": "apps/saas-web/modules/ui/blocks/chart-sales-metrics.tsx",
+      "name": "chart-sales-metrics.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/modules/ui/blocks/datatable-transaction.tsx",
+      "name": "datatable-transaction.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/modules/ui/blocks/dropdown-language.tsx",
+      "name": "dropdown-language.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/modules/ui/blocks/dropdown-profile.tsx",
+      "name": "dropdown-profile.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/modules/ui/blocks/statistics-card-01.tsx",
+      "name": "statistics-card-01.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/modules/ui/blocks/widget-product-insights.tsx",
+      "name": "widget-product-insights.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/modules/ui/blocks/widget-total-earning.tsx",
+      "name": "widget-total-earning.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/modules/ui/button.tsx",
+      "name": "button.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/modules/ui/card.tsx",
+      "name": "card.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/modules/ui/input.tsx",
+      "name": "input.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/modules/ui/label.tsx",
+      "name": "label.tsx",
+      "kind": "file",
+      "depth": 5,
+      "extension": "tsx"
+    },
+    {
+      "path": "apps/saas-web/modules/ui/utils.ts",
+      "name": "utils.ts",
+      "kind": "file",
+      "depth": 5,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/next-env.d.ts",
+      "name": "next-env.d.ts",
+      "kind": "file",
+      "depth": 3,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/next.config.mjs",
+      "name": "next.config.mjs",
+      "kind": "file",
+      "depth": 3,
+      "extension": "mjs"
+    },
+    {
+      "path": "apps/saas-web/package.json",
+      "name": "package.json",
+      "kind": "file",
+      "depth": 3,
+      "extension": "json"
+    },
+    {
+      "path": "apps/saas-web/postcss.config.mjs",
+      "name": "postcss.config.mjs",
+      "kind": "file",
+      "depth": 3,
+      "extension": "mjs"
+    },
+    {
+      "path": "apps/saas-web/proxy.ts",
+      "name": "proxy.ts",
+      "kind": "file",
+      "depth": 3,
+      "extension": "ts"
+    },
+    {
+      "path": "apps/saas-web/public",
+      "name": "public",
+      "kind": "dir",
+      "depth": 3
+    },
+    {
+      "path": "apps/saas-web/public/landing_1.png",
+      "name": "landing_1.png",
+      "kind": "file",
+      "depth": 4,
+      "extension": "png"
+    },
+    {
+      "path": "apps/saas-web/public/landing_2.png",
+      "name": "landing_2.png",
+      "kind": "file",
+      "depth": 4,
+      "extension": "png"
+    },
+    {
+      "path": "apps/saas-web/public/lighthouse.png",
+      "name": "lighthouse.png",
+      "kind": "file",
+      "depth": 4,
+      "extension": "png"
+    },
+    {
+      "path": "apps/saas-web/public/minimalist_panel.png",
+      "name": "minimalist_panel.png",
+      "kind": "file",
+      "depth": 4,
+      "extension": "png"
+    },
+    {
+      "path": "apps/saas-web/public/mobile_1.png",
+      "name": "mobile_1.png",
+      "kind": "file",
+      "depth": 4,
+      "extension": "png"
+    },
+    {
+      "path": "apps/saas-web/public/mobile_2.png",
+      "name": "mobile_2.png",
+      "kind": "file",
+      "depth": 4,
+      "extension": "png"
+    },
+    {
+      "path": "apps/saas-web/public/mobile_3.png",
+      "name": "mobile_3.png",
+      "kind": "file",
+      "depth": 4,
+      "extension": "png"
+    },
+    {
+      "path": "apps/saas-web/public/mobile_4.png",
+      "name": "mobile_4.png",
+      "kind": "file",
+      "depth": 4,
+      "extension": "png"
+    },
+    {
+      "path": "apps/saas-web/public/pricing_1.png",
+      "name": "pricing_1.png",
+      "kind": "file",
+      "depth": 4,
+      "extension": "png"
+    },
+    {
+      "path": "apps/saas-web/public/pricing_2.png",
+      "name": "pricing_2.png",
+      "kind": "file",
+      "depth": 4,
+      "extension": "png"
+    },
+    {
+      "path": "apps/saas-web/public/signin.png",
+      "name": "signin.png",
+      "kind": "file",
+      "depth": 4,
+      "extension": "png"
+    },
+    {
+      "path": "apps/saas-web/public/signup.png",
+      "name": "signup.png",
+      "kind": "file",
+      "depth": 4,
+      "extension": "png"
+    },
+    {
+      "path": "apps/saas-web/tailwind.config.js",
+      "name": "tailwind.config.js",
+      "kind": "file",
+      "depth": 3,
+      "extension": "js"
+    },
+    {
+      "path": "apps/saas-web/tsconfig.json",
+      "name": "tsconfig.json",
+      "kind": "file",
+      "depth": 3,
+      "extension": "json"
+    },
+    {
+      "path": "docs",
+      "name": "docs",
+      "kind": "dir",
+      "depth": 1
+    },
+    {
+      "path": "docs/architecture.md",
+      "name": "architecture.md",
+      "kind": "file",
+      "depth": 2,
+      "extension": "md"
+    },
+    {
+      "path": "docs/overview.md",
+      "name": "overview.md",
+      "kind": "file",
+      "depth": 2,
+      "extension": "md"
+    },
+    {
+      "path": "docs/stack.md",
+      "name": "stack.md",
+      "kind": "file",
+      "depth": 2,
+      "extension": "md"
+    },
+    {
+      "path": "docs/usage.md",
+      "name": "usage.md",
+      "kind": "file",
+      "depth": 2,
+      "extension": "md"
+    },
+    {
+      "path": "e2e",
+      "name": "e2e",
+      "kind": "dir",
+      "depth": 1
+    },
+    {
+      "path": "e2e/auth.spec.ts",
+      "name": "auth.spec.ts",
+      "kind": "file",
+      "depth": 2,
+      "extension": "ts"
+    },
+    {
+      "path": "e2e/dashboard.spec.ts",
+      "name": "dashboard.spec.ts",
+      "kind": "file",
+      "depth": 2,
+      "extension": "ts"
+    },
+    {
+      "path": "e2e/tsconfig.json",
+      "name": "tsconfig.json",
+      "kind": "file",
+      "depth": 2,
+      "extension": "json"
+    },
+    {
+      "path": "lighthouserc.cjs",
+      "name": "lighthouserc.cjs",
+      "kind": "file",
+      "depth": 1,
+      "extension": "cjs"
+    },
+    {
+      "path": "package.json",
+      "name": "package.json",
+      "kind": "file",
+      "depth": 1,
+      "extension": "json"
+    },
+    {
+      "path": "packages",
+      "name": "packages",
+      "kind": "dir",
+      "depth": 1
+    },
+    {
+      "path": "packages/.gitkeep",
+      "name": ".gitkeep",
+      "kind": "file",
+      "depth": 2
+    },
+    {
+      "path": "packages/auth",
+      "name": "auth",
+      "kind": "dir",
+      "depth": 2
+    },
+    {
+      "path": "packages/auth/package.json",
+      "name": "package.json",
+      "kind": "file",
+      "depth": 3,
+      "extension": "json"
+    },
+    {
+      "path": "packages/auth/src",
+      "name": "src",
+      "kind": "dir",
+      "depth": 3
+    },
+    {
+      "path": "packages/auth/src/index.ts",
+      "name": "index.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "packages/db",
+      "name": "db",
+      "kind": "dir",
+      "depth": 2
+    },
+    {
+      "path": "packages/db/drizzle.config.ts",
+      "name": "drizzle.config.ts",
+      "kind": "file",
+      "depth": 3,
+      "extension": "ts"
+    },
+    {
+      "path": "packages/db/package.json",
+      "name": "package.json",
+      "kind": "file",
+      "depth": 3,
+      "extension": "json"
+    },
+    {
+      "path": "packages/db/src",
+      "name": "src",
+      "kind": "dir",
+      "depth": 3
+    },
+    {
+      "path": "packages/db/src/components",
+      "name": "components",
+      "kind": "dir",
+      "depth": 4
+    },
+    {
+      "path": "packages/db/src/components/ui",
+      "name": "ui",
+      "kind": "dir",
+      "depth": 5
+    },
+    {
+      "path": "packages/db/src/components/ui/avatar.tsx",
+      "name": "avatar.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/badge.tsx",
+      "name": "badge.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/breadcrumb.tsx",
+      "name": "breadcrumb.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/button.tsx",
+      "name": "button.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/card.tsx",
+      "name": "card.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/chart.tsx",
+      "name": "chart.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/dropdown-menu.tsx",
+      "name": "dropdown-menu.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/input.tsx",
+      "name": "input.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/pagination.tsx",
+      "name": "pagination.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/progress.tsx",
+      "name": "progress.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/separator.tsx",
+      "name": "separator.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/sheet.tsx",
+      "name": "sheet.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/sidebar.tsx",
+      "name": "sidebar.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/skeleton.tsx",
+      "name": "skeleton.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/table.tsx",
+      "name": "table.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/components/ui/tooltip.tsx",
+      "name": "tooltip.tsx",
+      "kind": "file",
+      "depth": 6,
+      "extension": "tsx"
+    },
+    {
+      "path": "packages/db/src/hooks",
+      "name": "hooks",
+      "kind": "dir",
+      "depth": 4
+    },
+    {
+      "path": "packages/db/src/hooks/use-mobile.ts",
+      "name": "use-mobile.ts",
+      "kind": "file",
+      "depth": 5,
+      "extension": "ts"
+    },
+    {
+      "path": "packages/db/src/hooks/use-pagination.ts",
+      "name": "use-pagination.ts",
+      "kind": "file",
+      "depth": 5,
+      "extension": "ts"
+    },
+    {
+      "path": "packages/db/src/index.ts",
+      "name": "index.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "packages/db/src/lib",
+      "name": "lib",
+      "kind": "dir",
+      "depth": 4
+    },
+    {
+      "path": "packages/db/src/lib/utils.ts",
+      "name": "utils.ts",
+      "kind": "file",
+      "depth": 5,
+      "extension": "ts"
+    },
+    {
+      "path": "packages/db/src/schema.ts",
+      "name": "schema.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "packages/db/src/seed.ts",
+      "name": "seed.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "packages/email",
+      "name": "email",
+      "kind": "dir",
+      "depth": 2
+    },
+    {
+      "path": "packages/email/package.json",
+      "name": "package.json",
+      "kind": "file",
+      "depth": 3,
+      "extension": "json"
+    },
+    {
+      "path": "packages/email/src",
+      "name": "src",
+      "kind": "dir",
+      "depth": 3
+    },
+    {
+      "path": "packages/email/src/magic-link-template.ts",
+      "name": "magic-link-template.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "packages/email/src/org-invite-template.ts",
+      "name": "org-invite-template.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "packages/email/src/send-email.ts",
+      "name": "send-email.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "packages/rbac",
+      "name": "rbac",
+      "kind": "dir",
+      "depth": 2
+    },
+    {
+      "path": "packages/rbac/package.json",
+      "name": "package.json",
+      "kind": "file",
+      "depth": 3,
+      "extension": "json"
+    },
+    {
+      "path": "packages/rbac/src",
+      "name": "src",
+      "kind": "dir",
+      "depth": 3
+    },
+    {
+      "path": "packages/rbac/src/org-role-helpers.ts",
+      "name": "org-role-helpers.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "packages/rbac/src/org-role-types.ts",
+      "name": "org-role-types.ts",
+      "kind": "file",
+      "depth": 4,
+      "extension": "ts"
+    },
+    {
+      "path": "playwright.config.ts",
+      "name": "playwright.config.ts",
+      "kind": "file",
+      "depth": 1,
+      "extension": "ts"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "name": "pnpm-lock.yaml",
+      "kind": "file",
+      "depth": 1,
+      "extension": "yaml"
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "name": "pnpm-workspace.yaml",
+      "kind": "file",
+      "depth": 1,
+      "extension": "yaml"
+    },
+    {
+      "path": "tsconfig.json",
+      "name": "tsconfig.json",
+      "kind": "file",
+      "depth": 1,
+      "extension": "json"
+    },
+    {
+      "path": "turbo.json",
+      "name": "turbo.json",
+      "kind": "file",
+      "depth": 1,
+      "extension": "json"
+    }
+  ]
+}

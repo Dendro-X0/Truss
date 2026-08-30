@@ -1,5 +1,7 @@
 import type { ReactElement } from "react";
 import DemoBanner from "./_demo-banner";
+import MarketingFooter from "@/modules/marketing/marketing-footer";
+import ProductSuiteSection from "@/modules/marketing/product-suite-section";
 
 const highlights: readonly { readonly title: string; readonly body: string }[] = [
   {
@@ -26,15 +28,15 @@ const isDemo: boolean = process.env.NEXT_PUBLIC_TRUSS_DEMO_MODE === "1";
 
 export default function HomePage(): ReactElement {
   return (
-    <main className="landing-gradient relative min-h-screen">
-      <div className="mx-auto flex max-w-4xl flex-col gap-16 px-4 py-16">
+    <main className="page-gradient min-h-screen">
+      <div className="page-container flex flex-col gap-16 py-12 sm:py-16">
         {isDemo && <DemoBanner />}
         <section className="space-y-8 text-center animate-fade-up">
-          <p className="mx-auto inline-flex max-w-fit items-center rounded-full border px-4 py-1 text-xs font-medium text-muted-foreground">
-            Multi-tenant SaaS starter · UI-first demo
+          <p className="mx-auto inline-flex max-w-fit items-center rounded-full border border-border/60 bg-background/50 px-3 py-1 text-xs font-medium text-muted-foreground">
+            Multi-tenant SaaS starter
           </p>
           <div className="space-y-4">
-            <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+            <h1 className="text-balance text-3xl font-semibold tracking-tight sm:text-5xl">
               Launch-ready SaaS scaffolding without committing to a full stack.
             </h1>
             <p className="mx-auto max-w-2xl text-balance text-base text-muted-foreground">
@@ -42,36 +44,36 @@ export default function HomePage(): ReactElement {
               infrastructure when you are ready.
             </p>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-2">
             <a
               href="/auth/signup"
-              className="inline-flex h-11 items-center justify-center rounded-full border border-primary bg-primary px-6 text-sm font-medium text-primary-foreground shadow-sm transition hover:translate-y-px hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="inline-flex h-10 items-center justify-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              Preview auth UI
+              Get started
             </a>
             <a
               href="/user"
-              className="inline-flex h-11 items-center justify-center rounded-full border px-6 text-sm font-medium shadow-sm transition hover:translate-y-px hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="inline-flex h-10 items-center justify-center rounded-full border border-border/60 bg-background/60 px-5 text-sm font-medium transition hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              Explore dashboard UI
+              Open dashboard
             </a>
             <a
               href="/pricing"
-              className="inline-flex h-11 items-center justify-center rounded-full border px-6 text-sm font-medium shadow-sm transition hover:translate-y-px hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="inline-flex h-10 items-center justify-center rounded-full px-5 text-sm font-medium text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              View pricing layout
+              Pricing
             </a>
           </div>
         </section>
 
         <section className="space-y-6 animate-fade-up animate-delay-1">
-          <div className="surface-shell rounded-3xl p-6 shadow-sm backdrop-blur">
+          <div className="surface-shell rounded-2xl p-5 sm:p-6">
             <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <span>Realtime dashboard</span>
-              <span className="inline-flex items-center gap-1 rounded-full border px-3 py-1">Multi-tenant</span>
+              <span>Dashboard preview</span>
+              <span className="inline-flex items-center gap-1 rounded-full border border-border/60 px-2.5 py-0.5">Multi-tenant</span>
             </div>
-            <div className="mt-6 grid gap-4 text-sm md:grid-cols-2">
-              <div className="surface-card rounded-2xl p-4 transition hover:-translate-y-1 hover:shadow-lg">
+            <div className="mt-5 grid gap-3 text-sm md:grid-cols-2">
+              <div className="surface-card rounded-xl p-4">
                 <p className="text-xs font-medium text-muted-foreground">Profile</p>
                 <div className="mt-2 flex items-center justify-between rounded-xl border px-3 py-2">
                   <div>
@@ -81,7 +83,7 @@ export default function HomePage(): ReactElement {
                   <span className="rounded-full border px-3 py-0.5 text-xs">You</span>
                 </div>
               </div>
-              <div className="surface-card rounded-2xl p-4 transition hover:-translate-y-1 hover:shadow-lg">
+              <div className="surface-card rounded-xl p-4">
                 <p className="text-xs font-medium text-muted-foreground">Organizations</p>
                 <div className="mt-2 space-y-2">
                   <div className="rounded-xl border px-3 py-2 text-xs">
@@ -94,7 +96,7 @@ export default function HomePage(): ReactElement {
                   </div>
                 </div>
               </div>
-              <div className="surface-card rounded-2xl p-4 md:col-span-2 transition hover:-translate-y-1 hover:shadow-lg">
+              <div className="surface-card rounded-xl p-4 md:col-span-2">
                 <p className="text-xs font-medium text-muted-foreground">Projects</p>
                 <div className="mt-4 grid gap-3 md:grid-cols-2">
                   <div className="rounded-xl border px-4 py-3">
@@ -119,17 +121,14 @@ export default function HomePage(): ReactElement {
           </div>
         </section>
 
-        <section className="space-y-6 border-t border-accent bg-surface/95 pt-8 animate-fade-up animate-delay-2">
+        <section className="space-y-6 border-t border-border/50 pt-10 animate-fade-up animate-delay-2">
           <div className="space-y-2 text-center">
             <h2 className="text-2xl font-semibold">What you get out of the box</h2>
             <p className="text-sm text-muted-foreground">Every block is intentionally unfinished so you can mold it fast.</p>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {highlights.map((item) => (
-              <article
-                key={item.title}
-                className="surface-card rounded-2xl p-4 text-sm shadow-sm transition hover:-translate-y-1 hover:border-primary/40"
-              >
+              <article key={item.title} className="surface-card rounded-xl p-4 text-sm">
                 <h3 className="text-base font-semibold">{item.title}</h3>
                 <p className="mt-2 text-muted-foreground">{item.body}</p>
               </article>
@@ -144,7 +143,7 @@ export default function HomePage(): ReactElement {
           </div>
           <ol className="space-y-4 border-l border-accent pl-6 text-sm dark:border-dashed">
             {timeline.map((step, index) => (
-              <li key={step.label} className="relative surface-card rounded-2xl p-4 shadow-sm dark:bg-background/70">
+              <li key={step.label} className="relative surface-card rounded-xl p-4">
                 <span className="absolute -left-3.5 mt-1 h-3 w-3 rounded-full border border-primary bg-surface dark:bg-background" />
                 <p className="text-xs font-semibold text-muted-foreground">Step {index + 1}</p>
                 <p className="text-base font-medium">{step.label}</p>
@@ -153,7 +152,10 @@ export default function HomePage(): ReactElement {
             ))}
           </ol>
         </section>
+
+        <ProductSuiteSection />
       </div>
+      <MarketingFooter />
     </main>
   );
 }

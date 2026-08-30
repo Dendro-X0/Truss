@@ -8,34 +8,45 @@ This directory contains documentation for Truss, a multi-tenant SaaS starter kit
 - [Architecture](./architecture.md)
 - [Usage](./usage.md)
 
-## Customization & Roadmap
+## Free release scope
+
+The Free release focuses on:
+
+- A consistent, modern UI surface (landing, auth, pricing, dashboard)
+- A realistic multi-tenant domain (organizations + projects)
+- Full-stack scaffolding (API, auth, database) that you can enable locally
+
+## Demo mode (UI-only deployments)
+
+For a public demo (for example, a web-only deployment), you can run Truss in UI-only mode:
+
+- Do not configure backend environment variables (no database, auth secrets, or billing keys).
+- Set `NEXT_PUBLIC_TRUSS_DEMO_MODE=1` to show a dismissible banner on the landing page.
+
+In UI-only mode, pages render as a realistic product surface, but actions that depend on the API may fail or be disabled.
+
+## Full-stack local development
+
+To run Truss with real data locally, follow [`usage.md`](./usage.md):
+
+- Configure `.env` from `.env.example`.
+- Run `pnpm dev` from the repo root.
+
+## Extending Truss
 
 Truss is intentionally small and opinionated. Common ways to customize it include:
 
-- **Landing and marketing**
-  - Replace the default landing page with your own marketing layout and branding.
+- **Product UI and branding**
+  - Replace the landing page, tweak the theme, and evolve the UI primitives.
 
 - **Domain model**
-  - Extend the Drizzle schema in `packages/db` with fields specific to your product.
-  - Add new endpoints in `apps/api` and surface them in the Next.js app.
+  - Extend the Drizzle schema in `packages/db`.
+  - Add API endpoints in `apps/api` and consume them from the Next.js app.
 
-- **Team features**
-  - Build on the existing organizations and invitations model for richer roles/permissions.
+- **Organizations, roles, and invites**
+  - Build on the existing org + membership model and RBAC helpers.
 
 - **Billing**
-  - Connect the billing endpoints to Stripe (or another provider) instead of placeholder URLs.
+  - Wire the billing skeleton to Stripe (or another provider) when you are ready.
 
-- **Testing & CI**
-  - Introduce end-to-end tests (e.g. Playwright) for auth and dashboard flows.
-  - Wire typecheck, lint, and tests into your CI pipeline.
-
-## Demo deployments
-
-For public demos (for example, a Vercel deployment), you can run Truss with only the frontend enabled:
-
-- Omit database and auth environment variables so no real data is stored.
-- Set `NEXT_PUBLIC_TRUSS_DEMO_MODE=1` to show a small, dismissible banner on the landing page explaining that the instance is UI-only.
-
-The repository still contains the full API, auth, and billing scaffolding for local or private deployments.
-
-Use these docs as a starting point and shape Truss to match your product and team.
+Use these docs as a starting point and shape Truss to match your product.

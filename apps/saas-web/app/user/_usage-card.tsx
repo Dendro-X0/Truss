@@ -31,7 +31,7 @@ export default function UsageCard({ plan, memberCount, projectCount }: UsageCard
   const projectsLabel: string = formatUsageLabel(projectCount, maxProjects);
 
   return (
-    <Card className="p-6">
+    <Card className="surface-card rounded-2xl p-6 shadow-sm">
       <div className="mb-4 flex items-center justify-between gap-4">
         <div>
           <h2 className="text-sm font-medium text-muted-foreground">Usage</h2>

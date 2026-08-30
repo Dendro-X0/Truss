@@ -1,0 +1,725 @@
+{
+  "schema": "studio.repo.profile@1.0.0",
+  "exploreId": "re-11d9af0163a5",
+  "exploreSnapshotHash": "sha256:11d9af0163a562503a4ed3217975c1b5c3b53fd79299f3e91703634d9d477ea8",
+  "scanSnapshotHash": "sha256:c288b64a72c642a9f4fbed32f344533c8525fb5e0dd369d2e269c64d8f2ace25",
+  "generatedAt": "2026-08-30T08:58:48.115762+00:00",
+  "repoRoot": "E:/Web Projects/truss-workspace/truss",
+  "roots": {
+    "monorepoTool": "pnpm",
+    "workspaces": [
+      {
+        "id": "@saas-starter-open/api",
+        "kind": "app",
+        "path": "apps/api",
+        "name": "@saas-starter-open/api",
+        "language": "ts/js",
+        "stackHint": null
+      },
+      {
+        "id": "saas-web",
+        "kind": "app",
+        "path": "apps/saas-web",
+        "name": "saas-web",
+        "language": "ts/js",
+        "stackHint": "next"
+      },
+      {
+        "id": "@saas-starter-open/auth",
+        "kind": "package",
+        "path": "packages/auth",
+        "name": "@saas-starter-open/auth",
+        "language": "ts/js",
+        "stackHint": null
+      },
+      {
+        "id": "@saas-starter-open/db",
+        "kind": "package",
+        "path": "packages/db",
+        "name": "@saas-starter-open/db",
+        "language": "ts/js",
+        "stackHint": "react"
+      },
+      {
+        "id": "@saas-starter-open/email",
+        "kind": "package",
+        "path": "packages/email",
+        "name": "@saas-starter-open/email",
+        "language": "ts/js",
+        "stackHint": null
+      },
+      {
+        "id": "@saas-starter-open/rbac",
+        "kind": "package",
+        "path": "packages/rbac",
+        "name": "@saas-starter-open/rbac",
+        "language": "ts/js",
+        "stackHint": null
+      }
+    ]
+  },
+  "stack": {
+    "primaryFramework": "next",
+    "runtimes": [
+      "node"
+    ],
+    "signals": [
+      {
+        "id": "next",
+        "label": "next",
+        "path": "apps/saas-web/package.json"
+      },
+      {
+        "id": "react",
+        "label": "react",
+        "path": "packages/db/package.json"
+      }
+    ]
+  },
+  "dependencies": [
+    {
+      "name": "@lhci/cli",
+      "version": "^0.15.1",
+      "resolvedVersion": "0.15.1",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "."
+    },
+    {
+      "name": "@playwright/test",
+      "version": "^1.50.1",
+      "resolvedVersion": "1.57.0",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "."
+    },
+    {
+      "name": "@types/node",
+      "version": "^24.10.0",
+      "resolvedVersion": "24.10.1",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "."
+    },
+    {
+      "name": "tsx",
+      "version": "^4.19.1",
+      "resolvedVersion": "4.20.6",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "."
+    },
+    {
+      "name": "turbo",
+      "version": "^2.6.0",
+      "resolvedVersion": "2.6.1",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "."
+    },
+    {
+      "name": "typescript",
+      "version": "^5.9.3",
+      "resolvedVersion": "5.9.3",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "."
+    },
+    {
+      "name": "@hono/node-server",
+      "version": "^1.13.2",
+      "resolvedVersion": "1.19.6",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/api"
+    },
+    {
+      "name": "@saas-starter-open/auth",
+      "version": "workspace:*",
+      "resolvedVersion": null,
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/api"
+    },
+    {
+      "name": "@saas-starter-open/db",
+      "version": "workspace:*",
+      "resolvedVersion": null,
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/api"
+    },
+    {
+      "name": "@saas-starter-open/email",
+      "version": "workspace:*",
+      "resolvedVersion": null,
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/api"
+    },
+    {
+      "name": "@saas-starter-open/rbac",
+      "version": "workspace:*",
+      "resolvedVersion": null,
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/api"
+    },
+    {
+      "name": "drizzle-orm",
+      "version": "^0.44.5",
+      "resolvedVersion": "0.44.7",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/api"
+    },
+    {
+      "name": "hono",
+      "version": "^4.6.8",
+      "resolvedVersion": "4.10.6",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/api"
+    },
+    {
+      "name": "@radix-ui/react-avatar",
+      "version": "^1.1.11",
+      "resolvedVersion": "1.1.11",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@radix-ui/react-dialog",
+      "version": "^1.1.15",
+      "resolvedVersion": "1.1.15",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@radix-ui/react-dropdown-menu",
+      "version": "^2.1.16",
+      "resolvedVersion": "2.1.16",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@radix-ui/react-progress",
+      "version": "^1.1.8",
+      "resolvedVersion": "1.1.8",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@radix-ui/react-separator",
+      "version": "^1.1.8",
+      "resolvedVersion": "1.1.8",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@radix-ui/react-slot",
+      "version": "^1.2.4",
+      "resolvedVersion": "1.2.4",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@radix-ui/react-tooltip",
+      "version": "^1.2.8",
+      "resolvedVersion": "1.2.8",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@saas-starter-open/rbac",
+      "version": "workspace:*",
+      "resolvedVersion": null,
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@tanstack/react-query",
+      "version": "^5.90.8",
+      "resolvedVersion": "5.90.10",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@tanstack/react-table",
+      "version": "^8.21.3",
+      "resolvedVersion": "8.21.3",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "better-auth",
+      "version": "^1.3.34",
+      "resolvedVersion": "1.3.34",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "class-variance-authority",
+      "version": "^0.7.1",
+      "resolvedVersion": "0.7.1",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "clsx",
+      "version": "^2.1.1",
+      "resolvedVersion": "2.1.1",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "cmdk",
+      "version": "^1.1.1",
+      "resolvedVersion": "1.1.1",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "lucide-react",
+      "version": "^0.552.0",
+      "resolvedVersion": "0.552.0",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "next",
+      "version": "^16.0.3",
+      "resolvedVersion": "16.0.3",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "react",
+      "version": "^19.2.0",
+      "resolvedVersion": "19.2.0",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "react-dom",
+      "version": "^19.2.0",
+      "resolvedVersion": "19.2.0",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "react-icons",
+      "version": "^5.5.0",
+      "resolvedVersion": "5.5.0",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "recharts",
+      "version": "^2.15.4",
+      "resolvedVersion": "2.15.4",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "sonner",
+      "version": "^2.0.7",
+      "resolvedVersion": "2.0.7",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "tailwind-merge",
+      "version": "^3.4.0",
+      "resolvedVersion": "3.4.0",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "tailwindcss-animate",
+      "version": "^1.0.7",
+      "resolvedVersion": "1.0.7",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@next/mdx",
+      "version": "^16.0.1",
+      "resolvedVersion": "16.0.3",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@tailwindcss/postcss",
+      "version": "^4.1.17",
+      "resolvedVersion": "4.1.17",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@types/react",
+      "version": "^19.2.2",
+      "resolvedVersion": "19.2.5",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@types/react-dom",
+      "version": "^19.2.2",
+      "resolvedVersion": "19.2.3",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "tailwindcss",
+      "version": "4.1.17",
+      "resolvedVersion": "4.1.17",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "apps/saas-web"
+    },
+    {
+      "name": "@saas-starter-open/db",
+      "version": "workspace:*",
+      "resolvedVersion": null,
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/auth"
+    },
+    {
+      "name": "@saas-starter-open/email",
+      "version": "workspace:*",
+      "resolvedVersion": null,
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/auth"
+    },
+    {
+      "name": "better-auth",
+      "version": "^1.3.34",
+      "resolvedVersion": "1.3.34",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/auth"
+    },
+    {
+      "name": "@radix-ui/react-avatar",
+      "version": "^1.1.11",
+      "resolvedVersion": "1.1.11",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "@radix-ui/react-dialog",
+      "version": "^1.1.15",
+      "resolvedVersion": "1.1.15",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "@radix-ui/react-dropdown-menu",
+      "version": "^2.1.16",
+      "resolvedVersion": "2.1.16",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "@radix-ui/react-progress",
+      "version": "^1.1.8",
+      "resolvedVersion": "1.1.8",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "@radix-ui/react-separator",
+      "version": "^1.1.8",
+      "resolvedVersion": "1.1.8",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "@radix-ui/react-slot",
+      "version": "^1.2.4",
+      "resolvedVersion": "1.2.4",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "@radix-ui/react-tooltip",
+      "version": "^1.2.8",
+      "resolvedVersion": "1.2.8",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "class-variance-authority",
+      "version": "^0.7.1",
+      "resolvedVersion": "0.7.1",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "clsx",
+      "version": "^2.1.1",
+      "resolvedVersion": "2.1.1",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "drizzle-orm",
+      "version": "^0.44.5",
+      "resolvedVersion": "0.44.7",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "lucide-react",
+      "version": "^0.552.0",
+      "resolvedVersion": "0.552.0",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "postgres",
+      "version": "^3.4.5",
+      "resolvedVersion": "3.4.7",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "recharts",
+      "version": "^2.15.4",
+      "resolvedVersion": "2.15.4",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "tailwind-merge",
+      "version": "^3.4.0",
+      "resolvedVersion": "3.4.0",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "@types/react",
+      "version": "^19.2.5",
+      "resolvedVersion": "19.2.5",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "@types/react-dom",
+      "version": "^19.2.3",
+      "resolvedVersion": "19.2.3",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "dotenv",
+      "version": "^16.4.5",
+      "resolvedVersion": "16.6.1",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "drizzle-kit",
+      "version": "^0.31.5",
+      "resolvedVersion": "0.31.7",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "react",
+      "version": "^19.2.0",
+      "resolvedVersion": "19.2.0",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "react-dom",
+      "version": "^19.2.0",
+      "resolvedVersion": "19.2.0",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "tsx",
+      "version": "^4.20.6",
+      "resolvedVersion": "4.20.6",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/db"
+    },
+    {
+      "name": "nodemailer",
+      "version": "^6.9.16",
+      "resolvedVersion": "6.10.1",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/email"
+    },
+    {
+      "name": "resend",
+      "version": "^4.0.0",
+      "resolvedVersion": "4.8.0",
+      "scope": "dependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/email"
+    },
+    {
+      "name": "@types/nodemailer",
+      "version": "^7.0.4",
+      "resolvedVersion": "7.0.4",
+      "scope": "devDependencies",
+      "manager": "pnpm",
+      "packagePath": "packages/email"
+    }
+  ],
+  "entrypoints": [
+    {
+      "packageId": "@saas-starter-open/auth",
+      "path": "packages/auth/src/index.ts",
+      "source": "main"
+    },
+    {
+      "packageId": "@saas-starter-open/db",
+      "path": "packages/db/src/index.ts",
+      "source": "main"
+    },
+    {
+      "packageId": "@saas-starter-open/email",
+      "path": "packages/email/src/send-email.ts",
+      "source": "main"
+    },
+    {
+      "packageId": "@saas-starter-open/rbac",
+      "path": "packages/rbac/src/org-role-helpers.ts",
+      "source": "main"
+    }
+  ],
+  "stats": {
+    "fileCount": 171,
+    "dirCount": 42,
+    "extensionCounts": [
+      {
+        "extension": "tsx",
+        "count": 62
+      },
+      {
+        "extension": "ts",
+        "count": 44
+      },
+      {
+        "extension": "json",
+        "count": 23
+      },
+      {
+        "extension": "md",
+        "count": 12
+      },
+      {
+        "extension": "png",
+        "count": 12
+      },
+      {
+        "extension": "(none)",
+        "count": 5
+      },
+      {
+        "extension": "html",
+        "count": 2
+      },
+      {
+        "extension": "mjs",
+        "count": 2
+      },
+      {
+        "extension": "yaml",
+        "count": 2
+      },
+      {
+        "extension": "cjs",
+        "count": 1
+      },
+      {
+        "extension": "css",
+        "count": 1
+      },
+      {
+        "extension": "example",
+        "count": 1
+      }
+    ],
+    "crateCount": 0
+  },
+  "lockfile": {
+    "manager": "pnpm",
+    "path": "pnpm-lock.yaml",
+    "resolvedDependencyCount": 61
+  },
+  "evidence": [
+    {
+      "claim": "fileCount=171",
+      "path": ".codectx/index.json"
+    },
+    {
+      "claim": "lockfileResolved=61/pnpm",
+      "path": "pnpm-lock.yaml"
+    },
+    {
+      "claim": "monorepoTool=pnpm",
+      "path": "pnpm-workspace.yaml"
+    },
+    {
+      "claim": "primaryFramework=next",
+      "path": "apps/saas-web/package.json"
+    }
+  ]
+}

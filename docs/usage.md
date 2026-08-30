@@ -6,7 +6,7 @@ This document covers how to run Truss locally and how to work with the main flow
 
 - Node.js >= 20.19.0
 - pnpm
-- Postgres instance (local or remote)
+- Postgres instance (local or remote) for full-stack local development
 
 ## 1. Install dependencies
 
@@ -16,29 +16,52 @@ From the repo root:
 pnpm install
 ```
 
-## 2. Configure environment variables
+## Demo mode (UI-only deployments)
 
-Create a `.env` file based on `.env.example` and set at least:
+For a hosted demo or a UI-only run, you can skip backend configuration:
+
+- Do not set `DATABASE_URL` / `BETTER_AUTH_SECRET`.
+- Set `NEXT_PUBLIC_TRUSS_DEMO_MODE=1` (optional) to show a demo banner on the landing page.
+
+In this configuration, pages render as a realistic product surface, but actions that depend on the API may fail or be disabled.
+
+### Dev mode (local dashboard without sign-in)
+
+Set `DISABLE_AUTH_GUARD=1` in `.env` or `apps/saas-web/.env.local` to browse `/user` with synthetic demo data while developing the UI. This only applies on localhost or in non-production environments.
+
+Optional: set `AUTH_GUARD_ENABLED=1` in production and omit `DISABLE_AUTH_GUARD` to require a session on `/user` routes.
+
+If Next.js picks a port other than 3000, align these URLs with the port shown in the terminal:
+
+- `NEXT_PUBLIC_APP_URL` (e.g. `http://localhost:3002`)
+- `AUTH_SESSION_URL` (e.g. `http://localhost:3002/api/auth/get-session`)
+
+## 2. Configure environment variables (full-stack local)
+
+Create a `.env` file at the repo root based on `.env.example` (or use `apps/saas-web/.env.local` — the API loads both). Set at least:
 
 - `DATABASE_URL` – Postgres connection string
 - `BETTER_AUTH_SECRET` – secret for Better Auth
-- `NEXT_PUBLIC_API_URL` – base URL for the Hono API (e.g. `http://localhost:8787`)
-- `AUTH_SESSION_URL` – URL of the Next.js session endpoint (e.g. `http://localhost:3000/api/auth/get-session`)
+- `NEXT_PUBLIC_API_URL` – base URL for the Hono API (default `http://localhost:8787`)
+- `AUTH_SESSION_URL` – URL of the Next.js session endpoint (default `http://localhost:3000/api/auth/get-session`)
 
-- `NEXT_PUBLIC_TRUSS_DEMO_MODE` – optional flag; when set to `"1"`, shows a small, dismissible demo banner on the landing page.
+Optional (as you integrate providers):
 
-Additional variables (Stripe keys, social providers, app URL, etc.) can be configured later as you integrate real billing and OAuth.
+- `NEXT_PUBLIC_APP_URL`
+- Stripe keys (billing is scaffolded)
+- OAuth provider credentials
+- Email provider credentials
 
-## Demo mode (UI-only deployments)
+## 3. Database setup (full-stack local)
 
-For a hosted demo (for example, deploying only `apps/saas-web` to Vercel), you can:
+Truss uses Drizzle. Database scripts live in `packages/db`:
 
-- Leave backend environment variables unset so the API and database are not reachable.
-- Set `NEXT_PUBLIC_TRUSS_DEMO_MODE=1` to make it clear in the UI that the instance is running in demo mode.
+```bash
+pnpm --filter @saas-starter-open/db db:push
+pnpm --filter @saas-starter-open/db db:seed
+```
 
-In this configuration, the landing page, auth screens, dashboard, and pricing page render as a realistic product surface, but actions that depend on the API may fail or be no-ops. For full functionality, configure the environment variables listed above and run both the API and web app.
-
-## 3. Run in development
+## 4. Run in development
 
 From the repo root:
 
@@ -55,6 +78,14 @@ Open:
 
 - `http://localhost:3000/auth/signup` to create an account
 - `http://localhost:3000/user` to explore the dashboard
+
+> If port 3000 is busy, Next.js may use another port (e.g. 3002). Update `NEXT_PUBLIC_APP_URL` and `AUTH_SESSION_URL` to match.
+
+## Development shortcuts
+
+- `DISABLE_AUTH_GUARD=1` — open `/user` with synthetic demo data without signing in (localhost / non-production only).
+- `pnpm test:e2e:smoke` — fast UI smoke tests (no database required).
+- `pnpm test:e2e:golden` — full-stack golden path (requires `DATABASE_URL` and `pnpm dev`).
 
 ## 4. Typical flows
 

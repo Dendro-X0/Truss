@@ -1,48 +1,43 @@
-"use client";
-
-import type { ButtonHTMLAttributes, ReactElement } from "react";
-import cn from "./utils";
+import type { ComponentPropsWithoutRef, ReactElement } from "react";
+import { Button as ShadcnButton } from "@/components/ui/button";
 
 type ButtonVariant = "primary" | "outline" | "ghost";
 
 type ButtonSize = "sm" | "md" | "lg";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type ShadcnButtonProps = ComponentPropsWithoutRef<typeof ShadcnButton>;
+
+interface ButtonProps extends Omit<ShadcnButtonProps, "variant" | "size"> {
   readonly variant?: ButtonVariant;
   readonly size?: ButtonSize;
+  readonly asChild?: boolean;
 }
 
-function getVariantClasses(variant: ButtonVariant): string {
+function mapVariantToShadcn(variant: ButtonVariant): "default" | "outline" | "ghost" {
   if (variant === "outline") {
-    return "border-border bg-transparent text-foreground hover:bg-muted";
+    return "outline";
   }
   if (variant === "ghost") {
-    return "border-transparent bg-transparent text-muted-foreground hover:bg-muted/70";
+    return "ghost";
   }
-  return "border-primary bg-primary text-primary-foreground hover:opacity-90";
+  return "default";
 }
 
-function getSizeClasses(size: ButtonSize): string {
+function mapSizeToShadcn(size: ButtonSize): "sm" | "default" | "lg" {
   if (size === "sm") {
-    return "h-8 px-3";
+    return "sm";
   }
   if (size === "lg") {
-    return "h-11 px-5";
+    return "lg";
   }
-  return "h-10 px-4";
+  return "default";
 }
 
 /**
  * Primary button component for Truss UI.
  */
-export default function Button({ variant = "primary", size = "md", className, ...props }: ButtonProps): ReactElement {
-  const variantClasses: string = getVariantClasses(variant);
-  const sizeClasses: string = getSizeClasses(size);
-  const mergedClassName: string = cn(
-    "inline-flex items-center justify-center rounded-md border text-sm font-medium shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-60 transition",
-    variantClasses,
-    sizeClasses,
-    className,
-  );
-  return <button className={mergedClassName} {...props} />;
+export default function Button({ variant = "primary", size = "md", asChild = false, ...props }: ButtonProps): ReactElement {
+  const shadcnVariant: "default" | "outline" | "ghost" = mapVariantToShadcn(variant);
+  const shadcnSize: "sm" | "default" | "lg" = mapSizeToShadcn(size);
+  return <ShadcnButton variant={shadcnVariant} size={shadcnSize} asChild={asChild} {...props} />;
 }

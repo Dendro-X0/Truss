@@ -1,0 +1,500 @@
+{
+  "generatedAt": "2026-08-30T08:58:48.110420600+00:00",
+  "fileCount": 171,
+  "files": [
+    ".apex-auditor/summary.json",
+    ".apex-auditor/summary.md",
+    ".codactrl/.gitignore",
+    ".codactrl/README.md",
+    ".codactrl/config.json",
+    ".codactrl/design/README.md",
+    ".codactrl/index.json",
+    ".codactrl/perf/README.md",
+    ".codactrl/technical/README.md",
+    ".codactrl/verify/README.md",
+    ".codactrl/verify/agent/entrypoints.json",
+    ".codactrl/verify/agent/false-green.json",
+    ".codactrl/verify/mcp-history/audit.jsonl",
+    ".codactrl/verify/mcp-history/index.json",
+    ".codactrl/verify/mcp-history/summary.json",
+    ".codactrl/verify/summary.md",
+    ".env.example",
+    ".gitattributes",
+    ".gitignore",
+    ".lighthouseci/lhr-1764051966892.html",
+    ".lighthouseci/lhr-1764051966892.json",
+    ".lighthouseci/lhr-1764051982341.html",
+    ".lighthouseci/lhr-1764051982341.json",
+    "LICENSE",
+    "README.md",
+    "apex.config.json",
+    "apps/api/package.json",
+    "apps/api/src/app.ts",
+    "apps/api/src/auth.ts",
+    "apps/api/src/run.ts",
+    "apps/api/tsconfig.json",
+    "apps/saas-web/.env.local",
+    "apps/saas-web/actions/accept-invite.ts",
+    "apps/saas-web/actions/billing-checkout.ts",
+    "apps/saas-web/actions/billing-portal.ts",
+    "apps/saas-web/actions/create-org-invite.ts",
+    "apps/saas-web/actions/create-project.ts",
+    "apps/saas-web/actions/login.ts",
+    "apps/saas-web/actions/request-password-reset.ts",
+    "apps/saas-web/actions/reset-password.ts",
+    "apps/saas-web/actions/send-feedback.ts",
+    "apps/saas-web/actions/set-active-org.ts",
+    "apps/saas-web/actions/sign-out.ts",
+    "apps/saas-web/actions/signup.ts",
+    "apps/saas-web/actions/update-profile.ts",
+    "apps/saas-web/actions/update-project-status.ts",
+    "apps/saas-web/app/_demo-banner.tsx",
+    "apps/saas-web/app/_feedback-form.tsx",
+    "apps/saas-web/app/_logo.tsx",
+    "apps/saas-web/app/_plans.ts",
+    "apps/saas-web/app/_providers.tsx",
+    "apps/saas-web/app/_theme-toggle.tsx",
+    "apps/saas-web/app/api/auth/[...betterauth]/route.ts",
+    "apps/saas-web/app/api/auth/get-session/route.ts",
+    "apps/saas-web/app/auth/accept-invite/_form.tsx",
+    "apps/saas-web/app/auth/accept-invite/page.tsx",
+    "apps/saas-web/app/auth/forgot-password/_form.tsx",
+    "apps/saas-web/app/auth/forgot-password/page.tsx",
+    "apps/saas-web/app/auth/login/_form.tsx",
+    "apps/saas-web/app/auth/login/_magic-link-form.tsx",
+    "apps/saas-web/app/auth/login/_social-buttons.tsx",
+    "apps/saas-web/app/auth/login/page.tsx",
+    "apps/saas-web/app/auth/reset-password/_form.tsx",
+    "apps/saas-web/app/auth/reset-password/page.tsx",
+    "apps/saas-web/app/auth/signup/_form.tsx",
+    "apps/saas-web/app/auth/signup/page.tsx",
+    "apps/saas-web/app/globals.css",
+    "apps/saas-web/app/icon.svg",
+    "apps/saas-web/app/layout.tsx",
+    "apps/saas-web/app/page.tsx",
+    "apps/saas-web/app/pricing/_plan-card.tsx",
+    "apps/saas-web/app/pricing/page.tsx",
+    "apps/saas-web/app/user/_activity-card.tsx",
+    "apps/saas-web/app/user/_activity-chart.tsx",
+    "apps/saas-web/app/user/_billing-card.tsx",
+    "apps/saas-web/app/user/_create-project-form.tsx",
+    "apps/saas-web/app/user/_demo-metrics-chart.tsx",
+    "apps/saas-web/app/user/_invite-form.tsx",
+    "apps/saas-web/app/user/_org-switcher.tsx",
+    "apps/saas-web/app/user/_org-usage-chart.tsx",
+    "apps/saas-web/app/user/_profile-form.tsx",
+    "apps/saas-web/app/user/_project-status-select.tsx",
+    "apps/saas-web/app/user/_sign-out-button.tsx",
+    "apps/saas-web/app/user/_usage-card.tsx",
+    "apps/saas-web/app/user/dashboard-data.ts",
+    "apps/saas-web/app/user/dashboard-derive.ts",
+    "apps/saas-web/app/user/mock-data/dashboard-mock.ts",
+    "apps/saas-web/app/user/page.tsx",
+    "apps/saas-web/components.json",
+    "apps/saas-web/lib/auth/client.ts",
+    "apps/saas-web/lib/auth/server.ts",
+    "apps/saas-web/modules/ui/badge.tsx",
+    "apps/saas-web/modules/ui/blocks/chart-sales-metrics.tsx",
+    "apps/saas-web/modules/ui/blocks/datatable-transaction.tsx",
+    "apps/saas-web/modules/ui/blocks/dropdown-language.tsx",
+    "apps/saas-web/modules/ui/blocks/dropdown-profile.tsx",
+    "apps/saas-web/modules/ui/blocks/statistics-card-01.tsx",
+    "apps/saas-web/modules/ui/blocks/widget-product-insights.tsx",
+    "apps/saas-web/modules/ui/blocks/widget-total-earning.tsx",
+    "apps/saas-web/modules/ui/button.tsx",
+    "apps/saas-web/modules/ui/card.tsx",
+    "apps/saas-web/modules/ui/input.tsx",
+    "apps/saas-web/modules/ui/label.tsx",
+    "apps/saas-web/modules/ui/utils.ts",
+    "apps/saas-web/next-env.d.ts",
+    "apps/saas-web/next.config.mjs",
+    "apps/saas-web/package.json",
+    "apps/saas-web/postcss.config.mjs",
+    "apps/saas-web/proxy.ts",
+    "apps/saas-web/public/landing_1.png",
+    "apps/saas-web/public/landing_2.png",
+    "apps/saas-web/public/lighthouse.png",
+    "apps/saas-web/public/minimalist_panel.png",
+    "apps/saas-web/public/mobile_1.png",
+    "apps/saas-web/public/mobile_2.png",
+    "apps/saas-web/public/mobile_3.png",
+    "apps/saas-web/public/mobile_4.png",
+    "apps/saas-web/public/pricing_1.png",
+    "apps/saas-web/public/pricing_2.png",
+    "apps/saas-web/public/signin.png",
+    "apps/saas-web/public/signup.png",
+    "apps/saas-web/tailwind.config.js",
+    "apps/saas-web/tsconfig.json",
+    "docs/architecture.md",
+    "docs/overview.md",
+    "docs/stack.md",
+    "docs/usage.md",
+    "e2e/auth.spec.ts",
+    "e2e/dashboard.spec.ts",
+    "e2e/tsconfig.json",
+    "lighthouserc.cjs",
+    "package.json",
+    "packages/.gitkeep",
+    "packages/auth/package.json",
+    "packages/auth/src/index.ts",
+    "packages/db/drizzle.config.ts",
+    "packages/db/package.json",
+    "packages/db/src/components/ui/avatar.tsx",
+    "packages/db/src/components/ui/badge.tsx",
+    "packages/db/src/components/ui/breadcrumb.tsx",
+    "packages/db/src/components/ui/button.tsx",
+    "packages/db/src/components/ui/card.tsx",
+    "packages/db/src/components/ui/chart.tsx",
+    "packages/db/src/components/ui/dropdown-menu.tsx",
+    "packages/db/src/components/ui/input.tsx",
+    "packages/db/src/components/ui/pagination.tsx",
+    "packages/db/src/components/ui/progress.tsx",
+    "packages/db/src/components/ui/separator.tsx",
+    "packages/db/src/components/ui/sheet.tsx",
+    "packages/db/src/components/ui/sidebar.tsx",
+    "packages/db/src/components/ui/skeleton.tsx",
+    "packages/db/src/components/ui/table.tsx",
+    "packages/db/src/components/ui/tooltip.tsx",
+    "packages/db/src/hooks/use-mobile.ts",
+    "packages/db/src/hooks/use-pagination.ts",
+    "packages/db/src/index.ts",
+    "packages/db/src/lib/utils.ts",
+    "packages/db/src/schema.ts",
+    "packages/db/src/seed.ts",
+    "packages/email/package.json",
+    "packages/email/src/magic-link-template.ts",
+    "packages/email/src/org-invite-template.ts",
+    "packages/email/src/send-email.ts",
+    "packages/rbac/package.json",
+    "packages/rbac/src/org-role-helpers.ts",
+    "packages/rbac/src/org-role-types.ts",
+    "playwright.config.ts",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    "tsconfig.json",
+    "turbo.json"
+  ],
+  "moduleCount": 7,
+  "modules": [
+    {
+      "kind": "apps",
+      "path": "apps/api",
+      "name": "@saas-starter-open/api",
+      "language": "ts/js"
+    },
+    {
+      "kind": "apps",
+      "path": "apps/saas-web",
+      "name": "saas-web",
+      "language": "ts/js"
+    },
+    {
+      "kind": "docs",
+      "path": "docs",
+      "name": "docs",
+      "language": "md/mdx"
+    },
+    {
+      "kind": "packages",
+      "path": "packages/auth",
+      "name": "@saas-starter-open/auth",
+      "language": "ts/js"
+    },
+    {
+      "kind": "packages",
+      "path": "packages/db",
+      "name": "@saas-starter-open/db",
+      "language": "ts/js"
+    },
+    {
+      "kind": "packages",
+      "path": "packages/email",
+      "name": "@saas-starter-open/email",
+      "language": "ts/js"
+    },
+    {
+      "kind": "packages",
+      "path": "packages/rbac",
+      "name": "@saas-starter-open/rbac",
+      "language": "ts/js"
+    }
+  ],
+  "workspacePackages": [
+    {
+      "id": "@saas-starter-open/api",
+      "kind": "app",
+      "path": "apps/api",
+      "name": "@saas-starter-open/api",
+      "language": "ts/js"
+    },
+    {
+      "id": "saas-web",
+      "kind": "app",
+      "path": "apps/saas-web",
+      "name": "saas-web",
+      "language": "ts/js"
+    },
+    {
+      "id": "@saas-starter-open/auth",
+      "kind": "package",
+      "path": "packages/auth",
+      "name": "@saas-starter-open/auth",
+      "language": "ts/js"
+    },
+    {
+      "id": "@saas-starter-open/db",
+      "kind": "package",
+      "path": "packages/db",
+      "name": "@saas-starter-open/db",
+      "language": "ts/js"
+    },
+    {
+      "id": "@saas-starter-open/email",
+      "kind": "package",
+      "path": "packages/email",
+      "name": "@saas-starter-open/email",
+      "language": "ts/js"
+    },
+    {
+      "id": "@saas-starter-open/rbac",
+      "kind": "package",
+      "path": "packages/rbac",
+      "name": "@saas-starter-open/rbac",
+      "language": "ts/js"
+    }
+  ],
+  "packageEdges": [
+    {
+      "sourceId": "@saas-starter-open/api",
+      "targetId": "@saas-starter-open/auth",
+      "dependencyType": "dependencies"
+    },
+    {
+      "sourceId": "@saas-starter-open/api",
+      "targetId": "@saas-starter-open/db",
+      "dependencyType": "dependencies"
+    },
+    {
+      "sourceId": "@saas-starter-open/api",
+      "targetId": "@saas-starter-open/email",
+      "dependencyType": "dependencies"
+    },
+    {
+      "sourceId": "@saas-starter-open/api",
+      "targetId": "@saas-starter-open/rbac",
+      "dependencyType": "dependencies"
+    },
+    {
+      "sourceId": "@saas-starter-open/auth",
+      "targetId": "@saas-starter-open/db",
+      "dependencyType": "dependencies"
+    },
+    {
+      "sourceId": "@saas-starter-open/auth",
+      "targetId": "@saas-starter-open/email",
+      "dependencyType": "dependencies"
+    },
+    {
+      "sourceId": "saas-web",
+      "targetId": "@saas-starter-open/rbac",
+      "dependencyType": "dependencies"
+    }
+  ],
+  "entrypoints": [
+    {
+      "packageId": "@saas-starter-open/auth",
+      "path": "packages/auth/src/index.ts",
+      "source": "main"
+    },
+    {
+      "packageId": "@saas-starter-open/db",
+      "path": "packages/db/src/index.ts",
+      "source": "main"
+    },
+    {
+      "packageId": "@saas-starter-open/email",
+      "path": "packages/email/src/send-email.ts",
+      "source": "main"
+    },
+    {
+      "packageId": "@saas-starter-open/rbac",
+      "path": "packages/rbac/src/org-role-helpers.ts",
+      "source": "main"
+    }
+  ],
+  "architectureUnits": [
+    {
+      "id": "unit:apps/api:src",
+      "parentPackageId": "@saas-starter-open/api",
+      "kind": "module",
+      "path": "apps/api/src",
+      "name": "src",
+      "language": "ts/js"
+    },
+    {
+      "id": "unit:apps/saas-web:app",
+      "parentPackageId": "saas-web",
+      "kind": "facade",
+      "path": "apps/saas-web/app",
+      "name": "app",
+      "language": "ts/js"
+    },
+    {
+      "id": "unit:apps/saas-web:app/api",
+      "parentPackageId": "saas-web",
+      "kind": "facade",
+      "path": "apps/saas-web/app/api",
+      "name": "api",
+      "language": "ts/js"
+    },
+    {
+      "id": "unit:apps/saas-web:app/auth",
+      "parentPackageId": "saas-web",
+      "kind": "module",
+      "path": "apps/saas-web/app/auth",
+      "name": "auth",
+      "language": "ts/js"
+    },
+    {
+      "id": "unit:apps/saas-web:app/pricing",
+      "parentPackageId": "saas-web",
+      "kind": "module",
+      "path": "apps/saas-web/app/pricing",
+      "name": "pricing",
+      "language": "ts/js"
+    },
+    {
+      "id": "unit:apps/saas-web:app/user",
+      "parentPackageId": "saas-web",
+      "kind": "module",
+      "path": "apps/saas-web/app/user",
+      "name": "user",
+      "language": "ts/js"
+    },
+    {
+      "id": "unit:apps/saas-web:lib/auth",
+      "parentPackageId": "saas-web",
+      "kind": "module",
+      "path": "apps/saas-web/lib/auth",
+      "name": "auth",
+      "language": "ts/js"
+    },
+    {
+      "id": "unit:packages/auth:src",
+      "parentPackageId": "@saas-starter-open/auth",
+      "kind": "module",
+      "path": "packages/auth/src",
+      "name": "src",
+      "language": "ts/js"
+    },
+    {
+      "id": "unit:packages/db:src/components",
+      "parentPackageId": "@saas-starter-open/db",
+      "kind": "component",
+      "path": "packages/db/src/components",
+      "name": "components",
+      "language": "ts/js"
+    },
+    {
+      "id": "unit:packages/db:src/hooks",
+      "parentPackageId": "@saas-starter-open/db",
+      "kind": "layer",
+      "path": "packages/db/src/hooks",
+      "name": "hooks",
+      "language": "ts/js"
+    },
+    {
+      "id": "unit:packages/db:src/lib",
+      "parentPackageId": "@saas-starter-open/db",
+      "kind": "layer",
+      "path": "packages/db/src/lib",
+      "name": "lib",
+      "language": "ts/js"
+    },
+    {
+      "id": "unit:packages/email:src",
+      "parentPackageId": "@saas-starter-open/email",
+      "kind": "module",
+      "path": "packages/email/src",
+      "name": "src",
+      "language": "ts/js"
+    },
+    {
+      "id": "unit:packages/rbac:src",
+      "parentPackageId": "@saas-starter-open/rbac",
+      "kind": "module",
+      "path": "packages/rbac/src",
+      "name": "src",
+      "language": "ts/js"
+    }
+  ],
+  "architectureUnitEdges": [
+    {
+      "sourceId": "@saas-starter-open/api",
+      "targetId": "unit:apps/api:src",
+      "dependencyType": "contains"
+    },
+    {
+      "sourceId": "@saas-starter-open/auth",
+      "targetId": "unit:packages/auth:src",
+      "dependencyType": "contains"
+    },
+    {
+      "sourceId": "@saas-starter-open/db",
+      "targetId": "unit:packages/db:src/components",
+      "dependencyType": "contains"
+    },
+    {
+      "sourceId": "@saas-starter-open/db",
+      "targetId": "unit:packages/db:src/hooks",
+      "dependencyType": "contains"
+    },
+    {
+      "sourceId": "@saas-starter-open/db",
+      "targetId": "unit:packages/db:src/lib",
+      "dependencyType": "contains"
+    },
+    {
+      "sourceId": "@saas-starter-open/email",
+      "targetId": "unit:packages/email:src",
+      "dependencyType": "contains"
+    },
+    {
+      "sourceId": "@saas-starter-open/rbac",
+      "targetId": "unit:packages/rbac:src",
+      "dependencyType": "contains"
+    },
+    {
+      "sourceId": "saas-web",
+      "targetId": "unit:apps/saas-web:app",
+      "dependencyType": "contains"
+    },
+    {
+      "sourceId": "saas-web",
+      "targetId": "unit:apps/saas-web:app/api",
+      "dependencyType": "contains"
+    },
+    {
+      "sourceId": "saas-web",
+      "targetId": "unit:apps/saas-web:app/auth",
+      "dependencyType": "contains"
+    },
+    {
+      "sourceId": "saas-web",
+      "targetId": "unit:apps/saas-web:app/pricing",
+      "dependencyType": "contains"
+    },
+    {
+      "sourceId": "saas-web",
+      "targetId": "unit:apps/saas-web:app/user",
+      "dependencyType": "contains"
+    },
+    {
+      "sourceId": "saas-web",
+      "targetId": "unit:apps/saas-web:lib/auth",
+      "dependencyType": "contains"
+    }
+  ],
+  "crateCount": 0,
+  "scanSnapshotHash": "sha256:c288b64a72c642a9f4fbed32f344533c8525fb5e0dd369d2e269c64d8f2ace25"
+}

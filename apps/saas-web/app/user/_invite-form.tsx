@@ -56,7 +56,6 @@ export default function InviteForm({ orgId }: InviteFormProps): ReactElement {
           defaultValue="member"
           className="flex h-9 w-full rounded-md border bg-background px-3 text-xs shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <option value="owner">Owner</option>
           <option value="admin">Admin</option>
           <option value="member">Member</option>
         </select>

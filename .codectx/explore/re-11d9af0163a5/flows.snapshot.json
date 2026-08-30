@@ -1,0 +1,214 @@
+{
+  "schema": "studio.repo.flows.snapshot@1.0.0",
+  "exploreId": "re-11d9af0163a5",
+  "scanSnapshotHash": "sha256:c288b64a72c642a9f4fbed32f344533c8525fb5e0dd369d2e269c64d8f2ace25",
+  "snapshotHash": "sha256:30a9ce4adfeecfd4ff78097e7d91550c714daa8585178ca9b1a1899756fc9dc3",
+  "generatedAt": "2026-08-30T08:58:48.119831600+00:00",
+  "summary": {
+    "ciFlowCount": 0,
+    "scriptFlowCount": 4,
+    "stepCount": 20
+  },
+  "flows": [
+    {
+      "id": "script:apps/api",
+      "kind": "script",
+      "name": "@saas-starter-open/api scripts",
+      "sourcePath": "apps/api/package.json",
+      "packagePath": "apps/api",
+      "trigger": null,
+      "steps": [
+        {
+          "order": 1,
+          "id": "dev",
+          "name": "dev",
+          "kind": "script",
+          "command": "tsx watch src/run.ts",
+          "evidencePath": "apps/api/package.json"
+        },
+        {
+          "order": 2,
+          "id": "start",
+          "name": "start",
+          "kind": "script",
+          "command": "tsx src/run.ts",
+          "evidencePath": "apps/api/package.json"
+        },
+        {
+          "order": 3,
+          "id": "typecheck",
+          "name": "typecheck",
+          "kind": "script",
+          "command": "tsc -p tsconfig.json --noEmit",
+          "evidencePath": "apps/api/package.json"
+        }
+      ]
+    },
+    {
+      "id": "script:apps/saas-web",
+      "kind": "script",
+      "name": "saas-web scripts",
+      "sourcePath": "apps/saas-web/package.json",
+      "packagePath": "apps/saas-web",
+      "trigger": null,
+      "steps": [
+        {
+          "order": 1,
+          "id": "build",
+          "name": "build",
+          "kind": "script",
+          "command": "next build",
+          "evidencePath": "apps/saas-web/package.json"
+        },
+        {
+          "order": 2,
+          "id": "dev",
+          "name": "dev",
+          "kind": "script",
+          "command": "next dev",
+          "evidencePath": "apps/saas-web/package.json"
+        },
+        {
+          "order": 3,
+          "id": "start",
+          "name": "start",
+          "kind": "script",
+          "command": "next start",
+          "evidencePath": "apps/saas-web/package.json"
+        },
+        {
+          "order": 4,
+          "id": "typecheck",
+          "name": "typecheck",
+          "kind": "script",
+          "command": "tsc -p tsconfig.json --noEmit",
+          "evidencePath": "apps/saas-web/package.json"
+        }
+      ]
+    },
+    {
+      "id": "script:root",
+      "kind": "script",
+      "name": "saas-starter-open scripts",
+      "sourcePath": "package.json",
+      "packagePath": null,
+      "trigger": null,
+      "steps": [
+        {
+          "order": 1,
+          "id": "build",
+          "name": "build",
+          "kind": "script",
+          "command": "turbo build",
+          "evidencePath": "package.json"
+        },
+        {
+          "order": 2,
+          "id": "clean",
+          "name": "clean",
+          "kind": "script",
+          "command": "turbo run clean",
+          "evidencePath": "package.json"
+        },
+        {
+          "order": 3,
+          "id": "dev",
+          "name": "dev",
+          "kind": "script",
+          "command": "turbo dev",
+          "evidencePath": "package.json"
+        },
+        {
+          "order": 4,
+          "id": "lhci:desktop",
+          "name": "lhci:desktop",
+          "kind": "script",
+          "command": "lhci autorun --config=lighthouserc.cjs --collect.settings.preset=desktop",
+          "evidencePath": "package.json"
+        },
+        {
+          "order": 5,
+          "id": "lhci:mobile",
+          "name": "lhci:mobile",
+          "kind": "script",
+          "command": "lhci autorun --config=lighthouserc.cjs --collect.settings.preset=mobile",
+          "evidencePath": "package.json"
+        },
+        {
+          "order": 6,
+          "id": "lint",
+          "name": "lint",
+          "kind": "script",
+          "command": "turbo run lint",
+          "evidencePath": "package.json"
+        },
+        {
+          "order": 7,
+          "id": "start",
+          "name": "start",
+          "kind": "script",
+          "command": "turbo start",
+          "evidencePath": "package.json"
+        },
+        {
+          "order": 8,
+          "id": "test:e2e",
+          "name": "test:e2e",
+          "kind": "script",
+          "command": "playwright test",
+          "evidencePath": "package.json"
+        },
+        {
+          "order": 9,
+          "id": "typecheck",
+          "name": "typecheck",
+          "kind": "script",
+          "command": "turbo run typecheck",
+          "evidencePath": "package.json"
+        }
+      ]
+    },
+    {
+      "id": "script:packages/db",
+      "kind": "script",
+      "name": "@saas-starter-open/db scripts",
+      "sourcePath": "packages/db/package.json",
+      "packagePath": "packages/db",
+      "trigger": null,
+      "steps": [
+        {
+          "order": 1,
+          "id": "db:generate",
+          "name": "db:generate",
+          "kind": "script",
+          "command": "drizzle-kit generate --config=drizzle.config.ts",
+          "evidencePath": "packages/db/package.json"
+        },
+        {
+          "order": 2,
+          "id": "db:push",
+          "name": "db:push",
+          "kind": "script",
+          "command": "drizzle-kit push --config=drizzle.config.ts",
+          "evidencePath": "packages/db/package.json"
+        },
+        {
+          "order": 3,
+          "id": "db:seed",
+          "name": "db:seed",
+          "kind": "script",
+          "command": "tsx src/seed.ts",
+          "evidencePath": "packages/db/package.json"
+        },
+        {
+          "order": 4,
+          "id": "db:studio",
+          "name": "db:studio",
+          "kind": "script",
+          "command": "drizzle-kit studio --config=drizzle.config.ts",
+          "evidencePath": "packages/db/package.json"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@saas-starter-open/db/components",
+    "utils": "@saas-starter-open/db/lib/utils",
+    "ui": "@saas-starter-open/db/components/ui",
+    "lib": "@saas-starter-open/db/lib",
+    "hooks": "@saas-starter-open/db/hooks"
+  },
+  "registries": {}
+}

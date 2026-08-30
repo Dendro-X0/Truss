@@ -34,7 +34,7 @@ Truss is built on a modern TypeScript-first stack that emphasizes type safety, c
   - Email/password authentication
   - Optional social providers (GitHub, Google) via environment variables
   - Username plugin
-  - Magic link and two-factor (2FA) support wired in
+  - Magic link scaffolding via `packages/email`
 
 ## Database
 
@@ -57,3 +57,10 @@ Truss is built on a modern TypeScript-first stack that emphasizes type safety, c
   - `pnpm typecheck` – typecheck all packages
   - `pnpm lint` – lint (when configured per app)
   - `pnpm build` – build all apps
+
+## Demo mode
+
+Truss supports a UI-only demo mode:
+
+- `NEXT_PUBLIC_TRUSS_DEMO_MODE=1` shows a banner on the landing page.
+- The UI can render without connecting to a database or API.

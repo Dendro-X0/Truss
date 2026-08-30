@@ -1,0 +1,22 @@
+{
+  "name": "@saas-starter-open/email",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/send-email.ts",
+  "types": "src/send-email.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./src/send-email.ts",
+      "default": "./src/send-email.ts"
+    }
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.16",
+    "resend": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^7.0.4"
+  }
+}

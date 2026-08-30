@@ -1,9 +1,11 @@
 import type { Db } from "./index";
 import getDb from "./index";
 
+/**
+ * Truss provisions orgs and projects on first login via the API.
+ * For UI-only exploration, use DISABLE_AUTH_GUARD=1 instead of seed data.
+ */
 async function seed(db: Db): Promise<void> {
-  // TODO: add demo seed data (orgs, users, projects).
-  // For now, this is a no-op placeholder.
   await Promise.resolve(db);
 }
 

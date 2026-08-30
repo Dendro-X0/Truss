@@ -1,3 +1,4 @@
+import "./load-env";
 import { serve } from "@hono/node-server";
 import type { AppInstance } from "./app";
 import { createApp } from "./app";

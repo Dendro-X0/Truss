@@ -1,9 +1,8 @@
-import type { HTMLAttributes, ReactElement } from "react";
-import cn from "./utils";
+import type { ComponentProps, ReactElement } from "react";
+import { Card as ShadcnCard } from "@/components/ui/card";
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {}
+type CardProps = ComponentProps<typeof ShadcnCard>;
 
 export default function Card({ className, ...props }: CardProps): ReactElement {
-  const mergedClassName: string = cn("rounded-lg border bg-background shadow-sm", className);
-  return <div className={mergedClassName} {...props} />;
+  return <ShadcnCard className={className} {...props} />;
 }

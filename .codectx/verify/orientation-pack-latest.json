@@ -1,0 +1,114 @@
+{
+  "schema": "studio.orientation.pack@1.0.0",
+  "subjectMatch": {
+    "kind": "generic",
+    "matched": false,
+    "signals": [],
+    "notes": [
+      "Generic subject — landmines empty until a case-study pack matches"
+    ]
+  },
+  "hubs": [
+    {
+      "path": "auth",
+      "kind": "packageSample",
+      "degree": 4,
+      "source": "soft"
+    },
+    {
+      "path": "db",
+      "kind": "packageSample",
+      "degree": 3,
+      "source": "soft"
+    },
+    {
+      "path": "email",
+      "kind": "packageSample",
+      "degree": 2,
+      "source": "soft"
+    },
+    {
+      "path": "rbac",
+      "kind": "packageSample",
+      "degree": 1,
+      "source": "soft"
+    }
+  ],
+  "packageMap": {
+    "shape": "monorepo-workspace",
+    "confidence": 0.9,
+    "recommendedPack": "orient-cold-oss",
+    "packageSamples": [
+      "auth",
+      "db",
+      "email",
+      "rbac"
+    ],
+    "workspacePackageCount": 4,
+    "source": "subject.shape.classify"
+  },
+  "landmines": [],
+  "suggestedMcpReadOrder": [
+    {
+      "order": 1,
+      "tool": "studio_help",
+      "purpose": "Consolidated lanes + orientationPack quickstart"
+    },
+    {
+      "order": 2,
+      "tool": "studio_repo { action: \"studio_orientation_pack\" }",
+      "purpose": "OFP1 hubs + landmines + MCP order + doesNotProve"
+    },
+    {
+      "order": 3,
+      "tool": "studio_repo { action: \"repo_explore_run\" }",
+      "purpose": "Warm explore cache when coldSubject / repoExploreRunRequired",
+      "when": "explore.coldSubject == true"
+    },
+    {
+      "order": 4,
+      "tool": "studio_repo { action: \"studio_map_summary\" }",
+      "purpose": "Authoritative import hubs after explore",
+      "when": "hubs.source soft or cold"
+    },
+    {
+      "order": 5,
+      "tool": "studio_pathway",
+      "purpose": "Salvage / vibe-ruin pathway when repairing; not a substitute for orientation",
+      "when": "salvage / prove needed"
+    },
+    {
+      "order": 6,
+      "tool": "studio_perf { action: \"perf_workflow_guide\" } → pathways.optimizeHealth",
+      "purpose": "Optional surface health audit after map orientation",
+      "when": "API/DB/client health audit"
+    }
+  ],
+  "openQuestions": [
+    "Which hub is the surgical entry for the current task (not the whole monorepo)?",
+    "Is explore cache warm enough for hop/trail, or is repo_explore_run required first?"
+  ],
+  "doesNotProve": [
+    "Orientation pack ≠ architecture complete or product fixed",
+    "Soft neural hubs ≠ authoritative map.neural.summary",
+    "Landmine tags ≠ reproduced fault on this checkout",
+    "Suggested MCP order ≠ executed prove / stress"
+  ],
+  "explore": {
+    "schema": "studio.repo.explore-bundle@1.0.0",
+    "coldSubject": true,
+    "repoExploreRunRequired": true,
+    "shape": "monorepo-workspace",
+    "dualOwnerCount": 0,
+    "recommendedVerifyOpIds": [],
+    "notes": [
+      "No .codectx/explore/latest.json — repo_explore_run required"
+    ]
+  },
+  "notes": [
+    "OFP1 orientation pack: hubs + landmines + MCP read order + honesty — prefer this over inventing a tour",
+    "Reuses CVE3 explore-bundle signals; call studio_map_summary when hubs.source is soft",
+    "No case-study landmine pack matched — empty landmines is expected for generic subjects",
+    "Cold subject: run repo_explore_run before deep hop/tree (see suggestedMcpReadOrder)"
+  ]
+}

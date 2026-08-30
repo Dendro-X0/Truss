@@ -21,12 +21,12 @@ Truss is organized as a pnpm monorepo with a clear separation between apps and s
 - **apps/saas-web**
   - Next.js App Router frontend
   - Tailwind CSS v4 plus Truss UI primitives for buttons, inputs, cards, and badges
-  - Auth flows under `/auth` (login/signup, magic link, 2FA hooks)
+  - Auth flows under `/auth` (login/signup and supporting screens)
   - Auth-protected dashboard at `/user` with:
     - Session + profile card
     - Organization list and org switcher
     - Project table (create/update)
-    - Billing card (Stripe-ready skeleton)
+    - Billing card (scaffolded)
     - Invitations, activity, and feedback sections
   - TanStack Query (`@tanstack/react-query`) for client-side widgets such as the recent activity feed
 
@@ -41,6 +41,9 @@ Truss is organized as a pnpm monorepo with a clear separation between apps and s
   - Better Auth server configuration using the shared Drizzle schema
   - Pluggable social providers (GitHub, Google) via env vars
 
+- **packages/email**
+  - Email sender and templates used by auth flows (provider configuration is optional)
+
 ## Data flow
 
 - Next.js server components and server actions call the Hono API for data and mutations.
@@ -54,3 +57,11 @@ Truss is organized as a pnpm monorepo with a clear separation between apps and s
 - Projects are always scoped to an organization.
 - The dashboard uses an organization switcher and an `ORG_ID` cookie to determine the active organization.
 - If a user has no organizations, the API can lazily create a personal workspace and demo projects to make onboarding smoother.
+
+## Demo mode boundary
+
+When running in UI-only demo mode:
+
+- The Next.js app can render without a database or API.
+- Actions that depend on the API may fail or be disabled.
+- `NEXT_PUBLIC_TRUSS_DEMO_MODE=1` enables a banner that explains the environment in the UI.

@@ -1,0 +1,21 @@
+{
+  "schema": "studio.output.hub.config@1.0.0",
+  "updatedAt": "2026-08-30T08:58:40.974263700+00:00",
+  "modules": {
+    "design": {
+      "enabled": true
+    },
+    "perf": {
+      "enabled": true
+    },
+    "specs": {
+      "enabled": false
+    },
+    "technical": {
+      "enabled": true
+    },
+    "verify": {
+      "enabled": true
+    }
+  }
+}

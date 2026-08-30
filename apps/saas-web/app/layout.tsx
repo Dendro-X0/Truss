@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactElement, ReactNode } from "react";
 import AppProviders from "./_providers";
-import ThemeToggle from "./_theme-toggle";
+import AppHeader from "@/modules/marketing/app-header";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,9 +16,11 @@ export interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps): ReactElement {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-background text-foreground">
-        <ThemeToggle />
-        <AppProviders>{children}</AppProviders>
+      <body className="min-h-screen bg-background text-foreground antialiased">
+        <AppProviders>
+          <AppHeader />
+          {children}
+        </AppProviders>
       </body>
     </html>
   );

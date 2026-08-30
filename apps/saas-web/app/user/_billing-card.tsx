@@ -8,15 +8,17 @@ import type { BillingPortalState } from "../../actions/billing-portal";
 import { billingPortalAction } from "../../actions/billing-portal";
 import Button from "@/modules/ui/button";
 import Badge from "@/modules/ui/badge";
+import { getStrataUpgradeUrl } from "@/modules/marketing/product-suite";
 
 export interface BillingCardProps {
   readonly orgId: string;
   readonly orgName: string;
   readonly plan: string;
   readonly status: string;
+  readonly canManageBilling: boolean;
 }
 
-export default function BillingCard({ orgId, orgName, plan, status }: BillingCardProps): ReactElement {
+export default function BillingCard({ orgId, orgName, plan, status, canManageBilling }: BillingCardProps): ReactElement {
   const [checkoutState, checkoutAction] = useActionState<BillingCheckoutState | null, FormData>(
     billingCheckoutAction,
     null,
@@ -35,6 +37,8 @@ export default function BillingCard({ orgId, orgName, plan, status }: BillingCar
       // In a real app, this would redirect to Stripe billing portal.
     }
   }, [portalState?.success, portalState?.url]);
+
+  const disabled: boolean = !canManageBilling;
 
   function onStartCheckout(): void {
     const formData: FormData = new FormData();
@@ -67,7 +71,16 @@ export default function BillingCard({ orgId, orgName, plan, status }: BillingCar
             <span className="capitalize">{status}</span>
           </p>
           <p className="text-muted-foreground">
-            Stripe is not configured in this demo. Checkout and portal actions will return placeholder URLs.
+            Billing is scaffolded in Truss — checkout returns placeholder URLs until you wire a provider or graduate to{" "}
+            <a
+              href={getStrataUpgradeUrl()}
+              className="font-medium text-primary hover:underline"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Strata Pro
+            </a>
+            .
           </p>
           {checkoutState?.url && (
             <p className="text-[11px] text-muted-foreground">Checkout URL: {checkoutState.url}</p>
@@ -79,10 +92,17 @@ export default function BillingCard({ orgId, orgName, plan, status }: BillingCar
           {portalState?.error && <p className="text-[11px] text-destructive">{portalState.error}</p>}
         </div>
         <div className="flex flex-col gap-2">
-          <Button type="button" size="sm" onClick={onStartCheckout} className="text-xs">
+          <Button type="button" size="sm" onClick={onStartCheckout} className="text-xs" disabled={disabled}>
             Upgrade to Pro
           </Button>
-          <Button type="button" variant="outline" size="sm" onClick={onOpenPortal} className="text-xs">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={onOpenPortal}
+            className="text-xs"
+            disabled={disabled}
+          >
             Manage billing
           </Button>
         </div>

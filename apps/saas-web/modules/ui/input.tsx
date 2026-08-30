@@ -1,6 +1,7 @@
 "use client";
 
 import type { InputHTMLAttributes, ReactElement } from "react";
+import { Input as ShadcnInput } from "@/components/ui/input";
 import cn from "./utils";
 
 type InputSize = "sm" | "md" | "lg";
@@ -23,10 +24,6 @@ function getSizeClasses(size: InputSize): string {
 
 export default function Input({ size = "md", className, ...props }: InputProps): ReactElement {
   const sizeClasses: string = getSizeClasses(size);
-  const mergedClassName: string = cn(
-    "flex w-full rounded-md border shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-    sizeClasses,
-    className,
-  );
-  return <input className={mergedClassName} {...props} />;
+  const mergedClassName: string = cn(sizeClasses, className);
+  return <ShadcnInput className={mergedClassName} {...props} />;
 }

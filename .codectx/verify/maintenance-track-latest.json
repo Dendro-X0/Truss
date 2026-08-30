@@ -1,0 +1,134 @@
+{
+  "schema": "studio.maintenance.track@1.0.0",
+  "inputs": {
+    "issuesPresent": false,
+    "issueRowCount": 0,
+    "fingerprintStable": null,
+    "surfacesPresent": false,
+    "surfaceItemCount": 0,
+    "mriPresent": true,
+    "mriVerdict": "unknown",
+    "rwrPresent": false,
+    "rwrMode": null,
+    "sources": [
+      ".codectx/verify/maintenance-intake-latest.json"
+    ]
+  },
+  "rows": [],
+  "stages": [
+    "triage",
+    "prove",
+    "remediate",
+    "blocked",
+    "parked"
+  ],
+  "pathway": {
+    "id": "pathways.maintenanceTrack",
+    "title": "Cross-domain maintenance track (MTX)",
+    "steps": [
+      "studio_help → maintenanceTrack / pathways.maintenanceTrack",
+      "Prefer when triage spans Perf + Verify (+ Design/Deliver); OFP5-only when precision hub alone suffices",
+      "studio_repo { action: \"studio_maintenance_track\" }",
+      "Optional domain=perf|verify|design|deliver filter — empty filtered set ≠ green",
+      "Follow nextMcpSequence (OFP5 / Perf / MRI / RWR as needed)"
+    ],
+    "whenToUse": [
+      "Issues + surfaces (or MRI/RWR) need one surgical list",
+      "After MRI remediate when multi-desk work remains",
+      "After OFP5 when agents start inventing parallel trackers"
+    ],
+    "preferOverOfp5Only": [
+      "Need Perf fix-queue rows beside Verify fingerprints",
+      "Need MRI/RWR pointers on the same track",
+      "Need domain/stage labels for surgical ordering"
+    ],
+    "domainFilters": [
+      "domain=perf — structural surface / API / data rows",
+      "domain=verify — prove / stress / security / orientation-linked",
+      "domain=design — RWR standards pointer",
+      "domain=deliver — handoff / Jobs-linked (when present)",
+      "Missing hubs with filter → empty rows; emptyGreen stays false"
+    ],
+    "stageHonesty": [
+      "triage — unknown / cold / decide next desk",
+      "prove — Verify ladder / ARP / stress before ship cite",
+      "remediate — finite surgical fix (MRI remediate path)",
+      "blocked — waiting on hub/export/alignment",
+      "parked — rewrite/design hold; not abandoned silently",
+      "Stages are labels, not a workflow engine"
+    ],
+    "doesNotProve": [
+      "jira_replacement",
+      "product_fixed",
+      "live_cdp",
+      "empty_hubs_mean_green"
+    ]
+  },
+  "links": [
+    {
+      "kind": "issue-precision",
+      "path": ".codectx/verify/issue-precision-latest.json",
+      "status": "absent",
+      "note": "OFP5 hub — fingerprint rows linked without minting duplicates"
+    },
+    {
+      "kind": "fix-queue",
+      "path": ".codactrl/perf/agent/fix-queue.json",
+      "status": "absent",
+      "note": "Perf structural surfaces (hub-first)"
+    },
+    {
+      "kind": "maintenance-intake",
+      "path": ".codectx/verify/maintenance-intake-latest.json",
+      "status": "present",
+      "note": "MRI verdict / surfaces summary"
+    },
+    {
+      "kind": "rewrite-standards",
+      "path": ".codectx/verify/rewrite-standards-latest.json",
+      "status": "absent",
+      "note": "RWR pack pointer (design domain)"
+    }
+  ],
+  "nextMcpSequence": [
+    {
+      "order": 1,
+      "tool": "studio_repo { action: \"studio_maintenance_track\" }",
+      "purpose": "Already done — cross-domain maintenance track"
+    },
+    {
+      "order": 2,
+      "tool": "studio_verify { action: \"issue_precision_evaluate\" }",
+      "purpose": "Build OFP5 precision hub before trusting track issues",
+      "when": "issues.present=false"
+    },
+    {
+      "order": 3,
+      "tool": "studio_perf { action: \"perf_explore_run\" }",
+      "purpose": "Populate Perf fix-queue when structural surfaces matter",
+      "when": "surfaces.present=false"
+    },
+    {
+      "order": 4,
+      "tool": "studio_verify { action: \"verify_issues_list\" }",
+      "purpose": "Read register rows without inventing a second tracker"
+    }
+  ],
+  "emptyGreen": false,
+  "openQuestions": [
+    "No issue-precision hub — run issue_precision_evaluate (OFP5) when tracking issues",
+    "No Perf fix-queue — run perf_explore_run when structural surface audit is needed"
+  ],
+  "doesNotProve": [
+    "MTX track pack is not a Jira replacement",
+    "MTX does not prove product fixed or live CDP",
+    "MTX does not mutate subject repos or rebuild registers",
+    "MTX does not claim Design ZIP / Deliver apply",
+    "Empty track rows with missing hubs ≠ green clearance"
+  ],
+  "notes": [
+    "MTX1/MTX2 cross-domain track: prefer this over inventing parallel issue lists",
+    "Composed 0 track rows from hubs only (no explore/CDP forced)",
+    "emptyGreen=false — missing hubs never imply all-clear"
+  ]
+}
