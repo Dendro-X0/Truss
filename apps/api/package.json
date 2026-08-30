@@ -9,13 +9,12 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@hono/node-server": "^1.13.2",
+    "@hono/node-server": "^2.1.1",
     "@saas-starter-open/auth": "workspace:*",
     "@saas-starter-open/db": "workspace:*",
-    "@saas-starter-open/rbac": "workspace:*",
     "@saas-starter-open/email": "workspace:*",
-    "drizzle-orm": "^0.44.5",
-    "hono": "^4.6.8"
-  },
-  "devDependencies": {}
+    "@saas-starter-open/rbac": "workspace:*",
+    "drizzle-orm": "^0.45.2",
+    "hono": "^4.13.5"
+  }
 }
