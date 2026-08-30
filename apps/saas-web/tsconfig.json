@@ -4,7 +4,6 @@
     "jsx": "react-jsx",
     "plugins": [{ "name": "next" }],
     "types": ["node", "react", "react-dom"],
-    "baseUrl": ".",
     "paths": {
       "@saas-starter-open/db": ["../../packages/db/src/index.ts"],
       "@saas-starter-open/db/*": ["../../packages/db/src/*"],
@@ -12,12 +11,12 @@
       "@saas-starter-open/auth/*": ["../../packages/auth/src/*"],
       "@saas-starter-open/email/*": ["../../packages/email/src/*"],
       "@saas-starter-open/rbac/*": ["../../packages/rbac/src/*"],
-      "@/modules/*": ["modules/*"],
-      "@/components/shadcn-studio/*": ["modules/ui/blocks/*"],
+      "@/modules/*": ["./modules/*"],
+      "@/components/shadcn-studio/*": ["./modules/ui/blocks/*"],
       "@/components/ui/*": ["../../packages/db/src/components/ui/*"],
       "@/components/*": ["../../packages/db/src/components/*"],
       "@/lib/*": ["../../packages/db/src/lib/*"],
-      "@/saas-lib/*": ["lib/*"],
+      "@/saas-lib/*": ["./lib/*"],
       "@/hooks/*": ["../../packages/db/src/hooks/*"]
     }
   },
