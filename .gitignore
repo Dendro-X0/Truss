@@ -34,3 +34,6 @@ Thumbs.db
 # Misc
 *.swp
 *.swo
+
+# Local CodaCtrl Studio (internal tooling — never publish)
+.codactrl/

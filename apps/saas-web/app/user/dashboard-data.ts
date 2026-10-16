@@ -247,3 +247,42 @@ export async function fetchOrgMembers(
     return null;
   }
 }
+
+export type DashboardSessionBundle = {
+  readonly whoami: WhoAmIResponse;
+  readonly profile: UserProfileResponse | null;
+  readonly organizations: readonly OrganizationSummary[];
+};
+
+export type OrgDashboardBundle = {
+  readonly billing: BillingSummary | null;
+  readonly members: readonly OrgMemberSummary[] | null;
+  readonly projects: readonly ProjectSummary[];
+  readonly invitations: readonly InvitationSummary[];
+};
+
+/** Parallel session bootstrap — whoami + profile + orgs. */
+export async function fetchDashboardSessionBundle(
+  cookieHeader: string | null,
+): Promise<DashboardSessionBundle> {
+  const [whoami, profile, organizations] = await Promise.all([
+    fetchWhoAmI(cookieHeader),
+    fetchProfile(cookieHeader),
+    fetchOrganizations(cookieHeader),
+  ]);
+  return { whoami, profile, organizations };
+}
+
+/** Parallel org-scoped dashboard fetches once an org is selected. */
+export async function fetchOrgDashboardBundle(
+  cookieHeader: string | null,
+  orgId: string,
+): Promise<OrgDashboardBundle> {
+  const [billing, members, projects, invitations] = await Promise.all([
+    fetchBilling(cookieHeader, orgId),
+    fetchOrgMembers(cookieHeader, orgId),
+    fetchProjects(cookieHeader, orgId),
+    fetchInvitations(cookieHeader, orgId),
+  ]);
+  return { billing, members, projects, invitations };
+}

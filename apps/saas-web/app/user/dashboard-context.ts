@@ -12,15 +12,7 @@ import type {
   ProjectSummary,
   UserProfileResponse,
 } from "./dashboard-data";
-import {
-  fetchBilling,
-  fetchInvitations,
-  fetchOrganizations,
-  fetchOrgMembers,
-  fetchProfile,
-  fetchProjects,
-  fetchWhoAmI,
-} from "./dashboard-data";
+import { fetchDashboardSessionBundle, fetchOrgDashboardBundle } from "./dashboard-data";
 
 export type DashboardMetrics = {
   readonly memberCount: number | null;
@@ -100,11 +92,7 @@ async function loadLiveDashboardContext(): Promise<DashboardContext | null> {
   const [headerStore, cookieStore] = await Promise.all([headers(), cookies()]);
   const cookieHeader: string | null = buildCookieHeader(headerStore.get("cookie"), cookieStore);
   const orgIdFromCookie: string | null = cookieStore.get("ORG_ID")?.value ?? null;
-  const whoami = await fetchWhoAmI(cookieHeader);
-  const [organizations, profile] = await Promise.all([
-    fetchOrganizations(cookieHeader),
-    fetchProfile(cookieHeader),
-  ]);
+  const { whoami, profile, organizations } = await fetchDashboardSessionBundle(cookieHeader);
 
   if (!profile) {
     if (isAuthBypassEnabled() && !whoami.authenticated) {
@@ -122,12 +110,10 @@ async function loadLiveDashboardContext(): Promise<DashboardContext | null> {
   let metrics: DashboardMetrics = { memberCount: null, projectCount: 0, pendingInviteCount: 0 };
 
   if (cookieHeader && activeOrg) {
-    const [billing, members, fetchedProjects, invitations] = await Promise.all([
-      fetchBilling(cookieHeader, activeOrg.id),
-      fetchOrgMembers(cookieHeader, activeOrg.id),
-      fetchProjects(cookieHeader, activeOrg.id),
-      fetchInvitations(cookieHeader, activeOrg.id),
-    ]);
+    const { billing, members, projects: fetchedProjects, invitations } = await fetchOrgDashboardBundle(
+      cookieHeader,
+      activeOrg.id,
+    );
     if (billing?.plan) {
       activePlanName = normalizePlanName(billing.plan);
     }
